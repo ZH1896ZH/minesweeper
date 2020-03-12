@@ -19,14 +19,18 @@ public class MineSweeperController {
 		
 		//ActionEvents from MenuBar
 		view.aboutItem.setOnAction(e -> {
-			Alert aboutAlert = new Alert(AlertType.INFORMATION, "Text", ButtonType.CLOSE);// write the text
+			Alert aboutAlert = new Alert(AlertType.INFORMATION, "Created by Robin Roth, Robin Weis and Luca Schädler\n" + "v 0.1", ButtonType.CLOSE);// write the text
 			aboutAlert.setTitle("About");
 			aboutAlert.setHeaderText("MineSweeper");
 			aboutAlert.showAndWait();
 		});
 		
 		view.helpItem.setOnAction(e -> {
-			Alert helpAlert = new Alert(AlertType.INFORMATION, "Text", ButtonType.CLOSE);// write the text
+			Alert helpAlert = new Alert(AlertType.INFORMATION, 
+					"The aim of minesweeper is to identify all the sqaures which contain mines.\n\n"
+							+ "Left click on a square to reveal a number. This number indicates how many of the adjacent squares contain mines. By using these numbers you can deduce which sqaures contain mines. \n\n"
+							+ "Right click on a square to mark it as containing a mine. You can right click the sqaure again to unmark it if you made a mistake.\n\n"
+							+ "After all mines have successfully been marked the game is over and you win! Be careful though. Left clicking a square with a mine will result in a game over.", ButtonType.CLOSE);// write the text
 			helpAlert.setTitle("Help");
 			helpAlert.setHeaderText("How to play");
 			helpAlert.showAndWait();
