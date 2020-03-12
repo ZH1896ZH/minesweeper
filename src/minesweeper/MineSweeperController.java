@@ -41,40 +41,47 @@ public class MineSweeperController {
 		});
 		
 		view.smallSizeItem.setOnAction(e -> {
-			MineSweeperModel.gridSize = 10;
+			MineSweeperView.gridSize = 10;
 			model.reload();
 		});
 		
 		view.smallSizeItem.setOnAction(e -> {
-			MineSweeperModel.gridSize = 15;
+			MineSweeperView.gridSize = 15;
 			model.reload();
 		});
 
 		view.smallSizeItem.setOnAction(e -> {
-			MineSweeperModel.gridSize = 20;
+			MineSweeperView.gridSize = 20;
 			model.reload();
 		});
 		
 		view.smallSizeItem.setOnAction(e -> {
-			MineSweeperModel.gridSize = 20;
+			MineSweeperView.gridSize = 20;
 			model.reload();
 		});
 		
 		view.easyItem.setOnAction(e -> {
-			MineSweeperModel.bombPercent = 10;
+			MineSweeperView.bombPercent = 10;
 			model.reload();
 		});
 		
 		view.normalItem.setOnAction(e -> {
-			MineSweeperModel.bombPercent = 15;
+			MineSweeperView.bombPercent = 15;
 			model.reload();
 		});
 		
 		view.hardItem.setOnAction(e -> {
-			MineSweeperModel.bombPercent = 20;
+			MineSweeperView.bombPercent = 20;
 			model.reload();
 		});
 		
+		view.soundOnItem.setOnAction(e -> {
+			MineSweeperView.sound = true;
+		});
+		
+		view.soundOffItem.setOnAction(e -> {
+			MineSweeperView.sound = false;
+		});
 		
 	}
 

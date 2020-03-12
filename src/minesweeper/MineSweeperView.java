@@ -1,5 +1,7 @@
 package minesweeper;
 
+import java.util.Timer;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -13,6 +15,12 @@ public class MineSweeperView {
 
 	protected Stage primaryStage;
 	protected MineSweeperModel model;
+	
+	public static int gridSize = 10;
+	public static int bombPercent = 10;
+	public static boolean sound = true;
+	public static Timer timer;
+	public static int secondPassed;
 	
 	
 
