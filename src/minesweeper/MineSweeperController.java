@@ -1,6 +1,8 @@
 package minesweeper;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
@@ -25,22 +27,15 @@ public class MineSweeperController {
 		view.helpItem.setOnAction(e -> {
 			Alert helpAlert = new Alert(AlertType.INFORMATION, "Text", ButtonType.CLOSE);
 			helpAlert.setTitle("Help");
-			helptAlert.setHeaderText("How to play");
-			helptAlert.showAndWait();
+			helpAlert.setHeaderText("How to play");
+			helpAlert.showAndWait();
 		});
 		
 		view.quitItem.setOnAction(e -> {
 			Platform.exit();
 		});
 		
-		view.MenuItem.setOnAction(e -> {
-			MenuItem item = (MenuItem) e.getSource();
-			
-			if(item == view.smallSizeItem)
-				model.setSize(10);
-			
-			
-		});
+	
 		
 		
 	}
