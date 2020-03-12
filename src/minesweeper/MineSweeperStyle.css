@@ -1,0 +1,12 @@
+/* Allow buttons to grow,
+   by setting a large max-size */
+.button {
+  -fx-max-height: 1000px;
+  -fx-max-width: 1000px;
+}
+
+/* Right-align the text-field */
+.text-field {
+  -fx-alignment: center-right;
+  -fx-opacity: 1.0;
+}
