@@ -52,6 +52,23 @@ public class MineSweeperView {
 	protected MineSweeperView(Stage primaryStage, MineSweeperModel model) {
 		this.primaryStage = primaryStage;
 		this.model = model;
+		
+		//Menu-Instanziierung
+				menuBar = new MenuBar();
+				fileMenu = new Menu("File"); sizeMenu = new Menu("Size"); difficultyMenu = new Menu("Difficulty");soundMenu = new Menu("Sound");
+				aboutItem = new MenuItem("About"); helpItem = new MenuItem("help"); quitItem = new MenuItem("Quit");
+				smallSizeItem = new MenuItem("10x10 (small)"); mediumSizeItem = new MenuItem("15x15 (medium"); largeSizeItem = new MenuItem("20x20 (large)");
+				easyItem = new MenuItem("Easy"); normalItem = new MenuItem("Normal"); hardItem = new MenuItem("Hard");
+				
+				fileMenu.getItems().addAll(aboutItem, helpItem, quitItem);
+				soundOnItem = new MenuItem("On"); soundOffItem = new MenuItem("Off");
+				sizeMenu.getItems().addAll(smallSizeItem, mediumSizeItem, largeSizeItem);
+				difficultyMenu.getItems().addAll(easyItem, normalItem, hardItem);
+				soundMenu.getItems().addAll(soundOnItem, soundOffItem);
+				
+				menuBar.getMenus().addAll(fileMenu,sizeMenu, difficultyMenu, soundMenu);
+				
+				root.getChildren().add(menuBar);
 
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("MineSweeperStyle.css").toExternalForm());
