@@ -11,13 +11,13 @@ public class MineSweeperView {
 
 	private VBox root = new VBox();
 	
-	public MineSweeperView(Stage stage) {//remove after testing the view
+	public MineSweeperView(Stage stage) {//remove after testing the view (start)
 		this.stage = stage;
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("MineSweeperStyle.css").toExternalForm());
 		stage.setScene(scene);
 		stage.setTitle("MineSweeper");
-	}
+	}//(end)
 
 	protected MineSweeperView(Stage stage, MineSweeperModel model) {
 		this.stage = stage;
