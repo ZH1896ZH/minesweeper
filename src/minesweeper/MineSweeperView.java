@@ -4,13 +4,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MineSweeperView {
 
 	protected Stage primaryStage;
-	protected Stage stage;//remove after test 
 	protected MineSweeperModel model;
 
 	private VBox root = new VBox();
@@ -22,28 +23,28 @@ public class MineSweeperView {
 					soundOnItem, soundOffItem;
 
 	
-	public MineSweeperView(Stage stage) {//remove after testing the view (start)
-		this.stage = stage;
+	public MineSweeperView(Stage primaryStage) {//remove after testing the view (start)
+		this.primaryStage = primaryStage;
 		
 		//Menu-Instanziierung
 		menuBar = new MenuBar();
-		fileMenu = new Menu("File"); sizeMenu = new Menu("Size");
-		difficultyMenu = new Menu("Difficulty");soundMenu = new Menu("Sound");
-		aboutItem = new MenuItem("About"); helpItem = new MenuItem("Help");
-		quitItem = new MenuItem("Quit"); smallSizeItem = new MenuItem("10x10 (Small)");
-		mediumSizeItem = new MenuItem("15x15 (Medium)"); smallSizeItem = new MenuItem("20x20 (Large)");
-		easyItem = new MenuItem("Easy"); normalItem = new MenuItem("Medium"); hardItem = new MenuItem("Hard");
+		fileMenu = new Menu("File"); sizeMenu = new Menu("Size"); difficultyMenu = new Menu("Difficulty");soundMenu = new Menu("Sound");
+		aboutItem = new MenuItem("About"); helpItem = new MenuItem("help"); quitItem = new MenuItem("Quit");
+		smallSizeItem = new MenuItem("10x10 (small)"); mediumSizeItem = new MenuItem("15x15 (medium"); largeSizeItem = new MenuItem("20x20 (large)");
+		easyItem = new MenuItem("Easy"); normalItem = new MenuItem("Normal"); hardItem = new MenuItem("Hard");
+		fileMenu.getItems().addAll(aboutItem, helpItem, quitItem);
 		soundOnItem = new MenuItem("On"); soundOffItem = new MenuItem("Off");
-		fileMenu.getItems().addAll(aboutItem, helpItem, quitItem); sizeMenu.getItems().addAll(smallSizeItem, mediumSizeItem, largeSizeItem);
-		difficultyMenu.getItems().addAll(easyItem, normalItem, hardItem); soundMenu.getItems().addAll(soundOnItem, soundOffItem);
-		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
+		sizeMenu.getItems().addAll(smallSizeItem, mediumSizeItem, largeSizeItem);
+		difficultyMenu.getItems().addAll(easyItem, normalItem, hardItem);
+		soundMenu.getItems().addAll(soundOnItem, soundOffItem);
+		menuBar.getMenus().addAll(fileMenu,sizeMenu, difficultyMenu, soundMenu);
 		
 		root.getChildren().add(menuBar);
 		
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("MineSweeperStyle.css").toExternalForm());
-		stage.setScene(scene);
-		stage.setTitle("MineSweeper");
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("MineSweeper");
 
 	}//(end)
 
