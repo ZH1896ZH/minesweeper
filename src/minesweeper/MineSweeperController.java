@@ -55,20 +55,12 @@ public class MineSweeperController {
 			model.reload();
 		});
 		
-		view.smallSizeItem.setOnAction(e -> {
-			MineSweeperView.gridSize = 20;
-			model.reload();
-		});
-		
 		view.easyItem.setOnAction(e -> {
 			MineSweeperView.bombPercent = 10;
 			model.reload();
 		});
 		
-		view.normalItem.setOnAction(e -> {
-			MineSweeperView.bombPercent = 15;
-			model.reload();
-		});
+		view.normalItem.setOnAction(e -> addBomb());//kann so mit event get source gemacht werden noch machen
 		
 		view.hardItem.setOnAction(e -> {
 			MineSweeperView.bombPercent = 20;
