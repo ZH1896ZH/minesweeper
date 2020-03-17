@@ -67,7 +67,7 @@ public class MineSweeperView {
 		root.getChildren().addAll(menuBar);
 		
 		Scene scene = new Scene(root);
-//		scene.getStylesheets().add(getClass().getResource("src/resources/MineSweeperStyle.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/MineSweeperStyle.css").toExternalForm());		
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("MineSweeper");
 
