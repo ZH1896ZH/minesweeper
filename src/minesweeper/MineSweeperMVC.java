@@ -8,13 +8,12 @@ public class MineSweeperMVC extends Application {
 	protected MineSweeperModel model;
 	protected MineSweeperController controller;
 	protected MineSweeperView view;
-	protected Stage stage;
 	
 
 	public void start(Stage primaryStage) throws Exception {
 		model = new MineSweeperModel();
-		view = new MineSweeperView(stage, model);
-		controller = new MineSweeperController(model, view, stage);
+		view = new MineSweeperView(primaryStage, model);
+		controller = new MineSweeperController(model, view, primaryStage);
 		
 		view.start();
 	}

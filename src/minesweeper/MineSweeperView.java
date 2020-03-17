@@ -8,6 +8,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -18,11 +20,12 @@ public class MineSweeperView {
 	
 	public static int gridSize = 10;
 	public static int bombPercent = 10;
+	
+	public static StackButton[][] grid;
+	
 	public static boolean sound = true;
 	public static Timer timer;
 	public static int secondPassed;
-	
-	
 
 	private VBox root = new VBox();
 	protected MenuBar menuBar;
@@ -55,10 +58,16 @@ public class MineSweeperView {
 		
 		menuBar.getMenus().addAll(fileMenu,sizeMenu, difficultyMenu, soundMenu);
 		
-		root.getChildren().add(menuBar);
+		//Buttons-Instanziierung
+//		grid = new StackButton[gridSize][gridSize];
+//		Pane buttonContainer = new Pane();
+//		buttonContainer.setPrefSize(gridSize * 40, gridSize * 40);
+		
+		
+		root.getChildren().addAll(menuBar);
 		
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("MineSweeperStyle.css").toExternalForm());
+//		scene.getStylesheets().add(getClass().getResource("src/resources/MineSweeperStyle.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("MineSweeper");
 
@@ -69,9 +78,9 @@ public class MineSweeperView {
 		this.primaryStage = primaryStage;
 		this.model = model;
 		
-		
+		//Szene instanziieren und an Stage weitergeben
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("MineSweeperStyle.css").toExternalForm());
+//		scene.getStylesheets().add(getClass().getResource("src/resources/MineSweeperStyle.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("MineSweeper");
 	}
