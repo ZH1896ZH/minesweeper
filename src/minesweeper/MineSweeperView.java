@@ -1,7 +1,12 @@
 package minesweeper;
 
 import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -13,38 +18,48 @@ import javafx.stage.Stage;
 
 public class MineSweeperView {
 
+	// MVC-branch
 	protected Stage primaryStage;
 	protected MineSweeperModel model;
 
-	public static int gridSize = 10;
-	public static int bombPercent = 10;
+	// game elements
+	protected static boolean sound = true;
+	protected static Timer timer;
+	protected static int secondsPassed;
+	protected static int bombPercent = 10;
+	protected static int numBombs, foundBombs;
 
-	public static StackButton[][] grid;
-
-	public static boolean sound = true;
-	public static Timer timer;
-	public static int secondPassed;
-
-	private VBox root = new VBox();
+	// view-elements
+	protected static VBox root = new VBox();
 	protected MenuBar menuBar;
 	protected Menu fileMenu, sizeMenu, difficultyMenu, soundMenu;
 	protected MenuItem aboutItem, helpItem, quitItem, smallSizeItem, mediumSizeItem, largeSizeItem, easyItem,
 			normalItem, hardItem;
 	protected RadioMenuItem soundOnItem, soundOffItem;
-
 	
+	protected Label timeLabel;
+
+	protected static StackButton[][] grid;
+	protected static int gridSize = 10;
+
 	protected MineSweeperView(Stage primaryStage, MineSweeperModel model) {
 		this.primaryStage = primaryStage;
 		this.model = model;
-	
+
 		// Menu-Instanziierung
 		menuBar = new MenuBar();
-		fileMenu = new Menu("File"); sizeMenu = new Menu("Size");
-		difficultyMenu = new Menu("Difficulty"); soundMenu = new Menu("Sound");
-		aboutItem = new MenuItem("About"); helpItem = new MenuItem("Help");
-		quitItem = new MenuItem("Quit"); smallSizeItem = new MenuItem("Small (10x10)");
-		mediumSizeItem = new MenuItem("Medium (15x15)"); largeSizeItem = new MenuItem("Large (20x20)");
-		easyItem = new MenuItem("Easy"); normalItem = new MenuItem("Normal");
+		fileMenu = new Menu("File");
+		sizeMenu = new Menu("Size");
+		difficultyMenu = new Menu("Difficulty");
+		soundMenu = new Menu("Sound");
+		aboutItem = new MenuItem("About");
+		helpItem = new MenuItem("Help");
+		quitItem = new MenuItem("Quit");
+		smallSizeItem = new MenuItem("Small (10x10)");
+		mediumSizeItem = new MenuItem("Medium (15x15)");
+		largeSizeItem = new MenuItem("Large (20x20)");
+		easyItem = new MenuItem("Easy");
+		normalItem = new MenuItem("Normal");
 		hardItem = new MenuItem("Hard");
 		soundOnItem = new RadioMenuItem("On");
 		soundOffItem = new RadioMenuItem("Off");
@@ -60,22 +75,17 @@ public class MineSweeperView {
 
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
 
-		// Buttons-Instanziierung in einer Pane (RR)
-		grid = new StackButton[gridSize][gridSize];
-		Pane buttonContainer = new Pane();
-		buttonContainer.setPrefSize(gridSize * 40, gridSize * 40);
-		for (int x = 0; x < grid.length; x++) {
-			for (int y = 0; y < grid[0].length; y++) {
-				StackButton stackButton = new StackButton(x, y, true); // hasBomb noch ändern
-				grid[x][y] = stackButton;
-				buttonContainer.getChildren().add(stackButton);
-			}
-
+		// Timer-Instanziierung
+		timeLabel = new Label("0.00");
+		boolean a = true;
+		while(a) {
+			secondsPassed++;
+			timeLabel.setText(Integer.toString(secondsPassed));
 		}
+		
 		// MenuBar und Buttons werden der VBox(root) hinzugefügt
-		root.getChildren().addAll(menuBar, buttonContainer);
-		
-		
+		root.getChildren().addAll(menuBar, timeLabel, createPane()); // Buttons-Instanziierung in einer Pane (RR)
+
 		// Szene instanziieren und an Stage weitergeben
 		Scene scene = new Scene(root, 400, 425);
 		scene.getStylesheets().add(getClass().getResource("/resources/MineSweeperStyle.css").toExternalForm());
@@ -85,6 +95,59 @@ public class MineSweeperView {
 
 	protected void start() {
 		primaryStage.show();
+	}
+
+	protected static void reload() {
+
+		grid = new StackButton[gridSize][gridSize];
+
+		secondsPassed = 0;
+
+		TimerTask task = new TimerTask() {
+			@Override
+			public void run() {
+				secondsPassed++;
+			};
+		};
+		timer.cancel();
+		timer = new Timer();
+		timer.schedule(task, 1000, 1000);
+
+		root.getChildren().remove(1);
+		root.getChildren().add(createContent());
+	}
+
+	/**
+	 * Create all the tiles and assign bombs accordingly
+	 * 
+	 * @return root - The playing field
+	 */
+	private static Pane createContent() {
+
+		// Reset to zero in case of new game.
+		numBombs = 0;
+		foundBombs = 0;
+		return createPane();
+	}
+
+	private static Pane createPane() {
+
+		grid = new StackButton[gridSize][gridSize];
+		Pane buttonContainer = new Pane();
+		buttonContainer.setPrefSize(gridSize * 40, gridSize * 40);
+		for (int x = 0; x < grid.length; x++) {
+			for (int y = 0; y < grid[0].length; y++) {
+				StackButton stackButton = new StackButton(x, y, Math.random() < (double) bombPercent / 100);
+				grid[x][y] = stackButton;
+				buttonContainer.getChildren().add(stackButton);
+			}
+		}
+
+		return buttonContainer;
+	}
+
+	protected Stage getStage() {
+		return primaryStage;
 	}
 
 }
