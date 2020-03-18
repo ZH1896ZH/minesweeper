@@ -1,14 +1,12 @@
 package minesweeper;
 
 import java.util.Timer;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -34,23 +32,19 @@ public class MineSweeperView {
 			normalItem, hardItem;
 	protected RadioMenuItem soundOnItem, soundOffItem;
 
-	public MineSweeperView(Stage primaryStage) {// remove after testing the view (start)
+	
+	protected MineSweeperView(Stage primaryStage, MineSweeperModel model) {
 		this.primaryStage = primaryStage;
-
+		this.model = model;
+	
 		// Menu-Instanziierung
 		menuBar = new MenuBar();
-		fileMenu = new Menu("File");
-		sizeMenu = new Menu("Size");
-		difficultyMenu = new Menu("Difficulty");
-		soundMenu = new Menu("Sound");
-		aboutItem = new MenuItem("About");
-		helpItem = new MenuItem("help");
-		quitItem = new MenuItem("Quit");
-		smallSizeItem = new MenuItem("Small (10x10)");
-		mediumSizeItem = new MenuItem("Medium (15x15)");
-		largeSizeItem = new MenuItem("Large (20x20)");
-		easyItem = new MenuItem("Easy");
-		normalItem = new MenuItem("Normal");
+		fileMenu = new Menu("File"); sizeMenu = new Menu("Size");
+		difficultyMenu = new Menu("Difficulty"); soundMenu = new Menu("Sound");
+		aboutItem = new MenuItem("About"); helpItem = new MenuItem("Help");
+		quitItem = new MenuItem("Quit"); smallSizeItem = new MenuItem("Small (10x10)");
+		mediumSizeItem = new MenuItem("Medium (15x15)"); largeSizeItem = new MenuItem("Large (20x20)");
+		easyItem = new MenuItem("Easy"); normalItem = new MenuItem("Normal");
 		hardItem = new MenuItem("Hard");
 		soundOnItem = new RadioMenuItem("On");
 		soundOffItem = new RadioMenuItem("Off");
@@ -65,36 +59,23 @@ public class MineSweeperView {
 		soundToggle.selectToggle(soundOnItem);
 
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
-		
-		
-		// Buttons-Instanziierung, noch in Arbeit ;) (RR)
+
+		// Buttons-Instanziierung in einer Pane (RR)
 		grid = new StackButton[gridSize][gridSize];
 		Pane buttonContainer = new Pane();
 		buttonContainer.setPrefSize(gridSize * 40, gridSize * 40);
 		for (int x = 0; x < grid.length; x++) {
 			for (int y = 0; y < grid[0].length; y++) {
-				StackButton stackButton = new StackButton(x, y, true); //hasBomb noch ändern
+				StackButton stackButton = new StackButton(x, y, true); // hasBomb noch ändern
 				grid[x][y] = stackButton;
 				buttonContainer.getChildren().add(stackButton);
 			}
 
 		}
-		//MenuBar und Buttons werden der VBox hinzugefügt
+		// MenuBar und Buttons werden der VBox(root) hinzugefügt
 		root.getChildren().addAll(menuBar, buttonContainer);
-
 		
-
-		Scene scene = new Scene(root, 400, 425);
-		scene.getStylesheets().add(getClass().getResource("/resources/MineSweeperStyle.css").toExternalForm());
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("MineSweeper");
-
-	}// (end)
-
-	protected MineSweeperView(Stage primaryStage, MineSweeperModel model) {
-		this.primaryStage = primaryStage;
-		this.model = model;
-
+		
 		// Szene instanziieren und an Stage weitergeben
 		Scene scene = new Scene(root, 400, 425);
 		scene.getStylesheets().add(getClass().getResource("/resources/MineSweeperStyle.css").toExternalForm());
@@ -102,7 +83,7 @@ public class MineSweeperView {
 		primaryStage.setTitle("MineSweeper");
 	}
 
-	public void start() {// change to procteted after testing
+	protected void start() {
 		primaryStage.show();
 	}
 
