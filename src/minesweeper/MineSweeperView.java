@@ -9,14 +9,14 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MineSweeperView {
 
 	// MVC-branch
-	protected Stage primaryStage;
+	protected static Stage primaryStage;
 	protected MineSweeperModel model;
 
 	// game elements
@@ -34,11 +34,13 @@ public class MineSweeperView {
 			normalItem, hardItem;
 	protected RadioMenuItem soundOnItem, soundOffItem;
 
-	protected StackButton[][] grid;
+	protected static StackButton[][] grid;
 	protected static int gridSize = 10;
+	public static Image mine = new Image("resources/mine.png");
 
+	@SuppressWarnings("static-access")
 	protected MineSweeperView(Stage primaryStage, MineSweeperModel model) {
-		this.primaryStage = primaryStage;
+		MineSweeperView.primaryStage = primaryStage;
 		this.model = model;
 
 		// Menu-Instanziierung
@@ -71,13 +73,15 @@ public class MineSweeperView {
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
 
 		// MenuBar und Buttons werden der VBox(root) hinzugefügt
-		root.getChildren().addAll(menuBar, model.createContenttt()); // Buttons-Instanziierung in einer Pane (RR) geändert zu meienr methodeLS
+		root.getChildren().addAll(menuBar, model.createContenttt());//createContent funktioniert hier noch nicht nur meine testmethode
+
 
 		// Szene instanziieren und an Stage weitergeben
-		Scene scene = new Scene(root, 400, 425);
+		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/resources/MineSweeperStyle.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("MineSweeper");
+		primaryStage.getIcons().add(mine);
 	}
 
 	protected void start() {
@@ -91,55 +95,6 @@ public class MineSweeperView {
 		timer.schedule(task, 1000, 1000);
 
 		primaryStage.show();
-	}
-
-	protected void reload() {
-
-		grid = new StackButton[gridSize][gridSize];
-
-		secondsPassed = 0;
-
-		TimerTask task = new TimerTask() {
-			@Override
-			public void run() {
-				secondsPassed++;
-			};
-		};
-		timer.cancel();
-		timer = new Timer();
-		timer.schedule(task, 1000, 1000);
-
-		root.getChildren().remove(1);
-		root.getChildren().add(createContent());
-	}
-
-	/**
-	 * Create all the tiles and assign bombs accordingly
-	 * 
-	 * @return root - The playing field
-	 */
-	private Pane createContent() { //why here
-
-		// Reset to zero in case of new game.
-		numBombs = 0;
-		foundBombs = 0;
-		return createPane();
-	}
-
-	private Pane createPane() {// why here
-
-		grid = new StackButton[gridSize][gridSize];
-		Pane buttonContainer = new Pane();
-		buttonContainer.setPrefSize(gridSize * 40, gridSize * 40);
-		for (int x = 0; x < grid.length; x++) {
-			for (int y = 0; y < grid[0].length; y++) {
-				StackButton stackButton = new StackButton(x, y, Math.random() < (double) bombPercent / 100);
-				grid[x][y] = stackButton;
-				buttonContainer.getChildren().add(stackButton);
-			}
-		}
-
-		return buttonContainer;
 	}
 
 	protected Stage getStage() {

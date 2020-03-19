@@ -7,7 +7,6 @@ import java.util.TimerTask;
 
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import javafx.scene.paint.Color;
@@ -25,9 +24,9 @@ public class MineSweeperModel {
 	}
 
 
-	public void reload() {//methode works LS
+	public static void reload() {//methode works LS
 
-		grid = new StackButton[MineSweeperView.gridSize][MineSweeperView.gridSize];
+		MineSweeperView.grid = new StackButton[MineSweeperView.gridSize][MineSweeperView.gridSize];
 
 		MineSweeperView.secondsPassed = 0;
 
@@ -43,10 +42,10 @@ public class MineSweeperModel {
 
 		MineSweeperView.root.getChildren().remove(1);
 		MineSweeperView.root.getChildren().add(createContent());
-		primaryStage.sizeToScene();
+		MineSweeperView.primaryStage.sizeToScene();
 	}
 
-	protected Parent createContent() { //Methode doesnt work LS
+	protected static Parent createContent() { //Methode doesnt work LS
 		// Reset in case of a new game
 		MineSweeperView.numBombs = 0;
 		MineSweeperView.foundBombs = 0;
@@ -60,7 +59,7 @@ public class MineSweeperModel {
 			for (int j = 0; j < MineSweeperView.gridSize; j++) {
 
 				StackButton stackButton = new StackButton(j, i, Math.random() < (double) MineSweeperView.bombPercent);
-				grid[j][i] = stackButton;
+				MineSweeperView.grid[j][i] = stackButton;
 				secondroot.getChildren().add(stackButton);
 
 			}
@@ -84,20 +83,20 @@ public class MineSweeperModel {
 					int newY = dy + i;
 
 					if (newX >= 0 && newX < MineSweeperView.gridSize && newY >= 0 && newY < MineSweeperView.gridSize) {
-						neighbours.add(grid[newX][newY]);
-						if (grid[newX][newY].hasBomb) {
+						neighbours.add(MineSweeperView.grid[newX][newY]);
+						if (MineSweeperView.grid[newX][newY].hasBomb) {
 							bombNeighbours++;
 						}
 					}
 				}
 
-				grid[j][i].numBombs = bombNeighbours;
-				grid[j][i].neighbours = neighbours;
+				MineSweeperView.grid[j][i].numBombs = bombNeighbours;
+				MineSweeperView.grid[j][i].neighbours = neighbours;
 
 				Color[] colors = { null, Color.BLUE, Color.GREEN, Color.RED, Color.DARKBLUE, Color.DARKRED, Color.CYAN,
 						Color.BLACK, Color.DARKGRAY };
 
-				grid[j][i].color = colors[grid[j][i].numBombs];
+				MineSweeperView.grid[j][i].color = colors[MineSweeperView.grid[j][i].numBombs];
 			}
 		}
 		return secondroot;
@@ -105,12 +104,12 @@ public class MineSweeperModel {
 	}
 
 
-	public HBox createContenttt() {//testmethod works LS
+	public static Pane createContenttt() {//testmethod works LS
 		
-		HBox roott = new HBox();
+		Pane roott = new Pane();
 		roott.getChildren().add(new Button("Hallo"));
-		
 		return roott;
+	
 	}
 
 }
