@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 public class MineSweeperController {
 	
 	protected MineSweeperModel model;
+	protected StackButton stackButton;
 	protected MineSweeperView view;
 	protected Stage stage;
 
@@ -78,6 +79,15 @@ public class MineSweeperController {
 		view.soundOffItem.setOnAction(e -> {
 			MineSweeperView.sound = false;
 		});
+		
+		//audioclip for every mouseclick
+		for (int i = 0; i < MineSweeperView.grid.length; i++) {
+			for (int j = 0; j < MineSweeperView.grid[0].length; j++) {
+				MineSweeperView.grid[i][j].setOnMouseClicked(e -> {
+					stackButton.onClick(e);
+				});
+			}
+		}
 		
 	}
 
