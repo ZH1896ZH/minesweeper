@@ -11,7 +11,7 @@ public class MineSweeperMVC extends Application {
 	
 
 	public void start(Stage primaryStage) throws Exception {
-		model = new MineSweeperModel();
+		model = new MineSweeperModel(primaryStage);
 		view = new MineSweeperView(primaryStage, model);
 		controller = new MineSweeperController(model, view, primaryStage);
 		

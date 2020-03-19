@@ -3,10 +3,7 @@ package minesweeper;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -74,7 +71,7 @@ public class MineSweeperView {
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
 
 		// MenuBar und Buttons werden der VBox(root) hinzugefügt
-		root.getChildren().addAll(menuBar, createPane()); // Buttons-Instanziierung in einer Pane (RR)
+		root.getChildren().addAll(menuBar, model.createContent()); // Buttons-Instanziierung in einer Pane (RR) geändert zu meienr methodeLS
 
 		// Szene instanziieren und an Stage weitergeben
 		Scene scene = new Scene(root, 400, 425);
@@ -112,7 +109,7 @@ public class MineSweeperView {
 	 * 
 	 * @return root - The playing field
 	 */
-	private static Pane createContent() {
+	private static Pane createContent() { //why here
 
 		// Reset to zero in case of new game.
 		numBombs = 0;
@@ -120,7 +117,7 @@ public class MineSweeperView {
 		return createPane();
 	}
 
-	private static Pane createPane() {
+	private static Pane createPane() {// why here
 
 		grid = new StackButton[gridSize][gridSize];
 		Pane buttonContainer = new Pane();
