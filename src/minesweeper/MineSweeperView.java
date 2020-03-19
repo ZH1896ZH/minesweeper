@@ -36,8 +36,6 @@ public class MineSweeperView {
 	protected MenuItem aboutItem, helpItem, quitItem, smallSizeItem, mediumSizeItem, largeSizeItem, easyItem,
 			normalItem, hardItem;
 	protected RadioMenuItem soundOnItem, soundOffItem;
-	
-	protected Label timeLabel;
 
 	protected static StackButton[][] grid;
 	protected static int gridSize = 10;
@@ -75,16 +73,8 @@ public class MineSweeperView {
 
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
 
-		// Timer-Instanziierung
-		timeLabel = new Label("0.00");
-		boolean a = true;
-		while(a) {
-			secondsPassed++;
-			timeLabel.setText(Integer.toString(secondsPassed));
-		}
-		
 		// MenuBar und Buttons werden der VBox(root) hinzugefügt
-		root.getChildren().addAll(menuBar, timeLabel, createPane()); // Buttons-Instanziierung in einer Pane (RR)
+		root.getChildren().addAll(menuBar, createPane()); // Buttons-Instanziierung in einer Pane (RR)
 
 		// Szene instanziieren und an Stage weitergeben
 		Scene scene = new Scene(root, 400, 425);
