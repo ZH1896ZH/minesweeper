@@ -46,7 +46,7 @@ public class MineSweeperModel {
 		primaryStage.sizeToScene();
 	}
 
-	protected Parent createContent() { //Methode doesnt work LS
+	protected Parent createContent() { //Methode doesnt work LS da esch de fehler ergend wo
 		// Reset in case of a new game
 		MineSweeperView.numBombs = 0;
 		MineSweeperView.foundBombs = 0;
