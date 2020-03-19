@@ -20,32 +20,30 @@ public class StackButton extends StackPane {
 	protected boolean flagged = false;
 	protected ArrayList<StackButton> neighbours = new ArrayList<StackButton>();
 	protected boolean active = true;
-	
-	protected static Image flag = new Image("application/flag.png");
-	
+
+	protected static Image flag = new Image("resources/flag.png");
 
 	protected StackButton(int x, int y, boolean hasBomb) {
 		this.x = x;
 		this.y = y;
 		this.hasBomb = hasBomb;
-		
+
 		btn.setMinHeight(40);
 		btn.setMinWidth(40);
-		
+
 		this.getChildren().add(btn);
 		this.setTranslateX(x * 40);
 		this.setTranslateY(y * 40);
 	}
-	
 
 	protected void onClick(MouseEvent e) {
-		
-		if (MineSweeperView.sound) {
-			AudioClip click = new AudioClip(getClass().getResource("resources/click.wav").toString());
+
+	if (MineSweeperView.sound) {
+		AudioClip click = new AudioClip(getClass().getResource("resources/click.wav").toString());
 			click.play();
 		}
 
-		// Left Click
+	// Left Click
 		if (e.getButton() == MouseButton.PRIMARY) {
 			if(!flagged) {
 
@@ -87,9 +85,6 @@ public class StackButton extends StackPane {
 		}
 	}
 
-
-
-
 	private void blankClick(StackButton stackButton) {
 
 		for (int i = 0; i < stackButton.neighbours.size(); i++) {
@@ -107,15 +102,15 @@ public class StackButton extends StackPane {
 		}
 		return;
 	}
+
 	private void win() {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	private void gameOver() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

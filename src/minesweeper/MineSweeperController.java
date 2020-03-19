@@ -81,13 +81,13 @@ public class MineSweeperController {
 		});
 		
 		//audioclip for every mouseclick
-		for (int i = 0; i < MineSweeperView.grid.length; i++) {
-			for (int j = 0; j < MineSweeperView.grid[0].length; j++) {
-				MineSweeperView.grid[i][j].setOnMouseClicked(e -> {
-					stackButton.onClick(e);
-				});
-			}
-		}
+		//for (int i = 0; i < MineSweeperView.grid.length; i++) {
+			//for (int j = 0; j < MineSweeperView.grid[0].length; j++) {
+				//MineSweeperView.grid[i][j].setOnMouseClicked(e -> {
+					//stackButton.onClick(e);
+			//	});
+			//}
+	//	}
 		
 	}
 
