@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import javafx.scene.paint.Color;
@@ -14,6 +17,7 @@ import javafx.stage.Stage;
 public class MineSweeperModel {
 	
 	protected Stage primaryStage;
+	protected StackButton[][] grid;
 	
 	
 	protected MineSweeperModel(Stage primaryStage) {
@@ -21,9 +25,9 @@ public class MineSweeperModel {
 	}
 
 
-	public void reload() {
+	public void reload() {//methode works LS
 
-		MineSweeperView.grid = new StackButton[MineSweeperView.gridSize][MineSweeperView.gridSize];
+		grid = new StackButton[MineSweeperView.gridSize][MineSweeperView.gridSize];
 
 		MineSweeperView.secondsPassed = 0;
 
@@ -42,7 +46,7 @@ public class MineSweeperModel {
 		primaryStage.sizeToScene();
 	}
 
-	protected Parent createContent() {
+	protected Parent createContent() { //Methode doesnt work LS
 		// Reset in case of a new game
 		MineSweeperView.numBombs = 0;
 		MineSweeperView.foundBombs = 0;
@@ -55,9 +59,9 @@ public class MineSweeperModel {
 		for (int i = 0; i < MineSweeperView.gridSize; i++) {
 			for (int j = 0; j < MineSweeperView.gridSize; j++) {
 
-				StackButton stackButton = new StackButton(i, j, Math.random() < (double) MineSweeperView.bombPercent);
-				MineSweeperView.grid[j][i] = stackButton;
-				MineSweeperView.root.getChildren().add(stackButton);
+				StackButton stackButton = new StackButton(j, i, Math.random() < (double) MineSweeperView.bombPercent);
+				grid[j][i] = stackButton;
+				secondroot.getChildren().add(stackButton);
 
 			}
 		}
@@ -80,24 +84,33 @@ public class MineSweeperModel {
 					int newY = dy + i;
 
 					if (newX >= 0 && newX < MineSweeperView.gridSize && newY >= 0 && newY < MineSweeperView.gridSize) {
-						neighbours.add(MineSweeperView.grid[newX][newY]);
-						if (MineSweeperView.grid[newX][newY].hasBomb) {
+						neighbours.add(grid[newX][newY]);
+						if (grid[newX][newY].hasBomb) {
 							bombNeighbours++;
 						}
 					}
 				}
 
-				MineSweeperView.grid[j][i].numBombs = bombNeighbours;
-				MineSweeperView.grid[j][i].neighbours = neighbours;
+				grid[j][i].numBombs = bombNeighbours;
+				grid[j][i].neighbours = neighbours;
 
 				Color[] colors = { null, Color.BLUE, Color.GREEN, Color.RED, Color.DARKBLUE, Color.DARKRED, Color.CYAN,
 						Color.BLACK, Color.DARKGRAY };
 
-				MineSweeperView.grid[j][i].color = colors[MineSweeperView.grid[j][i].numBombs];
+				grid[j][i].color = colors[grid[j][i].numBombs];
 			}
 		}
 		return secondroot;
 
+	}
+
+
+	public HBox createContenttt() {//testmethod works LS
+		
+		HBox roott = new HBox();
+		roott.getChildren().add(new Button("Hallo"));
+		
+		return roott;
 	}
 
 }

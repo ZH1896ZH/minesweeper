@@ -52,8 +52,8 @@ public class MineSweeperController {
 
 		view.largeSizeItem.setOnAction(e -> {
 			MineSweeperView.gridSize = 20;
-			//MineSweeperModel.reload();
-			System.out.println(MineSweeperView.gridSize);
+			model.reload();
+			System.out.println(MineSweeperView.gridSize);//just to test
 		});
 		
 		view.easyItem.setOnAction(e -> {

@@ -34,7 +34,7 @@ public class MineSweeperView {
 			normalItem, hardItem;
 	protected RadioMenuItem soundOnItem, soundOffItem;
 
-	protected static StackButton[][] grid;
+	protected StackButton[][] grid;
 	protected static int gridSize = 10;
 
 	protected MineSweeperView(Stage primaryStage, MineSweeperModel model) {
@@ -71,7 +71,7 @@ public class MineSweeperView {
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
 
 		// MenuBar und Buttons werden der VBox(root) hinzugefügt
-		root.getChildren().addAll(menuBar, model.createContent()); // Buttons-Instanziierung in einer Pane (RR) geändert zu meienr methodeLS
+		root.getChildren().addAll(menuBar, model.createContenttt()); // Buttons-Instanziierung in einer Pane (RR) geändert zu meienr methodeLS
 
 		// Szene instanziieren und an Stage weitergeben
 		Scene scene = new Scene(root, 400, 425);
@@ -81,10 +81,19 @@ public class MineSweeperView {
 	}
 
 	protected void start() {
+		TimerTask task = new TimerTask() {
+			@Override
+			public void run() {
+				secondsPassed++;
+			};
+		};
+		timer = new Timer();
+		timer.schedule(task, 1000, 1000);
+
 		primaryStage.show();
 	}
 
-	protected static void reload() {
+	protected void reload() {
 
 		grid = new StackButton[gridSize][gridSize];
 
@@ -109,7 +118,7 @@ public class MineSweeperView {
 	 * 
 	 * @return root - The playing field
 	 */
-	private static Pane createContent() { //why here
+	private Pane createContent() { //why here
 
 		// Reset to zero in case of new game.
 		numBombs = 0;
@@ -117,7 +126,7 @@ public class MineSweeperView {
 		return createPane();
 	}
 
-	private static Pane createPane() {// why here
+	private Pane createPane() {// why here
 
 		grid = new StackButton[gridSize][gridSize];
 		Pane buttonContainer = new Pane();
