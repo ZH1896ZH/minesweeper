@@ -3,7 +3,11 @@ package minesweeper;
 import java.util.ArrayList;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
 public class StackButton extends StackPane {
@@ -16,6 +20,8 @@ public class StackButton extends StackPane {
 	protected boolean flagged = false;
 	protected ArrayList<StackButton> neighbours = new ArrayList<StackButton>();
 	protected boolean active = true;
+	
+	protected static Image flag = new Image("application/flag.png");
 	
 
 	protected StackButton(int x, int y, boolean hasBomb) {
@@ -30,4 +36,86 @@ public class StackButton extends StackPane {
 		this.setTranslateX(x * 40);
 		this.setTranslateY(y * 40);
 	}
+	
+
+	protected void onClick(MouseEvent e) {
+		
+		if (MineSweeperView.sound) {
+			AudioClip click = new AudioClip(getClass().getResource("resources/click.wav").toString());
+			click.play();
+		}
+
+		// Left Click
+		if (e.getButton() == MouseButton.PRIMARY) {
+			if(!flagged) {
+
+			btn.setBackground(null);
+			btn.setDisable(true);
+			active = false;
+
+			if (hasBomb) {
+				gameOver();
+			} else {
+				// Blank
+				if (this.numBombs == 0) {
+					blankClick(this);
+				} else {
+					btn.setText(Integer.toString(numBombs));
+					btn.setTextFill(color);
+				}
+			}
+			}
+		}
+		// Right Click
+		else {
+			if (!flagged) {
+				flagged = true;
+				btn.setGraphic(new ImageView(flag));
+				if (this.hasBomb) {
+					MineSweeperView.foundBombs++;
+					if (MineSweeperView.foundBombs == MineSweeperView.numBombs) {
+						win();
+					}
+				}
+			} else {
+				if (hasBomb) {
+					MineSweeperView.foundBombs--;
+				}
+				btn.setGraphic(null);
+				flagged = false;
+			}
+		}
+	}
+
+
+
+
+	private void blankClick(StackButton stackButton) {
+
+		for (int i = 0; i < stackButton.neighbours.size(); i++) {
+			if (stackButton.neighbours.get(i).active) {
+				stackButton.neighbours.get(i).btn.setDisable(true);
+				stackButton.neighbours.get(i).btn.setGraphic(null);
+				stackButton.neighbours.get(i).btn.setText(Integer.toString(stackButton.neighbours.get(i).numBombs));
+				stackButton.neighbours.get(i).btn.setTextFill(stackButton.neighbours.get(i).color);
+				stackButton.neighbours.get(i).active = false;
+				if (stackButton.neighbours.get(i).numBombs == 0) {
+					blankClick(stackButton.neighbours.get(i));
+				}
+
+			}
+		}
+		return;
+	}
+	private void win() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	private void gameOver() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
