@@ -73,7 +73,7 @@ public class MineSweeperView {
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
 
 		// MenuBar und Buttons werden der VBox(root) hinzugefügt
-		root.getChildren().addAll(menuBar, model.createContenttt());//createContent funktioniert hier noch nicht nur meine testmethode
+		root.getChildren().addAll(menuBar, model.createContent());//createContent funktioniert hier noch nicht nur meine testmethode
 
 
 		// Szene instanziieren und an Stage weitergeben

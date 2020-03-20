@@ -3,28 +3,21 @@ package minesweeper;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
-
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-
 public class MineSweeperModel {
-	
+
 	protected Stage primaryStage;
 	protected StackButton[][] grid;
-	
-	
+
 	protected MineSweeperModel(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 	}
 
-
-	public static void reload() {//methode works LS
+	public void reload() {// methode works LS
 
 		MineSweeperView.grid = new StackButton[MineSweeperView.gridSize][MineSweeperView.gridSize];
 
@@ -45,10 +38,13 @@ public class MineSweeperModel {
 		MineSweeperView.primaryStage.sizeToScene();
 	}
 
-	protected static Parent createContent() { //Methode doesnt work LS
+	protected static Parent createContent() { // Methode does work now RR
 		// Reset in case of a new game
 		MineSweeperView.numBombs = 0;
 		MineSweeperView.foundBombs = 0;
+
+		// das hat gefehlt --> darum NullPointerException!!
+		MineSweeperView.grid = new StackButton[MineSweeperView.gridSize][MineSweeperView.gridSize];
 
 		Pane secondroot = new Pane();
 		secondroot.setPrefSize(MineSweeperView.gridSize * 40, MineSweeperView.gridSize * 40);
@@ -102,14 +98,4 @@ public class MineSweeperModel {
 		return secondroot;
 
 	}
-
-
-	public static Pane createContenttt() {//testmethod works LS
-		
-		Pane roott = new Pane();
-		roott.getChildren().add(new Button("Hallo"));
-		return roott;
-	
-	}
-
 }
