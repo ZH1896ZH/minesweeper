@@ -113,4 +113,8 @@ public class StackButton extends StackPane {
 
 	}
 
+	public void onClicked(MouseEvent e) {
+		System.out.println("test");
+	}
+
 }
