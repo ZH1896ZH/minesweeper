@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class MineSweeperController {
@@ -82,12 +83,14 @@ public class MineSweeperController {
 		});
 
 		// audioclip for every mouseclick
-//		for (int i = 0; i < MineSweeperView.grid.length; i++) {
-//			for (int j = 0; j < MineSweeperView.grid[0].length; j++) {
-//				MineSweeperView.grid[i][j].setOnMouseClicked(this);
-//				
-//			}
-//		}
+		for (int i = 0; i < MineSweeperView.grid.length; i++) {
+			for (int j = 0; j < MineSweeperView.grid[0].length; j++) {
+				MineSweeperView.grid[j][i].setOnMouseClicked(e -> {
+					stackButton.onClick(e);
+				});
+				
+			}
+		}
 
 	}
 

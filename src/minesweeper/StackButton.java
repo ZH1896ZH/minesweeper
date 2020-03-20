@@ -38,8 +38,8 @@ public class StackButton extends StackPane {
 
 	protected void onClick(MouseEvent e) {
 
-	if (MineSweeperView.sound) {
-		AudioClip click = new AudioClip(getClass().getResource("resources/click.wav").toString());
+	if (MineSweeperView.sound) { //when sound on
+		AudioClip click = new AudioClip(getClass().getResource("/resources/click.wav").toString());
 			click.play();
 		}
 
