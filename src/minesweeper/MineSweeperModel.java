@@ -43,7 +43,7 @@ public class MineSweeperModel {
 		MineSweeperView.numBombs = 0;
 		MineSweeperView.foundBombs = 0;
 
-		// das hat gefehlt --> darum NullPointerException!!
+		// das hat gefehlt --> darum NullPointerException!!geile siech <robroy 1Tag hani fast gsuecht
 		MineSweeperView.grid = new StackButton[MineSweeperView.gridSize][MineSweeperView.gridSize];
 
 		Pane secondroot = new Pane();
