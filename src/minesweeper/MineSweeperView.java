@@ -4,12 +4,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -28,6 +31,7 @@ public class MineSweeperView {
 
 	// view-elements
 	protected static VBox root = new VBox();
+	
 	protected MenuBar menuBar;
 	protected Menu fileMenu, sizeMenu, difficultyMenu, soundMenu;
 	protected MenuItem aboutItem, helpItem, quitItem, smallSizeItem, mediumSizeItem, largeSizeItem, easyItem,
@@ -36,9 +40,13 @@ public class MineSweeperView {
 
 	protected static StackButton[][] grid;
 	protected static int gridSize = 10;
-	public static Image mine = new Image("resources/mine.png");
+	protected static Image mine = new Image("resources/mine.png");
+	
+	protected GridPane info = new GridPane();
+	protected Label timePassed, bombsFound, bombsLeft;
+	protected TextField time;
 
-	@SuppressWarnings("static-access")
+
 	protected MineSweeperView(Stage primaryStage, MineSweeperModel model) {
 		MineSweeperView.primaryStage = primaryStage;
 		this.model = model;
@@ -71,9 +79,21 @@ public class MineSweeperView {
 		soundToggle.selectToggle(soundOnItem);
 
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
+		
+		//infoBar instanziierung
+		timePassed = new Label("Time: ");
+		time = new TextField();
+		bombsFound = new Label("Bombs found: ");
+		bombsLeft = new Label("Bombs left: ");
+		
+		
+		info.add(timePassed, 0 ,0);
+		info.add(time, 1, 0);
+		info.add(bombsFound, 0, 1);
+		info.add(bombsLeft, 0, 3);
 
 		// MenuBar und Buttons werden der VBox(root) hinzugefügt
-		root.getChildren().addAll(menuBar, model.createContent());
+		root.getChildren().addAll(menuBar, MineSweeperModel.createContent(), info);
 
 
 		// Szene instanziieren und an Stage weitergeben

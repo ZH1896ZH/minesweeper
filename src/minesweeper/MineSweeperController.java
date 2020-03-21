@@ -1,9 +1,15 @@
 package minesweeper;
 
 import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class MineSweeperController {
@@ -90,6 +96,45 @@ public class MineSweeperController {
 
 			}
 		}
+	this.view.getStage().setOnCloseRequest(e -> {
+			
+			//new stage
+			Stage newStage = new Stage();
+			VBox root = new VBox();
 
+			Label lbl = new Label("Sure you want to quit?");
+			Button yes = new Button("Yes");
+			Button no = new Button("No");
+
+			HBox hbox = new HBox();
+			
+			//fill stage
+			hbox.getChildren().addAll(yes, no);
+			root.getChildren().addAll(lbl, hbox);
+			
+			//layout
+			hbox.setSpacing(10);
+			hbox.setAlignment(Pos.CENTER);
+			
+			root.setAlignment(Pos.CENTER);
+			root.setSpacing(10);
+			
+			//stage to scene
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("/resources/CloseRequest.css").toExternalForm());
+			newStage.setScene(scene);
+			newStage.show();
+			
+			//Button action
+			yes.setOnAction(event -> {
+				newStage.close();
+			});
+			no.setOnAction(evente -> {
+				stage.show();
+				newStage.close();
+			});
+
+		});
+	
 	}
 }
