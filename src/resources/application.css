@@ -1,4 +1,4 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+//main
 .button{
 	-fx-font-size: 20;
 	-fx-font-family: helvetica;
@@ -10,4 +10,10 @@
 	-fx-border-color: rgb(210,210,210);
 	-fx-background-color: rgb(245,245,245);
 	-fx-opacity: 1.0 ;
+}
+.button:hover {
+	-fx-background-color: #808080;
+}
+.menu-bar {
+    -fx-background-color: #00dfdf;
 }

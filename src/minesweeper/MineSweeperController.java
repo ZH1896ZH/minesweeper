@@ -45,32 +45,32 @@ public class MineSweeperController {
 
 		view.smallSizeItem.setOnAction(e -> {
 			MineSweeperView.gridSize = 10;
-			model.reload();
+			MineSweeperModel.reload();
 		});
 
 		view.mediumSizeItem.setOnAction(e -> {
 			MineSweeperView.gridSize = 15;
-			model.reload();
+			MineSweeperModel.reload();
 		});
 
 		view.largeSizeItem.setOnAction(e -> {
 			MineSweeperView.gridSize = 20;
-			model.reload();
+			MineSweeperModel.reload();
 		});
 
 		view.easyItem.setOnAction(e -> {
 			MineSweeperView.bombPercent = 10;
-			model.reload();
+			MineSweeperModel.reload();
 		});
 
 		view.normalItem.setOnAction(e -> {
 			MineSweeperView.bombPercent = 15;
-			model.reload();
+			MineSweeperModel.reload();
 		});
 
 		view.hardItem.setOnAction(e -> {
 			MineSweeperView.bombPercent = 20;
-			model.reload();
+			MineSweeperModel.reload();
 		});
 
 		view.soundOnItem.setOnAction(e -> {
@@ -83,8 +83,8 @@ public class MineSweeperController {
 
 		// audioclip for every mouseclick
 		for (int i = 0; i < MineSweeperView.grid.length; i++) {
-			for (int j = 0; j < MineSweeperView.grid.length; j++) {// loop works
-				MineSweeperView.grid[j][i].setOnMouseClicked(e -> {// referenz zu stackbutton fehlt
+			for (int j = 0; j < MineSweeperView.grid.length; j++) {
+				MineSweeperView.grid[j][i].setOnMouseClicked(e -> {
 					stackButton.onClick(e);
 				});
 

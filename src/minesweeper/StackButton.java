@@ -13,7 +13,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
 public class StackButton extends StackPane {
-	private MineSweeperModel model;
+	protected MineSweeperModel model;
 
 	protected Button btn = new Button();
 	protected int x, y = 0;
@@ -142,7 +142,7 @@ public class StackButton extends StackPane {
 				"Oh no! You clicked on a bomb and caused all the bombs to explode! Better luck next time.");
 		gameOver.showAndWait();
 
-		model.reload();
+		MineSweeperModel.reload();
 
 	}
 
@@ -161,7 +161,7 @@ public class StackButton extends StackPane {
 		win.setHeaderText("Congratulations!");
 		win.setContentText("You found all the bombs in " + MineSweeperView.secondsPassed + " seconds.");
 		win.showAndWait();
-		model.reload();
+		MineSweeperModel.reload();
 	}
 
 }

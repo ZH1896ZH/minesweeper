@@ -78,7 +78,7 @@ public class MineSweeperView {
 
 		// Szene instanziieren und an Stage weitergeben
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/resources/MineSweeperStyle.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/application.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("MineSweeper");
 		primaryStage.getIcons().add(mine);
