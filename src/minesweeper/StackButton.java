@@ -22,7 +22,6 @@ public class StackButton extends StackPane {
 	protected boolean active = true;
 
 	protected static Image flag = new Image("resources/flag.png");
-	protected MineSweeperView view;
 
 	protected StackButton(int x, int y, boolean hasBomb) {
 		this.x = x;
@@ -37,33 +36,32 @@ public class StackButton extends StackPane {
 		this.setTranslateY(y * 40);
 	}
 
-
 	protected void onClick(MouseEvent e) {
 
-	if (MineSweeperView.sound) { //when sound on
-		AudioClip click = new AudioClip(getClass().getResource("/resources/click.wav").toString());
+		if (MineSweeperView.sound) { // when sound on
+			AudioClip click = new AudioClip(getClass().getResource("/resources/click.wav").toString());
 			click.play();
 		}
 
-	// Left Click
+		// Left Click
 		if (e.getButton() == MouseButton.PRIMARY) {
-			if(!flagged) {
+			if (!flagged) {
 
-			btn.setBackground(null);
-			btn.setDisable(true);
-			active = false;
+				btn.setBackground(null);
+				btn.setDisable(true);
+				active = false;
 
-			if (hasBomb) {
-				gameOver();
-			} else {
-				// Blank
-				if (this.numBombs == 0) {
-					blankClick(this);
+				if (hasBomb) {
+					gameOver();
 				} else {
-					btn.setText(Integer.toString(numBombs));
-					btn.setTextFill(color);
+					// Blank
+					if (this.numBombs == 0) {
+						blankClick(this);
+					} else {
+						btn.setText(Integer.toString(numBombs));
+						btn.setTextFill(color);
+					}
 				}
-			}
 			}
 		}
 		// Right Click
@@ -105,17 +103,15 @@ public class StackButton extends StackPane {
 		return;
 	}
 
-	private void win() {
-		// TODO Auto-generated method stub
-
-	}
-
 	private void gameOver() {
 		// TODO Auto-generated method stub
-
 	}
 
-	public void onClicked(MouseEvent e) {
+	private void win() {
+		// TODO Auto-generated method stub
+	}
+
+	public void onClicked(MouseEvent e) {// Test methode
 		System.out.println("test");
 	}
 
