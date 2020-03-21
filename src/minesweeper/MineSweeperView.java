@@ -55,9 +55,9 @@ public class MineSweeperView {
 		smallSizeItem = new MenuItem("Small (10x10)");
 		mediumSizeItem = new MenuItem("Medium (15x15)");
 		largeSizeItem = new MenuItem("Large (20x20)");
-		easyItem = new MenuItem("Easy");
-		normalItem = new MenuItem("Normal");
-		hardItem = new MenuItem("Hard");
+		easyItem = new MenuItem("Easy (10% Bombs)");
+		normalItem = new MenuItem("Normal (15% Bombs)");
+		hardItem = new MenuItem("Hard (20% Bombs)");
 		soundOnItem = new RadioMenuItem("On");
 		soundOffItem = new RadioMenuItem("Off");
 

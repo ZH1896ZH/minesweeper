@@ -1,17 +1,8 @@
 package minesweeper;
 
-import java.util.ArrayList;
-
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.media.AudioClip;
-import javafx.scene.paint.Color;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
@@ -27,7 +18,7 @@ public class MineSweeperController {
 		this.view = view;
 		this.stage = stage;
 
-		// ActionEvents from MenuBar
+		// ActionEvents from MenuBar - they all work !!
 		view.aboutItem.setOnAction(e -> {
 			Alert aboutAlert = new Alert(AlertType.INFORMATION,
 					"Created by Robin Roth, Robin Weis \nand Luca Schädler\n\n" + "version 0.1", ButtonType.CLOSE);
@@ -92,18 +83,13 @@ public class MineSweeperController {
 
 		// audioclip for every mouseclick
 		for (int i = 0; i < MineSweeperView.grid.length; i++) {
-			for (int j = 0; j < MineSweeperView.grid[0].length; j++) {// loop works
-				MineSweeperView.grid[j][i].setOnMouseClicked(e -> {//referenz zu stackbutton fehlt
-					onClicked(e);
+			for (int j = 0; j < MineSweeperView.grid.length; j++) {// loop works
+				MineSweeperView.grid[j][i].setOnMouseClicked(e -> {// referenz zu stackbutton fehlt
+					stackButton.onClick(e);
 				});
 
 			}
 		}
 
 	}
-
-	public void onClicked(MouseEvent e) {//geht auch hier drinnen irgendwie nicht
-		System.out.println("test");
-	}
-
 }

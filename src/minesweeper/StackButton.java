@@ -1,7 +1,9 @@
 package minesweeper;
 
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -11,9 +13,10 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
 public class StackButton extends StackPane {
+	private MineSweeperModel model;
 
 	protected Button btn = new Button();
-	protected int x = 0, y = 0;
+	protected int x, y = 0;
 	protected boolean hasBomb;
 	protected int numBombs = 0;
 	protected Color color = null;
@@ -21,21 +24,31 @@ public class StackButton extends StackPane {
 	protected ArrayList<StackButton> neighbours = new ArrayList<StackButton>();
 	protected boolean active = true;
 
-	protected static Image flag = new Image("resources/flag.png");
+	protected static Image flag = new Image("/resources/flag.png");
 
 	protected StackButton(int x, int y, boolean hasBomb) {
 		this.x = x;
 		this.y = y;
 		this.hasBomb = hasBomb;
+		
+		if(hasBomb) {
+			MineSweeperView.numBombs++;
+		}
 
 		btn.setMinHeight(40);
 		btn.setMinWidth(40);
+		
+		btn.setOnMouseClicked(e -> {
+			onClick(e);
+		});
 
-		this.getChildren().add(btn);
+		this.getChildren().addAll(btn);
+		
 		this.setTranslateX(x * 40);
 		this.setTranslateY(y * 40);
 	}
 
+	
 	protected void onClick(MouseEvent e) {
 
 		if (MineSweeperView.sound) { // when sound on
@@ -103,16 +116,52 @@ public class StackButton extends StackPane {
 		return;
 	}
 
-	private void gameOver() {
-		// TODO Auto-generated method stub
+	/**
+	 * Runs when a player left clicks a bomb. Reveals all bomb tiles and displays
+	 * message. Calls to reload the game.
+	 */
+	public void gameOver() {
+		if (MineSweeperView.sound) {
+			AudioClip explosion = new AudioClip(getClass().getResource("/resources/explosion.wav").toString());
+			explosion.play();
+		}
+		for (int y = 0; y < MineSweeperView.gridSize; y++) {
+			for (int x = 0; x < MineSweeperView.gridSize; x++) {
+				if (MineSweeperView.grid[x][y].hasBomb) {
+					MineSweeperView.grid[x][y].btn.setGraphic(new ImageView(MineSweeperView.mine));
+					MineSweeperView.grid[x][y].btn.setDisable(true);
+				}
+			}
+		}
+
+		Alert gameOver = new Alert(AlertType.INFORMATION);
+		gameOver.setTitle("Game Over!");
+		gameOver.setGraphic(new ImageView(MineSweeperView.mine));
+		gameOver.setHeaderText("Bomb Exploded!");
+		gameOver.setContentText(
+				"Oh no! You clicked on a bomb and caused all the bombs to explode! Better luck next time.");
+		gameOver.showAndWait();
+
+		model.reload();
+
 	}
 
-	private void win() {
-		// TODO Auto-generated method stub
-	}
+	/**
+	 * Player win. Displays message. Calls to reload the game.
+	 */
+	public void win() {
 
-	public void onClicked(MouseEvent e) {// Test methode
-		System.out.println("test");
+		if (MineSweeperView.sound) {
+			AudioClip winSound = new AudioClip(getClass().getResource("/resources/win.wav").toString());
+			winSound.play();
+		}
+		Alert win = new Alert(AlertType.CONFIRMATION);
+		win.setTitle("Win!");
+		win.setGraphic(new ImageView(flag));
+		win.setHeaderText("Congratulations!");
+		win.setContentText("You found all the bombs in " + MineSweeperView.secondsPassed + " seconds.");
+		win.showAndWait();
+		model.reload();
 	}
 
 }

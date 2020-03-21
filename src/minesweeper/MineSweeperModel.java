@@ -12,6 +12,7 @@ public class MineSweeperModel {
 
 	protected Stage primaryStage;
 	protected StackButton[][] grid;
+	protected StackButton stackButton;
 
 	protected MineSweeperModel(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -39,63 +40,74 @@ public class MineSweeperModel {
 	}
 
 	protected static Parent createContent() { // Methode does work now RR
-		// Reset in case of a new game
+		// Reset these in case of a new game
 		MineSweeperView.numBombs = 0;
 		MineSweeperView.foundBombs = 0;
 
-		// das hat gefehlt --> darum NullPointerException!!geile siech <robroy 1Tag hani fast gsuecht
+		// das hat gefehlt --> darum NullPointerException!!geile siech <robroy 1Tag hani
+		// fast gsuecht
 		MineSweeperView.grid = new StackButton[MineSweeperView.gridSize][MineSweeperView.gridSize];
 
-		Pane secondroot = new Pane();
-		secondroot.setPrefSize(MineSweeperView.gridSize * 40, MineSweeperView.gridSize * 40);
+		Pane pane = new Pane();
+		pane.setPrefSize(MineSweeperView.gridSize * 40, MineSweeperView.gridSize * 40);
 
-		// Create the StackButton and Bombs on percentage
-
-		for (int i = 0; i < MineSweeperView.gridSize; i++) {
-			for (int j = 0; j < MineSweeperView.gridSize; j++) {
-
-				StackButton stackButton = new StackButton(j, i, Math.random() < (double) MineSweeperView.bombPercent);
-				MineSweeperView.grid[j][i] = stackButton;
-				secondroot.getChildren().add(stackButton);
+		// fill the grid with StackButtons, add bombs to a percentage of StackButtons
+		for (int x = 0; x < MineSweeperView.gridSize; x++) {
+			for (int y = 0; y < MineSweeperView.gridSize; y++) {
+				// boolean hasBomb -> random number (0.0 - 1) lower than bombPercent
+				StackButton stackButton = new StackButton(y, x,
+						Math.random() < (double) MineSweeperView.bombPercent / 100);
+				MineSweeperView.grid[y][x] = stackButton;
+				pane.getChildren().add(stackButton);
 
 			}
 		}
+		// count the number of bombs and set the values and colors
 		// add the value under the buttons and the color
+		for (int x = 0; x < MineSweeperView.gridSize; x++) {
+			for (int y = 0; y < MineSweeperView.gridSize; y++) {
 
-		for (int i = 0; i < MineSweeperView.gridSize; i++) {
-			for (int j = 0; j < MineSweeperView.gridSize; j++) {
-
-				int bombNeighbours = 0;
-
-				ArrayList<StackButton> neighbours = new ArrayList<StackButton>();
-
-				int[] locs = new int[] { -1, -1, -1, 0, -1, 1, 0, -1, 0, 1, 1, -1, 1, 0, 1, 1 };
-
-				for (int l = 0; l < locs.length; l++) {
-					int dx = locs[l];
-					int dy = locs[++l];
-
-					int newX = dx + j;
-					int newY = dy + i;
-
-					if (newX >= 0 && newX < MineSweeperView.gridSize && newY >= 0 && newY < MineSweeperView.gridSize) {
-						neighbours.add(MineSweeperView.grid[newX][newY]);
-						if (MineSweeperView.grid[newX][newY].hasBomb) {
-							bombNeighbours++;
+				int bombNeighbors = 0;
+				// get the neighbors of a given stackButton and put them in a list
+				ArrayList<StackButton> neighbors = new ArrayList<StackButton>();
+				/** 
+				 * get the difference of the x, y values of the neighbors 
+				 * to the x, y values of the given stackButton
+				 *
+				 * (-1,-1)	(0,-1)	(1,-1) 
+				 * (-1,0)	(x)		(1,0) 
+				 * (-1,1)	(0,1)	(1,1)  
+				 */
+				int[] points = new int[] { -1, -1, -1, 0, -1, 1, 0, -1, 0, 1, 1, -1, 1, 0, 1, 1 };
+				//
+				for (int i = 0; i < points.length; i++) {
+					int differenceX = points[i];
+					int differenceY = points[++i];
+					int newX = x + differenceX;
+					int newY = y + differenceY;
+					
+					//check if x, y values are inside grid --> isValidCoordinate
+					if(newX >= 0 && newX < MineSweeperView.gridSize) {
+						if(newY >= 0 && newY < MineSweeperView.gridSize) {
+							neighbors.add(MineSweeperView.grid[newX][newY]);
+							if(MineSweeperView.grid[newX][newY].hasBomb) {
+								bombNeighbors++;
+							}
 						}
 					}
 				}
 
-				MineSweeperView.grid[j][i].numBombs = bombNeighbours;
-				MineSweeperView.grid[j][i].neighbours = neighbours;
+				MineSweeperView.grid[y][x].numBombs = bombNeighbors;
+				MineSweeperView.grid[y][x].neighbours = neighbors;
 
 				Color[] colors = { null, Color.BLUE, Color.GREEN, Color.RED, Color.DARKBLUE, Color.DARKRED, Color.CYAN,
 						Color.BLACK, Color.DARKGRAY };
 
-				MineSweeperView.grid[j][i].color = colors[MineSweeperView.grid[j][i].numBombs];
+				MineSweeperView.grid[y][x].color = colors[MineSweeperView.grid[y][x].numBombs];
 			}
 		}
-		return secondroot;
+		return pane;
 
 	}
+
 }
