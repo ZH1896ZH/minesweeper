@@ -22,6 +22,7 @@ public class StackButton extends StackPane {
 	protected boolean active = true;
 
 	protected static Image flag = new Image("resources/flag.png");
+	protected MineSweeperView view;
 
 	protected StackButton(int x, int y, boolean hasBomb) {
 		this.x = x;
@@ -35,6 +36,7 @@ public class StackButton extends StackPane {
 		this.setTranslateX(x * 40);
 		this.setTranslateY(y * 40);
 	}
+
 
 	protected void onClick(MouseEvent e) {
 

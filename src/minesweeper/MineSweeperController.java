@@ -12,11 +12,13 @@ public class MineSweeperController {
 	protected StackButton stackButton;
 	protected MineSweeperView view;
 	protected Stage stage;
+	
 
 	protected MineSweeperController(MineSweeperModel model, MineSweeperView view, Stage stage) {
 		this.model = model;
 		this.view = view;
 		this.stage = stage;
+		
 
 		// ActionEvents from MenuBar
 		view.aboutItem.setOnAction(e -> {
@@ -83,8 +85,8 @@ public class MineSweeperController {
 
 		// audioclip for every mouseclick
 		for (int i = 0; i < MineSweeperView.grid.length; i++) {
-			for (int j = 0; j < MineSweeperView.grid[0].length; j++) {
-				MineSweeperView.grid[j][i].setOnMouseClicked(e -> {
+			for (int j = 0; j < MineSweeperView.grid[0].length; j++) {//loop works
+				MineSweeperView.grid[j][i].setOnMouseClicked(e -> {//da esch de fehler es chan ned uf <stackbutton zuegriffe ergendwie
 					stackButton.onClicked(e);//testMethode to test in stackButton named onClicked
 				});
 				
