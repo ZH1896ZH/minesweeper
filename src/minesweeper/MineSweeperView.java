@@ -43,8 +43,10 @@ public class MineSweeperView {
 	protected static Image mine = new Image("resources/mine.png");
 	
 	protected GridPane info = new GridPane();
-	protected Label timePassed, bombsFound, bombsLeft;
+	protected Label timePassed,bombsFound, bombsLeft;
 	protected TextField time;
+	protected String text;
+	
 
 
 	protected MineSweeperView(Stage primaryStage, MineSweeperModel model) {
@@ -82,10 +84,15 @@ public class MineSweeperView {
 		
 		//infoBar instanziierung
 		timePassed = new Label("Time: ");
-		time = new TextField();
+		time = new TextField(text);
 		bombsFound = new Label("Bombs found: ");
 		bombsLeft = new Label("Bombs left: ");
 		
+		time.textProperty().addListener(//timer muss irgend wie verbunden werden
+				
+				(observable, oldValue, newValue) -> {
+				text = timer.toString();
+				});
 		
 		info.add(timePassed, 0 ,0);
 		info.add(time, 1, 0);
@@ -103,6 +110,7 @@ public class MineSweeperView {
 		primaryStage.setTitle("MineSweeper");
 		primaryStage.getIcons().add(mine);
 	}
+
 
 	protected void start() {
 		TimerTask task = new TimerTask() {
