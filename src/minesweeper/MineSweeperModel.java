@@ -87,8 +87,8 @@ public class MineSweeperModel {
 					//check if x, y values are inside grid --> isValidCoordinate
 					if(newX >= 0 && newX < MineSweeperView.gridSize) {
 						if(newY >= 0 && newY < MineSweeperView.gridSize) {
-							neighbors.add(MineSweeperView.grid[newX][newY]);
-							if(MineSweeperView.grid[newX][newY].hasBomb) {
+							neighbors.add(MineSweeperView.grid[newY][newX]);
+							if(MineSweeperView.grid[newY][newX].hasBomb) {
 								bombNeighbors++;
 							}
 						}
