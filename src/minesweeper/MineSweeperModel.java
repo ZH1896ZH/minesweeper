@@ -33,8 +33,7 @@ public class MineSweeperModel {
 		MineSweeperView.timer.cancel();
 		MineSweeperView.timer = new Timer();
 		MineSweeperView.timer.schedule(task, 1000, 1000);
-
-		MineSweeperView.root.getChildren().remove(1);
+		MineSweeperView.root.getChildren().remove(2); //kommt in Konflikt mit info-bar
 		MineSweeperView.root.getChildren().add(createContent());
 		MineSweeperView.primaryStage.sizeToScene();
 	}

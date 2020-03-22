@@ -42,9 +42,9 @@ public class MineSweeperView {
 	protected static int gridSize = 10;
 	protected static Image mine = new Image("resources/mine.png");
 	
-	protected GridPane info = new GridPane();
-	protected Label timePassed,bombsFound, bombsLeft;
-	protected TextField time;
+	protected GridPane infoBar = new GridPane();
+	protected Label timeLabel,bombsFoundLabel, bombsLeftLabel;
+	protected TextField timeField, bombsFoundField, bombsLeftField;
 	protected String text;
 	
 
@@ -54,22 +54,14 @@ public class MineSweeperView {
 		this.model = model;
 
 		// Menu-Instanziierung
-		menuBar = new MenuBar();
-		fileMenu = new Menu("File");
-		sizeMenu = new Menu("Size");
-		difficultyMenu = new Menu("Difficulty");
-		soundMenu = new Menu("Sound");
-		aboutItem = new MenuItem("About");
-		helpItem = new MenuItem("Help");
-		quitItem = new MenuItem("Quit");
-		smallSizeItem = new MenuItem("Small (10x10)");
-		mediumSizeItem = new MenuItem("Medium (15x15)");
-		largeSizeItem = new MenuItem("Large (20x20)");
-		easyItem = new MenuItem("Easy (10% Bombs)");
-		normalItem = new MenuItem("Normal (15% Bombs)");
-		hardItem = new MenuItem("Hard (20% Bombs)");
-		soundOnItem = new RadioMenuItem("On");
-		soundOffItem = new RadioMenuItem("Off");
+		menuBar = new MenuBar(); fileMenu = new Menu("File");
+		sizeMenu = new Menu("Size"); difficultyMenu = new Menu("Difficulty");
+		soundMenu = new Menu("Sound"); aboutItem = new MenuItem("About");
+		helpItem = new MenuItem("Help"); quitItem = new MenuItem("Quit");
+		smallSizeItem = new MenuItem("Small (10x10)"); mediumSizeItem = new MenuItem("Medium (15x15)");
+		largeSizeItem = new MenuItem("Large (20x20)"); easyItem = new MenuItem("Easy (10% Bombs)");
+		normalItem = new MenuItem("Normal (15% Bombs)"); hardItem = new MenuItem("Hard (20% Bombs)");
+		soundOnItem = new RadioMenuItem("On"); soundOffItem = new RadioMenuItem("Off");
 
 		fileMenu.getItems().addAll(aboutItem, helpItem, quitItem);
 		sizeMenu.getItems().addAll(smallSizeItem, mediumSizeItem, largeSizeItem);
@@ -83,24 +75,27 @@ public class MineSweeperView {
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
 		
 		//infoBar instanziierung
-		timePassed = new Label("Time: ");
-		time = new TextField(text);
-		bombsFound = new Label("Bombs found: ");
-		bombsLeft = new Label("Bombs left: ");
+		timeLabel = new Label("Time: ");
+		timeField = new TextField(text);
+		bombsFoundLabel = new Label("Bombs found");
+		bombsFoundField = new TextField(Integer.toString(foundBombs));
+		bombsLeftLabel = new Label("Bombs left");
+		bombsLeftField = new TextField(Integer.toString(numBombs - foundBombs));
 		
-		time.textProperty().addListener(//timer muss irgend wie verbunden werden
+		
+		timeField.textProperty().addListener(//timer muss irgend wie verbunden werden
 				
 				(observable, oldValue, newValue) -> {
 				text = timer.toString();
 				});
 		
-		info.add(timePassed, 0 ,0);
-		info.add(time, 1, 0);
-		info.add(bombsFound, 0, 1);
-		info.add(bombsLeft, 0, 3);
+		infoBar.add(timeLabel, 0 ,0);
+		infoBar.add(timeField, 1, 0);
+		infoBar.add(bombsFoundLabel, 0, 1);
+		infoBar.add(bombsLeftLabel, 0, 3);
 
-		// MenuBar und Buttons werden der VBox(root) hinzugefügt
-		root.getChildren().addAll(menuBar, MineSweeperModel.createContent(), info);
+		// MenuBar, InfoBar, Grid werden der VBox(root) hinzugefügt
+		root.getChildren().addAll(menuBar, infoBar, MineSweeperModel.createContent());
 
 
 		// Szene instanziieren und an Stage weitergeben

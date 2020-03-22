@@ -24,7 +24,7 @@ public class MineSweeperController {
 		this.view = view;
 		this.stage = stage;
 
-		// ActionEvents from MenuBar - they all work !!
+		// MenuBar ActionEvents
 		view.aboutItem.setOnAction(e -> {
 			Alert aboutAlert = new Alert(AlertType.INFORMATION,
 					"Created by Robin Roth, Robin Weis \nand Luca Schädler\n\n" + "version 0.1", ButtonType.CLOSE);
@@ -87,15 +87,7 @@ public class MineSweeperController {
 			MineSweeperView.sound = false;
 		});
 
-		// audioclip for every mouseclick
-		for (int i = 0; i < MineSweeperView.grid.length; i++) {
-			for (int j = 0; j < MineSweeperView.grid.length; j++) {
-				MineSweeperView.grid[j][i].setOnMouseClicked(e -> {
-					stackButton.onClick(e);
-				});
-
-			}
-		}
+		// setOnCloseRequest
 	this.view.getStage().setOnCloseRequest(e -> {
 			
 			//new stage
