@@ -20,13 +20,15 @@ import javafx.stage.Stage;
 public class MineSweeperView {
 
 	// MVC-branch
-	protected static Stage primaryStage;
+	protected static Stage stage;
 	protected MineSweeperModel model;
 
 	// game elements
 	protected static boolean sound = true;
 	protected static Timer timer;
+	protected TimerTask task;
 	protected static int secondsPassed;
+	protected static int minutesPassed;
 	protected static int bombPercent = 10;
 	protected static int numBombs, foundBombs;
 
@@ -44,15 +46,13 @@ public class MineSweeperView {
 	protected static Image mine = new Image("resources/mine.png");
 	
 	protected GridPane infoBar = new GridPane();
-	protected Label timeLabel,bombsFoundLabel, bombsLeftLabel;
-	protected TextField timeField, bombsFoundField, bombsLeftField;
-	protected String text;
-	protected ChangeListener changeListener;
+	protected Label timeLabel,bombsFoundLabel, bombsLeftLabel,timeField;
+	protected TextField bombsFoundField, bombsLeftField;
 	
 
 
 	protected MineSweeperView(Stage primaryStage, MineSweeperModel model) {
-		MineSweeperView.primaryStage = primaryStage;
+		MineSweeperView.stage = primaryStage;
 		this.model = model;
 
 		// Menu-Instanziierung
@@ -78,7 +78,8 @@ public class MineSweeperView {
 		
 		//infoBar instanziierung
 		timeLabel = new Label("Time");
-		timeField = new TextField(Integer.toString(secondsPassed));
+		timeField = new Label();
+		
 		bombsFoundLabel = new Label("Bombs found");
 		bombsFoundField = new TextField(Integer.toString(foundBombs));
 		bombsLeftLabel = new Label("Bombs left");
@@ -86,12 +87,6 @@ public class MineSweeperView {
 		bombsFoundField.setDisable(true);
 		bombsLeftField.setDisable(true);
 		
-		
-		timeField.textProperty().addListener(//müemmer no fixe
-				
-				(observable, oldValue, newValue) -> {
-				newValue = Integer.toString(secondsPassed);
-				});
 		
 		infoBar.add(timeLabel, 0 ,0);
 		infoBar.add(timeField, 1, 0);
@@ -118,16 +113,21 @@ public class MineSweeperView {
 			@Override
 			public void run() {
 				secondsPassed++;
+				if(secondsPassed == 60) {
+					secondsPassed = 0;
+					minutesPassed++;
+				}
+				System.out.println(minutesPassed+ " : " +secondsPassed);//timer in console only when view starts reload doesnt work
 			};
 		};
 		timer = new Timer();
 		timer.schedule(task, 1000, 1000);
 
-		primaryStage.show();
+		stage.show();
 	}
 
 	protected Stage getStage() {
-		return primaryStage;
+		return stage;
 	}
 
 }

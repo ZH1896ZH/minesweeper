@@ -1,5 +1,6 @@
 package minesweeper;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -150,6 +151,8 @@ public class StackButton extends StackPane {
 	 * Player win. Displays message. Calls to reload the game.
 	 */
 	public void win() {
+		
+		DecimalFormat fmt = new DecimalFormat("#0");
 
 		if (MineSweeperView.sound) {
 			AudioClip winSound = new AudioClip(getClass().getResource("/resources/win.wav").toString());
@@ -159,7 +162,7 @@ public class StackButton extends StackPane {
 		win.setTitle("Win!");
 		win.setGraphic(new ImageView(flag));
 		win.setHeaderText("Congratulations!");
-		win.setContentText("You found all the bombs in " + MineSweeperView.secondsPassed + " seconds.");
+		win.setContentText("You found all the bombs in " + fmt.format(MineSweeperView.minutesPassed) + ":" + fmt.format(MineSweeperView.secondsPassed) + " minutes.");
 		win.showAndWait();
 		MineSweeperModel.reload();
 	}
