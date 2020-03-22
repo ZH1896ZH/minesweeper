@@ -33,7 +33,7 @@ public class MineSweeperModel {
 		MineSweeperView.timer.cancel();
 		MineSweeperView.timer = new Timer();
 		MineSweeperView.timer.schedule(task, 1000, 1000);
-		MineSweeperView.root.getChildren().remove(2);
+		MineSweeperView.root.getChildren().remove(2);//remove 1 wenn MenuBar nicht da wäre
 		MineSweeperView.root.getChildren().add(createContent());
 		MineSweeperView.primaryStage.sizeToScene();
 	}
