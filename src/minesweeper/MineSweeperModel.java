@@ -18,7 +18,7 @@ public class MineSweeperModel {
 		this.primaryStage = primaryStage;
 	}
 
-	protected static void reload() {// methode works LS
+	protected static void reload() {
 
 		MineSweeperView.grid = new StackButton[MineSweeperView.gridSize][MineSweeperView.gridSize];
 
@@ -33,12 +33,12 @@ public class MineSweeperModel {
 		MineSweeperView.timer.cancel();
 		MineSweeperView.timer = new Timer();
 		MineSweeperView.timer.schedule(task, 1000, 1000);
-		MineSweeperView.root.getChildren().remove(2); //kommt in Konflikt mit info-bar
+		MineSweeperView.root.getChildren().remove(2);
 		MineSweeperView.root.getChildren().add(createContent());
 		MineSweeperView.primaryStage.sizeToScene();
 	}
 
-	protected static Parent createContent() { // Methode does work now RR
+	protected static Parent createContent() {
 		// Reset these in case of a new game
 		MineSweeperView.numBombs = 0;
 		MineSweeperView.foundBombs = 0;

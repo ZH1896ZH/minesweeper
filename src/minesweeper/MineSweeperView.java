@@ -83,7 +83,7 @@ public class MineSweeperView {
 		bombsLeftField = new TextField(Integer.toString(numBombs - foundBombs));
 		
 		
-		timeField.textProperty().addListener(//timer muss irgend wie verbunden werden
+		timeField.textProperty().addListener(//müemmer no fixe
 				
 				(observable, oldValue, newValue) -> {
 				text = timer.toString();
