@@ -83,6 +83,8 @@ public class MineSweeperView {
 		bombsFoundField = new TextField(Integer.toString(foundBombs));
 		bombsLeftLabel = new Label("Bombs left");
 		bombsLeftField = new TextField(Integer.toString(numBombs - foundBombs));
+		bombsFoundField.setDisable(true);
+		bombsLeftField.setDisable(true);
 		
 		
 		timeField.textProperty().addListener(//müemmer no fixe
