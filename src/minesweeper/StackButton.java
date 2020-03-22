@@ -142,7 +142,7 @@ public class StackButton extends StackPane {
 				"Oh no! You clicked on a bomb and caused all the bombs to explode! Better luck next time.");
 		gameOver.showAndWait();
 
-		//MineSweeperModel.reload();
+		MineSweeperModel.reload();
 
 	}
 
