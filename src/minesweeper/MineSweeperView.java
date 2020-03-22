@@ -3,6 +3,7 @@ package minesweeper;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javafx.beans.value.ChangeListener;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -46,6 +47,7 @@ public class MineSweeperView {
 	protected Label timeLabel,bombsFoundLabel, bombsLeftLabel;
 	protected TextField timeField, bombsFoundField, bombsLeftField;
 	protected String text;
+	protected ChangeListener changeListener;
 	
 
 
@@ -75,8 +77,8 @@ public class MineSweeperView {
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
 		
 		//infoBar instanziierung
-		timeLabel = new Label("Time: ");
-		timeField = new TextField(text);
+		timeLabel = new Label("Time");
+		timeField = new TextField(Integer.toString(secondsPassed));
 		bombsFoundLabel = new Label("Bombs found");
 		bombsFoundField = new TextField(Integer.toString(foundBombs));
 		bombsLeftLabel = new Label("Bombs left");
@@ -86,13 +88,15 @@ public class MineSweeperView {
 		timeField.textProperty().addListener(//müemmer no fixe
 				
 				(observable, oldValue, newValue) -> {
-				text = timer.toString();
+				newValue = Integer.toString(secondsPassed);
 				});
 		
 		infoBar.add(timeLabel, 0 ,0);
 		infoBar.add(timeField, 1, 0);
 		infoBar.add(bombsFoundLabel, 0, 1);
-		infoBar.add(bombsLeftLabel, 0, 3);
+		infoBar.add(bombsFoundField, 1, 1);
+		infoBar.add(bombsLeftLabel, 0, 2);
+		infoBar.add(bombsLeftField, 1, 2);
 
 		// MenuBar, InfoBar, Grid werden der VBox(root) hinzugefügt
 		root.getChildren().addAll(menuBar, infoBar, MineSweeperModel.createContent());
