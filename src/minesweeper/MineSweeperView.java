@@ -3,7 +3,6 @@ package minesweeper;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javafx.beans.value.ChangeListener;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
