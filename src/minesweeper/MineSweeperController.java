@@ -119,7 +119,8 @@ public class MineSweeperController {
 			
 			//Button action
 			yes.setOnAction(event -> {
-				newStage.close();
+				Platform.exit();
+				System.exit(0);
 			});
 			no.setOnAction(evente -> {
 				stage.show();
