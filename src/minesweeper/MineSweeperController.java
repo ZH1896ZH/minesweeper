@@ -47,6 +47,7 @@ public class MineSweeperController {
 
 		view.quitItem.setOnAction(e -> {
 			Platform.exit();
+			System.exit(0);
 		});
 
 		view.smallSizeItem.setOnAction(e -> {
