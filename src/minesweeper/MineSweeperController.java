@@ -116,6 +116,7 @@ public class MineSweeperController {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/resources/CloseRequest.css").toExternalForm());
 			newStage.setScene(scene);
+			newStage.getIcons().add(MineSweeperView.mine);
 			newStage.show();
 			
 			//Button action
