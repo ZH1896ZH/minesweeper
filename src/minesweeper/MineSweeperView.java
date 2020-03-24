@@ -95,13 +95,15 @@ public class MineSweeperView {
 		infoBar.add(bombsLeftField, 1, 2);
 
 		// MenuBar, InfoBar, Grid werden der VBox(root) hinzugefügt
-		root.getChildren().addAll(menuBar, infoBar, MineSweeperModel.createContent());
+		root.getChildren().addAll(menuBar, infoBar, MineSweeperModel.createContent());//infoBar ev neu gestalten
 
 
 		// Szene instanziieren und an Stage weitergeben
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/resources/application.css").toExternalForm());
 		primaryStage.setScene(scene);
+		primaryStage.centerOnScreen();
+		primaryStage.resizableProperty().setValue(Boolean.FALSE);// kann man nicht maximimieren
 		primaryStage.setTitle("MineSweeper");
 		primaryStage.getIcons().add(mine);
 	}

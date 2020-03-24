@@ -150,7 +150,7 @@ public class StackButton extends StackPane {
 	/**
 	 * Player win. Displays message. Calls to reload the game.
 	 */
-	public void win() {
+	public void win() {// auch gewinnen wenn nicht alle bomben markiert sind aber alle anderen felder offen
 		
 		DecimalFormat fmt = new DecimalFormat("#0");
 
