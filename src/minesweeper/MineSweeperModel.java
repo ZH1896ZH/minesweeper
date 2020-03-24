@@ -21,17 +21,18 @@ public class MineSweeperModel {
 	protected static void reload() {
 
 		MineSweeperView.grid = new StackButton[MineSweeperView.gridSize][MineSweeperView.gridSize];
-
-		MineSweeperView.secondsPassed = 0;
+		
+		MineSweeperView.minutesPassedObj.set(0);
+		MineSweeperView.secondsPassedObj.set(0);
 
 		TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
-				MineSweeperView.secondsPassed++;
-				if(MineSweeperView.secondsPassed == 60) {
-					MineSweeperView.secondsPassed = 0;
-					MineSweeperView.minutesPassed++;
-				}
+				MineSweeperView.secondsPassedObj.set(MineSweeperView.secondsPassedObj.get()+1);
+					if (MineSweeperView.secondsPassedObj.get() == 60) {
+						MineSweeperView.secondsPassedObj.set(0);
+						MineSweeperView.minutesPassedObj.set(MineSweeperView.minutesPassedObj.get() + 1);
+					}
 			};
 		};
 		MineSweeperView.timer.cancel();

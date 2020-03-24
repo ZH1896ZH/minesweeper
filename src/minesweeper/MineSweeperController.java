@@ -1,5 +1,7 @@
 package minesweeper;
 
+import java.text.DecimalFormat;
+
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -89,9 +91,9 @@ public class MineSweeperController {
 		});
 
 		// setOnCloseRequest
-	this.view.getStage().setOnCloseRequest(e -> {
-			
-			//new stage
+		this.view.getStage().setOnCloseRequest(e -> {
+
+			// new stage
 			Stage newStage = new Stage();
 			VBox root = new VBox();
 
@@ -100,26 +102,26 @@ public class MineSweeperController {
 			Button no = new Button("No");
 
 			HBox hbox = new HBox();
-			
-			//fill stage
+
+			// fill stage
 			hbox.getChildren().addAll(yes, no);
 			root.getChildren().addAll(lbl, hbox);
-			
-			//layout
+
+			// layout
 			hbox.setSpacing(10);
 			hbox.setAlignment(Pos.CENTER);
-			
+
 			root.setAlignment(Pos.CENTER);
 			root.setSpacing(10);
-			
-			//stage to scene
+
+			// stage to scene
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/resources/CloseRequest.css").toExternalForm());
 			newStage.setScene(scene);
 			newStage.getIcons().add(MineSweeperView.mine);
 			newStage.show();
-			
-			//Button action
+
+			// Button action
 			yes.setOnAction(event -> {
 				Platform.exit();
 				System.exit(0);
@@ -130,6 +132,19 @@ public class MineSweeperController {
 			});
 
 		});
-	
+
+		
+		view.getSecondsPassedProperty().addListener((observable, oldValue, newValue) -> {
+			DecimalFormat fmtt = new DecimalFormat("#0");
+			DecimalFormat fmt = new DecimalFormat("00");
+			String newText = (fmtt.format(MineSweeperView.minutesPassedObj.get()) + ":" + fmt.format(MineSweeperView.secondsPassedObj.get()));
+			
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					view.timeField.setText(newText);
+				}
+			});
+		});
 	}
 }

@@ -152,7 +152,8 @@ public class StackButton extends StackPane {
 	 */
 	public void win() {// auch gewinnen wenn nicht alle bomben markiert sind aber alle anderen felder offen
 		
-		DecimalFormat fmt = new DecimalFormat("#0");
+		DecimalFormat fmt = new DecimalFormat("00");
+		DecimalFormat fmtt = new DecimalFormat("#0");
 
 		if (MineSweeperView.sound) {
 			AudioClip winSound = new AudioClip(getClass().getResource("/resources/win.wav").toString());
@@ -162,7 +163,7 @@ public class StackButton extends StackPane {
 		win.setTitle("Win!");
 		win.setGraphic(new ImageView(flag));
 		win.setHeaderText("Congratulations!");
-		win.setContentText("You found all the bombs in " + fmt.format(MineSweeperView.minutesPassed) + ":" + fmt.format(MineSweeperView.secondsPassed) + " minutes.");
+		win.setContentText("You found all the bombs in " + fmtt.format(MineSweeperView.minutesPassedObj.get()) + ":" + fmt.format(MineSweeperView.secondsPassedObj.get()) + " minutes.");
 		win.showAndWait();
 		MineSweeperModel.reload();
 	}
