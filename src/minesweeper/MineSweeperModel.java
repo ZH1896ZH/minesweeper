@@ -21,24 +21,24 @@ public class MineSweeperModel {
 	protected static void reload() {
 
 		MineSweeperView.grid = new StackButton[MineSweeperView.gridSize][MineSweeperView.gridSize];
-		
+
 		MineSweeperView.minutesPassedObj.set(0);
 		MineSweeperView.secondsPassedObj.set(0);
 
 		TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
-				MineSweeperView.secondsPassedObj.set(MineSweeperView.secondsPassedObj.get()+1);
-					if (MineSweeperView.secondsPassedObj.get() == 60) {
-						MineSweeperView.secondsPassedObj.set(0);
-						MineSweeperView.minutesPassedObj.set(MineSweeperView.minutesPassedObj.get() + 1);
-					}
+				MineSweeperView.secondsPassedObj.set(MineSweeperView.secondsPassedObj.get() + 1);
+				if (MineSweeperView.secondsPassedObj.get() == 60) {
+					MineSweeperView.secondsPassedObj.set(0);
+					MineSweeperView.minutesPassedObj.set(MineSweeperView.minutesPassedObj.get() + 1);
+				}
 			};
 		};
 		MineSweeperView.timer.cancel();
 		MineSweeperView.timer = new Timer();
 		MineSweeperView.timer.schedule(task, 1000, 1000);
-		MineSweeperView.root.getChildren().remove(2);//remove 1 wenn MenuBar nicht da wäre
+		MineSweeperView.root.getChildren().remove(2);// remove 1 wenn MenuBar nicht da wäre
 		MineSweeperView.root.getChildren().add(createContent());
 		MineSweeperView.stage.sizeToScene();
 	}
@@ -73,13 +73,11 @@ public class MineSweeperModel {
 				int bombNeighbors = 0;
 				// get the neighbors of a given stackButton and put them in a list
 				ArrayList<StackButton> neighbors = new ArrayList<StackButton>();
-				/** 
-				 * get the difference of the x, y values of the neighbors 
-				 * to the x, y values of the given stackButton
+				/**
+				 * get the difference of the x, y values of the neighbors to the x, y values of
+				 * the given stackButton
 				 *
-				 * (-1,-1)	(0,-1)	(1,-1)
-				 * (-1,0)	(x)		(1,0) 
-				 * (-1,1)	(0,1)	(1,1)  
+				 * (-1,-1) (0,-1) (1,-1) (-1,0) (x) (1,0) (-1,1) (0,1) (1,1)
 				 */
 				int[] points = new int[] { -1, -1, -1, 0, -1, 1, 0, -1, 0, 1, 1, -1, 1, 0, 1, 1 };
 				//
@@ -88,12 +86,12 @@ public class MineSweeperModel {
 					int differenceY = points[++i];
 					int newX = x + differenceX;
 					int newY = y + differenceY;
-					
-					//check if x, y values are inside grid --> isValidCoordinate
-					if(newX >= 0 && newX < MineSweeperView.gridSize) {
-						if(newY >= 0 && newY < MineSweeperView.gridSize) {
+
+					// check if x, y values are inside grid --> isValidCoordinate
+					if (newX >= 0 && newX < MineSweeperView.gridSize) {
+						if (newY >= 0 && newY < MineSweeperView.gridSize) {
 							neighbors.add(MineSweeperView.grid[newY][newX]);
-							if(MineSweeperView.grid[newY][newX].hasBomb) {
+							if (MineSweeperView.grid[newY][newX].hasBomb) {
 								bombNeighbors++;
 							}
 						}
@@ -112,6 +110,5 @@ public class MineSweeperModel {
 		return pane;
 
 	}
-
 
 }

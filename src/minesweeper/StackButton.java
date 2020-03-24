@@ -31,25 +31,24 @@ public class StackButton extends StackPane {
 		this.x = x;
 		this.y = y;
 		this.hasBomb = hasBomb;
-		
-		if(hasBomb) {
+
+		if (hasBomb) {
 			MineSweeperView.numBombs++;
 		}
 
 		btn.setMinHeight(40);
 		btn.setMinWidth(40);
-		
+
 		btn.setOnMouseClicked(e -> {
 			onClick(e);
 		});
 
 		this.getChildren().addAll(btn);
-		
+
 		this.setTranslateX(x * 40);
 		this.setTranslateY(y * 40);
 	}
 
-	
 	protected void onClick(MouseEvent e) {
 
 		if (MineSweeperView.sound) { // when sound on
@@ -150,8 +149,9 @@ public class StackButton extends StackPane {
 	/**
 	 * Player win. Displays message. Calls to reload the game.
 	 */
-	public void win() {// auch gewinnen wenn nicht alle bomben markiert sind aber alle anderen felder offen
-		
+	public void win() {// auch gewinnen wenn nicht alle bomben markiert sind aber alle anderen felder
+						// offen
+
 		DecimalFormat fmt = new DecimalFormat("00");
 		DecimalFormat fmtt = new DecimalFormat("#0");
 
@@ -163,7 +163,8 @@ public class StackButton extends StackPane {
 		win.setTitle("Win!");
 		win.setGraphic(new ImageView(flag));
 		win.setHeaderText("Congratulations!");
-		win.setContentText("You found all the bombs in " + fmtt.format(MineSweeperView.minutesPassedObj.get()) + ":" + fmt.format(MineSweeperView.secondsPassedObj.get()) + " minutes.");
+		win.setContentText("You found all the bombs in " + fmtt.format(MineSweeperView.minutesPassedObj.get()) + ":"
+				+ fmt.format(MineSweeperView.secondsPassedObj.get()) + " minutes.");
 		win.showAndWait();
 		MineSweeperModel.reload();
 	}

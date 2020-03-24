@@ -133,12 +133,12 @@ public class MineSweeperController {
 
 		});
 
-		
 		view.getSecondsPassedProperty().addListener((observable, oldValue, newValue) -> {
 			DecimalFormat fmtt = new DecimalFormat("#0");
 			DecimalFormat fmt = new DecimalFormat("00");
-			String newText = (fmtt.format(MineSweeperView.minutesPassedObj.get()) + ":" + fmt.format(MineSweeperView.secondsPassedObj.get()));
-			
+			String newText = (fmtt.format(MineSweeperView.minutesPassedObj.get()) + ":"
+					+ fmt.format(MineSweeperView.secondsPassedObj.get()));
+
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {

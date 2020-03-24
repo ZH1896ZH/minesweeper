@@ -109,12 +109,12 @@ public class MineSweeperView {
 		TimerTask task = new TimerTask() {
 			@Override
 			public void run() {
-				secondsPassedObj.set(secondsPassedObj.get()+1);
+				secondsPassedObj.set(secondsPassedObj.get() + 1);
 				if (secondsPassedObj.get() == 60) {
 					secondsPassedObj.set(0);
 					minutesPassedObj.set(minutesPassedObj.get() + 1);
 				}
-																			
+
 			};
 		};
 		timer = new Timer();
@@ -134,6 +134,7 @@ public class MineSweeperView {
 	public int getSecond() {
 		return secondsPassedObj.get();
 	}
+
 	public SimpleIntegerProperty getMinutesPassedProperty() {
 		return minutesPassedObj;
 	}
