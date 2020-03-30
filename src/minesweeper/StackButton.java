@@ -133,7 +133,7 @@ public class StackButton extends StackPane {
 				}
 			}
 		}
-
+		MineSweeperView.timer.cancel();
 		Alert gameOver = new Alert(AlertType.INFORMATION);
 		gameOver.setTitle("Game Over!");
 		gameOver.setGraphic(new ImageView(MineSweeperView.mine));
@@ -141,6 +141,7 @@ public class StackButton extends StackPane {
 		gameOver.setContentText(
 				"Oh no! You clicked on a bomb and caused all the bombs to explode! Better luck next time.");
 		gameOver.showAndWait();
+		
 
 		MineSweeperModel.reload();
 

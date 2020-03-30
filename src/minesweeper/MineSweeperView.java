@@ -131,16 +131,5 @@ public class MineSweeperView {
 		return secondsPassedObj;
 	}
 
-	public int getSecond() {
-		return secondsPassedObj.get();
-	}
-
-	public SimpleIntegerProperty getMinutesPassedProperty() {
-		return minutesPassedObj;
-	}
-
-	public int getMinutesPassed() {
-		return minutesPassedObj.get();
-	}
 
 }
