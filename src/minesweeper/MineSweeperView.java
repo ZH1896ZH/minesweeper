@@ -132,7 +132,7 @@ public class MineSweeperView {
 	}
 	
 	public SimpleIntegerProperty getMinutesPassedProperty() {
-		return secondsPassedObj;
+		return minutesPassedObj;
 	}
 
 
