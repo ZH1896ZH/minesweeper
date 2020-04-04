@@ -3,10 +3,9 @@ package minesweeper;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import com.sun.glass.events.KeyEvent;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,12 +22,14 @@ public class StackButton extends StackPane {
 	protected int x, y = 0;
 	protected boolean hasBomb;
 	protected int numBombs = 0;
+	protected int foundBombs = 0;
 	protected Color color = null;
 	protected boolean flagged = false;
 	protected ArrayList<StackButton> neighbours = new ArrayList<StackButton>();
 	protected boolean active = true;
+	protected static final int prefSize = 40;
 
-	protected static Image flag = new Image("/resources/flag.png");
+	protected Image flag = new Image("/resources/flag.png");
 
 	protected StackButton(int x, int y, boolean hasBomb) {
 		this.x = x;
@@ -36,11 +37,11 @@ public class StackButton extends StackPane {
 		this.hasBomb = hasBomb;
 
 		if (hasBomb) {
-			MineSweeperView.numBombs++;
+			numBombs++;
 		}
 
-		btn.setMinHeight(40);
-		btn.setMinWidth(40);
+		btn.setMinHeight(prefSize);
+		btn.setMinWidth(prefSize);
 
 		btn.setOnMouseClicked(e -> {
 			onClick(e);
@@ -48,8 +49,8 @@ public class StackButton extends StackPane {
 
 		this.getChildren().addAll(btn);
 
-		this.setTranslateX(x * 40);
-		this.setTranslateY(y * 40);
+		this.setTranslateX(x * prefSize);
+		this.setTranslateY(y * prefSize);
 	}
 
 	protected void onClick(MouseEvent e) {
@@ -86,14 +87,14 @@ public class StackButton extends StackPane {
 				flagged = true;
 				btn.setGraphic(new ImageView(flag));
 				if (this.hasBomb) {
-					MineSweeperView.foundBombs++;
-					if (MineSweeperView.foundBombs == MineSweeperView.numBombs) {
+					foundBombs++;
+					if (foundBombs == numBombs) {
 						win();
 					}
 				}
 			} else {
 				if (hasBomb) {
-					MineSweeperView.foundBombs--;
+					foundBombs--;
 				}
 				btn.setGraphic(null);
 				flagged = false;

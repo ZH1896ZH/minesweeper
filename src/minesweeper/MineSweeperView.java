@@ -100,7 +100,7 @@ public class MineSweeperView {
 		scene.getStylesheets().add(getClass().getResource("/resources/application.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.centerOnScreen();
-		MineSweeperView.stage.sizeToScene();
+		primaryStage.sizeToScene();
 		primaryStage.resizableProperty().setValue(Boolean.FALSE);// kann man nicht maximimieren
 		primaryStage.setTitle("MineSweeper");
 		primaryStage.getIcons().add(mine);

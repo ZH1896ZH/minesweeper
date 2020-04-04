@@ -1,10 +1,8 @@
 package minesweeper;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -44,7 +42,7 @@ public class MineSweeperModel {
 		MineSweeperView.stage.sizeToScene();
 	}
 
-	protected static Parent createContent() {
+	protected static Pane createContent() {
 		// Reset these in case of a new game
 		MineSweeperView.numBombs = 0;
 		MineSweeperView.foundBombs = 0;
@@ -53,7 +51,7 @@ public class MineSweeperModel {
 		MineSweeperView.grid = new StackButton[MineSweeperView.gridSize][MineSweeperView.gridSize];
 
 		Pane pane = new Pane();
-		pane.setPrefSize(MineSweeperView.gridSize * 40, MineSweeperView.gridSize * 40);
+		pane.setPrefSize(MineSweeperView.gridSize * StackButton.prefSize, MineSweeperView.gridSize * StackButton.prefSize);
 
 		// fill the grid with StackButtons
 		for (int x = 0; x < MineSweeperView.gridSize; x++) {
@@ -69,8 +67,11 @@ public class MineSweeperModel {
 				// boolean hasBomb -> random number (0.0 - 1) lower than bombPercent
 				StackButton stackButton = new StackButton(y, x,
 						Math.random() < (double) MineSweeperView.bombPercent / 100);
+				if(stackButton.hasBomb) {
+				
 				MineSweeperView.grid[y][x] = stackButton;
 				pane.getChildren().add(stackButton);
+				}
 			}
 		}
 		// count the number of bombs and set the values and colors
@@ -85,10 +86,11 @@ public class MineSweeperModel {
 				 * get the difference of the x, y values of the neighbors to the x, y values of
 				 * the given stackButton
 				 *
-				 * (-1,-1) (0,-1) (1,-1) (-1,0) (x) (1,0) (-1,1) (0,1) (1,1)
+				 * (-1,-1) (0,-1) (1,-1) 
+				 * (-1,0) (x) (1,0) 
+				 * (-1,1) (0,1) (1,1)
 				 */
 				int[] points = new int[] { -1, -1, -1, 0, -1, 1, 0, -1, 0, 1, 1, -1, 1, 0, 1, 1 };
-				//
 				for (int i = 0; i < points.length; i++) {
 					int differenceX = points[i];
 					int differenceY = points[++i];
