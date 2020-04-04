@@ -1,5 +1,6 @@
-//main
-.button{
+//
+main
+.button {
 	-fx-font-size: 20;
 	-fx-font-family: helvetica;
 	-fx-font-weight: bold;
@@ -7,14 +8,15 @@
 }
 
 .button:disabled {
-	-fx-border-color: rgb(210,210,210);
-	-fx-background-color: rgb(245,245,245);
-	-fx-opacity: 1.0 ;
-}
-.menu-bar {
-    -fx-background-color: #00dfdf;
-}
-.hasMouse{
-		-fx-background-color: #808080;
+	-fx-border-color: rgb(210, 210, 210);
+	-fx-background-color: rgb(245, 245, 245);
+	-fx-opacity: 1.0;
 }
 
+.menu-bar {
+	-fx-background-color: #00dfdf;
+}
+
+.hasMouse {
+	-fx-background-color: #808080;
+}
