@@ -1,6 +1,7 @@
 package minesweeper;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.Parent;
@@ -54,7 +55,15 @@ public class MineSweeperModel {
 		Pane pane = new Pane();
 		pane.setPrefSize(MineSweeperView.gridSize * 40, MineSweeperView.gridSize * 40);
 
-		// fill the grid with StackButtons, add bombs to a percentage of StackButtons
+		// fill the grid with StackButtons
+		for (int x = 0; x < MineSweeperView.gridSize; x++) {
+			for (int y = 0; y < MineSweeperView.gridSize; y++) {
+				StackButton stackButton = new StackButton(y, x, false);
+				MineSweeperView.grid[y][x] = stackButton;
+				pane.getChildren().add(stackButton);
+			}
+		}
+		// add bombs to a percentage of StackButtons
 		for (int x = 0; x < MineSweeperView.gridSize; x++) {
 			for (int y = 0; y < MineSweeperView.gridSize; y++) {
 				// boolean hasBomb -> random number (0.0 - 1) lower than bombPercent
@@ -62,7 +71,6 @@ public class MineSweeperModel {
 						Math.random() < (double) MineSweeperView.bombPercent / 100);
 				MineSweeperView.grid[y][x] = stackButton;
 				pane.getChildren().add(stackButton);
-
 			}
 		}
 		// count the number of bombs and set the values and colors
