@@ -2,6 +2,9 @@ package minesweeper;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import com.sun.glass.events.KeyEvent;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
@@ -141,7 +144,6 @@ public class StackButton extends StackPane {
 		gameOver.setContentText(
 				"Oh no! You clicked on a bomb and caused all the bombs to explode! Better luck next time.");
 		gameOver.showAndWait();
-		
 
 		MineSweeperModel.reload();
 
@@ -169,6 +171,5 @@ public class StackButton extends StackPane {
 		win.showAndWait();
 		MineSweeperModel.reload();
 	}
-
 
 }
