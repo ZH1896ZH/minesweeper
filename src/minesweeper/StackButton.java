@@ -2,9 +2,8 @@ package minesweeper;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
-
 import javafx.scene.control.Button;
+import javafx.animation.RotateTransition;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -14,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public class StackButton extends StackPane {
 	protected MineSweeperModel model;
@@ -46,7 +46,14 @@ public class StackButton extends StackPane {
 		btn.setOnMouseClicked(e -> {
 			onClick(e);
 		});
+		btn.setOnMouseEntered(e -> {
+			btn.getStyleClass().add("hasMouse");
 
+		});
+		btn.setOnMouseExited(e -> {
+			btn.getStyleClass().remove("hasMouse");
+		});
+		
 		this.getChildren().addAll(btn);
 
 		this.setTranslateX(x * prefSize);

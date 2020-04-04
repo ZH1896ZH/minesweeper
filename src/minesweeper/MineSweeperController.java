@@ -2,6 +2,7 @@ package minesweeper;
 
 import java.text.DecimalFormat;
 
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class MineSweeperController {
 
@@ -93,7 +95,7 @@ public class MineSweeperController {
 
 		// setOnCloseRequest
 		this.view.getStage().setOnCloseRequest(e -> {
-
+			
 			// new stage
 			Stage newStage = new Stage();
 			VBox root = new VBox();

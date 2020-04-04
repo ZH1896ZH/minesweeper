@@ -11,9 +11,12 @@
 	-fx-background-color: rgb(245,245,245);
 	-fx-opacity: 1.0 ;
 }
-.button:hover {
-	-fx-background-color: #808080;
-}
 .menu-bar {
     -fx-background-color: #00dfdf;
+}
+.hasMouse{
+		-fx-background-color: #808080;
+}
+.druck{
+		-fx-background-color: #ff00ff;
 }
