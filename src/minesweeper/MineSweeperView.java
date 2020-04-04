@@ -56,19 +56,19 @@ public class MineSweeperView {
 
 		// Menu-Instanziierung
 		menuBar = new MenuBar();
-		fileMenu = new Menu("File");
-		sizeMenu = new Menu("Size");
-		difficultyMenu = new Menu("Difficulty");
+		fileMenu = new Menu("Datei");
+		sizeMenu = new Menu("Grösse");
+		difficultyMenu = new Menu("Schwierigkeit");
 		soundMenu = new Menu("Sound");
-		aboutItem = new MenuItem("About");
-		helpItem = new MenuItem("Help");
-		quitItem = new MenuItem("Quit");
-		smallSizeItem = new MenuItem("Small (10x10)");
-		mediumSizeItem = new MenuItem("Medium (15x15)");
-		largeSizeItem = new MenuItem("Large (20x20)");
-		easyItem = new MenuItem("Easy (10% Bombs)");
+		aboutItem = new MenuItem("Über");
+		helpItem = new MenuItem("Hilfe");
+		quitItem = new MenuItem("Beenden");
+		smallSizeItem = new MenuItem("Klein (10x10)");
+		mediumSizeItem = new MenuItem("Mittel (15x15)");
+		largeSizeItem = new MenuItem("Gross (20x20)");
+		easyItem = new MenuItem("Einfach (10% Bombs)");
 		normalItem = new MenuItem("Normal (15% Bombs)");
-		hardItem = new MenuItem("Hard (20% Bombs)");
+		hardItem = new MenuItem("Schwer (20% Bombs)");
 		soundOnItem = new RadioMenuItem("On");
 		soundOffItem = new RadioMenuItem("Off");
 

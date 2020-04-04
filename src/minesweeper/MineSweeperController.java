@@ -29,21 +29,22 @@ public class MineSweeperController {
 		// MenuBar ActionEvents
 		view.aboutItem.setOnAction(e -> {
 			Alert aboutAlert = new Alert(AlertType.INFORMATION,
-					"Created by Robin Roth, Robin Weis \nand Luca Schädler\n\n" + "version 0.1", ButtonType.CLOSE);
-			aboutAlert.setTitle("About");
-			aboutAlert.setHeaderText("MineSweeper");
+					"Erstellt von Robin Roth, Robin Weis \nand Luca Schädler\n\n" + "Version 1.1", ButtonType.CLOSE);
+			aboutAlert.setTitle("Über");
+			aboutAlert.setHeaderText("Minesweeper");
 			aboutAlert.showAndWait();
 		});
 
 		view.helpItem.setOnAction(e -> {
 			Alert helpAlert = new Alert(AlertType.INFORMATION,
-					"The aim of minesweeper is to identify all the sqaures which contain mines.\n\n"
-							+ "Left click on a square to reveal a number. This number indicates how many of the adjacent squares contain mines. By using these numbers you can deduce which sqaures contain mines. \n\n"
-							+ "Right click on a square to mark it as containing a mine. You can right click the sqaure again to unmark it if you made a mistake.\n\n"
-							+ "After all mines have successfully been marked the game is over and you win! Be careful though. Left clicking a square with a mine will result in a game over.",
+					"Auf den ersten Blick ist Minesweeper ein einfaches Denk- und Logikspiel.\n" + "\n"
+							+ "Das Ziel: Der Spieler muss die leeren Felder aufdecken und dabei diejenigen Felder meiden, hinter denen sich Minen verstecken.\n" + "\n"
+							+ "Das Spiel ist normalerweise beendet, wenn eine Mine aufgedeckt wird. Im Gegensatz zum Windows-Minesweeper ist durch eine Zugrücknahme ein Weiterspielen möglich. Die aufgedeckten Minen werden in einem Zählfeld angezeigt\n"
+							+ "\n" + "Das Spiel wird fortgesetzt, wenn Sie ein leeres Feld aufdecken.\n" + "\n"
+							+ "Wird beim Aufdecken eines Feldes eine Zahl angezeigt, steht diese für die Anzahl der Minen, die in den benachbarten 8 Feldern verborgen sind. Anhand dieser Angabe kann abgeleitet werden, unter welchen der angrenzenden Feldern sich Minen befinden und auf welche Felder gefahrlos geklickt werden kann.",
 					ButtonType.CLOSE);
-			helpAlert.setTitle("Help");
-			helpAlert.setHeaderText("How to play");
+			helpAlert.setTitle("Hilfe");
+			helpAlert.setHeaderText("Spielregeln");
 			helpAlert.showAndWait();
 		});
 
@@ -97,9 +98,9 @@ public class MineSweeperController {
 			Stage newStage = new Stage();
 			VBox root = new VBox();
 
-			Label lbl = new Label("Sure you want to quit?");
-			Button yes = new Button("Yes");
-			Button no = new Button("No");
+			Label lbl = new Label("Bist du sicher, dass du es Beenden willst?");
+			Button yes = new Button("Ja");
+			Button no = new Button("Nein");
 
 			HBox hbox = new HBox();
 
