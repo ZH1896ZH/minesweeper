@@ -8,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -46,6 +48,10 @@ public class StackButton extends StackPane {
 		btn.setOnMouseClicked(e -> {
 			onClick(e);
 		});
+
+		btn.setOnKeyPressed(e -> {
+			onPressed(e);
+		});
 		btn.setOnMouseEntered(e -> {
 			btn.getStyleClass().add("hasMouse");
 
@@ -53,11 +59,53 @@ public class StackButton extends StackPane {
 		btn.setOnMouseExited(e -> {
 			btn.getStyleClass().remove("hasMouse");
 		});
-		
+
 		this.getChildren().addAll(btn);
 
 		this.setTranslateX(x * prefSize);
 		this.setTranslateY(y * prefSize);
+	}
+
+	private void onPressed(KeyEvent e) {
+		if (e.getCode() == KeyCode.ENTER) {
+			if (!flagged) {
+
+				btn.setBackground(null);
+				btn.setDisable(true);
+				active = false;
+
+				if (hasBomb) {
+					gameOver();
+				} else {
+					// Blank
+					if (this.numBombs == 0) {
+						blankClick(this);
+					} else {
+						btn.setText(Integer.toString(numBombs));
+						btn.setTextFill(color);
+					}
+				}
+			}
+
+		} else if(e.getCode() == KeyCode.SHIFT) {
+			if (!flagged) {
+				flagged = true;
+				btn.setGraphic(new ImageView(flag));
+				if (this.hasBomb) {
+					foundBombs++;
+					if (foundBombs == numBombs) {
+						win();
+					}
+				}
+			} else {
+				if (hasBomb) {
+					foundBombs--;
+				}
+				btn.setGraphic(null);
+				flagged = false;
+			}
+		}
+
 	}
 
 	protected void onClick(MouseEvent e) {
