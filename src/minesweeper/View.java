@@ -98,7 +98,7 @@ public class View {
 
 		// Szene instanziieren und an Stage weitergeben
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/resources/Minesweeper.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/minesweeper.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.centerOnScreen();
 		primaryStage.sizeToScene();

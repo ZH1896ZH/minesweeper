@@ -14,6 +14,5 @@
         linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
 }
 .label {
-	-fx-font-family: helvetica;
-	-fx-padding: 10.0;
+	-fx-padding: 12.5;
 }

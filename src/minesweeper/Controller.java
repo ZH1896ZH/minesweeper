@@ -119,7 +119,7 @@ public class Controller {
 	
 			// stage to scene
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("/resources/CloseRequest.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("/resources/closeRequest.css").toExternalForm());
 			newStage.setScene(scene);
 			newStage.getIcons().add(View.mine);
 			newStage.setTitle("Bestätigung");
@@ -133,6 +133,11 @@ public class Controller {
 			noBtn.setOnAction(evente -> {
 				stage.show();
 				newStage.close();
+			});
+			
+			newStage.setOnCloseRequest(ev ->{
+				Platform.exit();
+				System.exit(0);
 			});
 
 		});
