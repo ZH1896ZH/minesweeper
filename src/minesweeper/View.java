@@ -17,11 +17,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class MineSweeperView {
+public class View {
 
 	// MVC-branch
 	protected static Stage stage;
-	protected MineSweeperModel model;
+	protected Model model;
 
 	// game elements
 	protected static boolean sound = true;
@@ -47,11 +47,11 @@ public class MineSweeperView {
 	protected static Image mine = new Image("resources/mine.png");
 
 	protected GridPane infoBar = new GridPane();
-	protected Label timeLabel, bombsFoundLabel, bombsLeftLabel, timeField;
+	protected Label timeLabel, timeField;
 	protected TextField bombsFoundField, bombsLeftField;
 
-	protected MineSweeperView(Stage primaryStage, MineSweeperModel model) {
-		MineSweeperView.stage = primaryStage;
+	protected View(Stage primaryStage, Model model) {
+		View.stage = primaryStage;
 		this.model = model;
 
 		// Menu-Instanziierung
@@ -82,7 +82,7 @@ public class MineSweeperView {
 		soundToggle.selectToggle(soundOnItem);
 
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
-
+		
 		// infoBar instanziierung
 		timeLabel = new Label("Time: ");
 		timeField = new Label();
@@ -91,13 +91,14 @@ public class MineSweeperView {
 
 		infoBar.add(timeLabel, 0, 0);
 		infoBar.add(timeField, 1, 0);
+		infoBar.setId("infoBar");
 
 		// MenuBar, InfoBar, Grid werden der VBox(root) hinzugefügt
-		root.getChildren().addAll(menuBar, infoBar, MineSweeperModel.createContent());// infoBar ev neu gestalten
+		root.getChildren().addAll(menuBar, infoBar, Model.createContent());// infoBar ev neu gestalten
 
 		// Szene instanziieren und an Stage weitergeben
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("/resources/MineSweeper.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("/resources/Minesweeper.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.centerOnScreen();
 		primaryStage.sizeToScene();

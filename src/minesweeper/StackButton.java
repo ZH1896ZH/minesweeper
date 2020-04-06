@@ -18,7 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class StackButton extends StackPane {
-	protected MineSweeperModel model;
+	protected Model model;
 
 	protected Button btn = new Button();
 	protected int x, y = 0;
@@ -110,7 +110,7 @@ public class StackButton extends StackPane {
 
 	protected void onClick(MouseEvent e) {
 
-		if (MineSweeperView.sound) { // when sound on
+		if (View.sound) { // when sound on
 			AudioClip click = new AudioClip(getClass().getResource("/resources/click.wav").toString());
 			click.play();
 		}
@@ -180,28 +180,28 @@ public class StackButton extends StackPane {
 	 * message. Calls to reload the game.
 	 */
 	public void gameOver() {
-		if (MineSweeperView.sound) {
+		if (View.sound) {
 			AudioClip explosion = new AudioClip(getClass().getResource("/resources/explosion.wav").toString());
 			explosion.play();
 		}
-		for (int y = 0; y < MineSweeperView.gridSize; y++) {
-			for (int x = 0; x < MineSweeperView.gridSize; x++) {
-				if (MineSweeperView.grid[x][y].hasBomb) {
-					MineSweeperView.grid[x][y].btn.setGraphic(new ImageView(MineSweeperView.mine));
-					MineSweeperView.grid[x][y].btn.setDisable(true);
+		for (int y = 0; y < View.gridSize; y++) {
+			for (int x = 0; x < View.gridSize; x++) {
+				if (View.grid[x][y].hasBomb) {
+					View.grid[x][y].btn.setGraphic(new ImageView(View.mine));
+					View.grid[x][y].btn.setDisable(true);
 				}
 			}
 		}
-		MineSweeperView.timer.cancel();
+		View.timer.cancel();
 		Alert gameOver = new Alert(AlertType.INFORMATION);
 		gameOver.setTitle("Game Over!");
-		gameOver.setGraphic(new ImageView(MineSweeperView.mine));
+		gameOver.setGraphic(new ImageView(View.mine));
 		gameOver.setHeaderText("Bomb Exploded!");
 		gameOver.setContentText(
 				"Oh no! You clicked on a bomb and caused all the bombs to explode! Better luck next time.");
 		gameOver.showAndWait();
 
-		MineSweeperModel.reload();
+		Model.reload();
 
 	}
 
@@ -214,7 +214,7 @@ public class StackButton extends StackPane {
 		DecimalFormat fmt = new DecimalFormat("00");
 		DecimalFormat fmtt = new DecimalFormat("#0");
 
-		if (MineSweeperView.sound) {
+		if (View.sound) {
 			AudioClip winSound = new AudioClip(getClass().getResource("/resources/win.wav").toString());
 			winSound.play();
 		}
@@ -222,10 +222,10 @@ public class StackButton extends StackPane {
 		win.setTitle("Win!");
 		win.setGraphic(new ImageView(flag));
 		win.setHeaderText("Congratulations!");
-		win.setContentText("You found all the bombs in " + fmtt.format(MineSweeperView.minutesPassedObj.get()) + ":"
-				+ fmt.format(MineSweeperView.secondsPassedObj.get()) + " minutes.");
+		win.setContentText("You found all the bombs in " + fmtt.format(View.minutesPassedObj.get()) + ":"
+				+ fmt.format(View.secondsPassedObj.get()) + " minutes.");
 		win.showAndWait();
-		MineSweeperModel.reload();
+		Model.reload();
 	}
 
 }

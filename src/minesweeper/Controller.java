@@ -16,14 +16,14 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class MineSweeperController {
+public class Controller {
 
-	protected MineSweeperModel model;
+	protected Model model;
 	protected StackButton stackButton;
-	protected MineSweeperView view;
+	protected View view;
 	protected Stage stage;
 
-	protected MineSweeperController(MineSweeperModel model, MineSweeperView view, Stage stage) {
+	protected Controller(Model model, View view, Stage stage) {
 		this.model = model;
 		this.view = view;
 		this.stage = stage;
@@ -56,41 +56,41 @@ public class MineSweeperController {
 		});
 
 		view.smallSizeItem.setOnAction(e -> {
-			MineSweeperView.gridSize = 10;
-			MineSweeperModel.reload();
+			View.gridSize = 10;
+			Model.reload();
 		});
 
 		view.mediumSizeItem.setOnAction(e -> {
-			MineSweeperView.gridSize = 15;
-			MineSweeperModel.reload();
+			View.gridSize = 15;
+			Model.reload();
 		});
 
 		view.largeSizeItem.setOnAction(e -> {
-			MineSweeperView.gridSize = 20;
-			MineSweeperModel.reload();
+			View.gridSize = 20;
+			Model.reload();
 		});
 
 		view.easyItem.setOnAction(e -> {
-			MineSweeperView.bombPercent = 10;
-			MineSweeperModel.reload();
+			View.bombPercent = 10;
+			Model.reload();
 		});
 
 		view.normalItem.setOnAction(e -> {
-			MineSweeperView.bombPercent = 15;
-			MineSweeperModel.reload();
+			View.bombPercent = 15;
+			Model.reload();
 		});
 
 		view.hardItem.setOnAction(e -> {
-			MineSweeperView.bombPercent = 20;
-			MineSweeperModel.reload();
+			View.bombPercent = 20;
+			Model.reload();
 		});
 
 		view.soundOnItem.setOnAction(e -> {
-			MineSweeperView.sound = true;
+			View.sound = true;
 		});
 
 		view.soundOffItem.setOnAction(e -> {
-			MineSweeperView.sound = false;
+			View.sound = false;
 		});
 
 		// setOnCloseRequest
@@ -100,36 +100,37 @@ public class MineSweeperController {
 			Stage newStage = new Stage();
 			VBox root = new VBox();
 
-			Label lbl = new Label("Bist du sicher, dass du es Beenden willst?");
-			Button yes = new Button("Ja");
-			Button no = new Button("Nein");
+			Button yesBtn = new Button("Ja");
+			Button noBtn = new Button("Nein");
 
 			HBox hbox = new HBox();
 
 			// fill stage
-			hbox.getChildren().addAll(yes, no);
-			root.getChildren().addAll(lbl, hbox);
+			hbox.getChildren().addAll(yesBtn, noBtn);
+			root.getChildren().addAll(new Label("Bist du sicher, dass du Minesweeper beenden willst?"), hbox);
 
 			// layout
-			hbox.setSpacing(10);
+			hbox.setSpacing(20);
+			hbox.setMinHeight(40);
 			hbox.setAlignment(Pos.CENTER);
-
+			
+			root.setSpacing(5);
 			root.setAlignment(Pos.CENTER);
-			root.setSpacing(10);
-
+	
 			// stage to scene
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/resources/CloseRequest.css").toExternalForm());
 			newStage.setScene(scene);
-			newStage.getIcons().add(MineSweeperView.mine);
+			newStage.getIcons().add(View.mine);
+			newStage.setTitle("Bestätigung");
 			newStage.show();
 
 			// Button action
-			yes.setOnAction(event -> {
+			yesBtn.setOnAction(event -> {
 				Platform.exit();
 				System.exit(0);
 			});
-			no.setOnAction(evente -> {
+			noBtn.setOnAction(evente -> {
 				stage.show();
 				newStage.close();
 			});
@@ -139,8 +140,8 @@ public class MineSweeperController {
 		view.getSecondsPassedProperty().addListener((observable, oldValue, newValue) -> {
 			DecimalFormat fmtt = new DecimalFormat("#0");
 			DecimalFormat fmt = new DecimalFormat("00");
-			String newText = (fmtt.format(MineSweeperView.minutesPassedObj.get()) + ":"
-					+ fmt.format(MineSweeperView.secondsPassedObj.get()));
+			String newText = (fmtt.format(View.minutesPassedObj.get()) + ":"
+					+ fmt.format(View.secondsPassedObj.get()));
 
 			Platform.runLater(new Runnable() {
 				@Override
