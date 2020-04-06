@@ -192,11 +192,11 @@ public class StackButton extends StackPane {
 		}
 		View.timer.cancel();
 		Alert gameOver = new Alert(AlertType.INFORMATION);
-		gameOver.setTitle("Game Over!");
+		gameOver.setTitle("Niederlage!");
 		gameOver.setGraphic(new ImageView(View.mine));
-		gameOver.setHeaderText("Bomb Exploded!");
+		gameOver.setHeaderText("Bomben sind explodiert!");
 		gameOver.setContentText(
-				"Oh no! You clicked on a bomb and caused all the bombs to explode! Better luck next time.");
+				"Du hast auf eine Bombe geklickt und alle Bomben sind explodiert! Viel Glück beim nächsten Mal.");
 		gameOver.showAndWait();
 
 		Model.reload();
@@ -217,11 +217,11 @@ public class StackButton extends StackPane {
 			winSound.play();
 		}
 		Alert win = new Alert(AlertType.CONFIRMATION);
-		win.setTitle("Win!");
+		win.setTitle("Sieg!");
 		win.setGraphic(new ImageView(flag));
-		win.setHeaderText("Congratulations!");
-		win.setContentText("You found all the bombs in " + fmtt.format(View.minutesPassedObj.get()) + ":"
-				+ fmt.format(View.secondsPassedObj.get()) + " minutes.");
+		win.setHeaderText("Gratulation!");
+		win.setContentText("Du hast alle Bomben in " + fmtt.format(View.minutesPassedObj.get()) + ":"
+				+ fmt.format(View.secondsPassedObj.get()) + " Minuten gefunden.");
 		win.showAndWait();
 		Model.reload();
 	}

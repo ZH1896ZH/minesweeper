@@ -38,16 +38,12 @@ public class Model {
 		View.timer.cancel();
 		View.timer = new Timer();
 		View.timer.schedule(task, 1000, 1000);
-		View.root.getChildren().remove(2);// remove 1 wenn MenuBar nicht da wäre
+		View.root.getChildren().remove(2);// grid --> third element in root!
 		View.root.getChildren().add(createContent());
 		View.stage.sizeToScene();
 	}
 
 	protected static Pane createContent() {
-		// Reset these in case of a new game
-		View.numBombs = 0;
-		View.foundBombs = 0;
-
 		// das hat gefehlt --> darum NullPointerException!!
 		View.grid = new StackButton[View.gridSize][View.gridSize];
 

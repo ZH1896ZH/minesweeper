@@ -31,7 +31,6 @@ public class View {
 	protected static SimpleIntegerProperty secondsPassedObj;
 	protected static SimpleIntegerProperty minutesPassedObj;
 	protected static int bombPercent = 10;
-	protected static int numBombs, foundBombs;
 
 	// view-elements
 	protected static VBox root = new VBox();
