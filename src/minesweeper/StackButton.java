@@ -63,6 +63,7 @@ public class StackButton extends StackPane {
 		this.setTranslateY(y * prefSize);
 	}
 
+	//Möglichkeit auch mit Tastatur zu spielen
 	private void onPressed(KeyEvent e) {
 		if (e.getCode() == KeyCode.ENTER) {
 			if (!flagged) {
@@ -153,7 +154,7 @@ public class StackButton extends StackPane {
 			}
 		}
 	}
-
+	//wenn ein Feld angeklickt wird, welches keine Bombe als Nachbar hat!
 	private void blankClick(StackButton stackButton) {
 
 		for (int i = 0; i < stackButton.neighbours.size(); i++) {
@@ -172,10 +173,7 @@ public class StackButton extends StackPane {
 		return;
 	}
 
-	/**
-	 * Runs when a player left clicks a bomb. Reveals all bomb tiles and displays
-	 * message. Calls to reload the game.
-	 */
+	//Wird ausgeführt wenn Spieler ein Bombe anklickt, alle Felder werden aufgedeckt, Alert anzeigen, reload() aufrufen
 	public void gameOver() {
 		if (View.sound) {
 			AudioClip explosion = new AudioClip(getClass().getResource("/resources/explosion.wav").toString());
@@ -202,11 +200,8 @@ public class StackButton extends StackPane {
 
 	}
 
-	/**
-	 * Player win. Displays message. Calls to reload the game.
-	 */
-	public void win() {// auch gewinnen wenn nicht alle bomben markiert sind aber alle anderen felder
-						// offen
+	//Spieler hat gewonnen-> Alert anzeigen -> reload() aufrufen
+	public void win() {
 
 		DecimalFormat fmt = new DecimalFormat("00");
 		DecimalFormat fmtt = new DecimalFormat("#0");

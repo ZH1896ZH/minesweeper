@@ -38,17 +38,16 @@ public class View {
 
 	protected MenuBar menuBar;
 	protected Menu fileMenu, sizeMenu, difficultyMenu, soundMenu;
-	protected MenuItem aboutItem, helpItem, quitItem, smallSizeItem, mediumSizeItem, largeSizeItem, easyItem,
-			normalItem, hardItem;
+	protected MenuItem aboutItem, helpItem, quitItem, smallSizeItem, mediumSizeItem, largeSizeItem, easyItem, normalItem, hardItem;
 	protected RadioMenuItem soundOnItem, soundOffItem;
-
-	protected static StackButton[][] grid;
-	protected static int gridSize = 10;
-	protected static Image mine = new Image("resources/mine.png");
 
 	protected GridPane infoBar = new GridPane();
 	protected Label timeLabel, timeField;
 	protected TextField bombsFoundField, bombsLeftField;
+	
+	protected static StackButton[][] grid;
+	protected static int gridSize = 10;
+	protected static Image mine = new Image("resources/mine.png");
 
 	protected View(Stage primaryStage, Model model) {
 		View.stage = primaryStage;
@@ -66,9 +65,9 @@ public class View {
 		smallSizeItem = new MenuItem("Klein (10x10)");
 		mediumSizeItem = new MenuItem("Mittel (15x15)");
 		largeSizeItem = new MenuItem("Gross (20x20)");
-		easyItem = new MenuItem("Einfach (10% Bombs)");
-		normalItem = new MenuItem("Normal (15% Bombs)");
-		hardItem = new MenuItem("Schwer (20% Bombs)");
+		easyItem = new MenuItem("Einfach (10% Bomben)");
+		normalItem = new MenuItem("Normal (15% Bomben)");
+		hardItem = new MenuItem("Schwer (20% Bomben)");
 		soundOnItem = new RadioMenuItem("On");
 		soundOffItem = new RadioMenuItem("Off");
 
@@ -125,6 +124,7 @@ public class View {
 		stage.show();
 	}
 
+	// für closerequest in controller nötig
 	protected Stage getStage() {
 		return stage;
 	}
