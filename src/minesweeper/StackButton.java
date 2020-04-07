@@ -46,9 +46,9 @@ public class StackButton extends StackPane {
 			onClick(e);
 		});
 
-//		btn.setOnKeyPressed(e -> {
-//			onPressed(e);
-//		});
+		btn.setOnKeyPressed(e -> {
+			onPressed(e);
+		});
 		btn.setOnMouseEntered(e -> {
 			btn.getStyleClass().add("hasMouse");
 
@@ -84,7 +84,7 @@ public class StackButton extends StackPane {
 				}
 			}
 
-		} else if(e.getCode() == KeyCode.SHIFT) {
+		} else if (e.getCode() == KeyCode.SHIFT) {
 			if (!flagged) {
 				flagged = true;
 				btn.setGraphic(new ImageView(flag));
