@@ -22,7 +22,6 @@ public class StackButton extends StackPane {
 	protected int x, y = 0;
 	protected boolean hasBomb;
 	protected int numBombs = 0;
-	protected int foundBombs = 0;
 	protected Color color = null;
 	protected boolean flagged = false;
 	protected ArrayList<StackButton> neighbours = new ArrayList<StackButton>();
@@ -37,7 +36,7 @@ public class StackButton extends StackPane {
 		this.hasBomb = hasBomb;
 
 		if (hasBomb) {
-			numBombs++;
+			View.numBombs++;
 		}
 
 		btn.setMinHeight(prefSize);
@@ -47,9 +46,9 @@ public class StackButton extends StackPane {
 			onClick(e);
 		});
 
-		btn.setOnKeyPressed(e -> {
-			onPressed(e);
-		});
+//		btn.setOnKeyPressed(e -> {
+//			onPressed(e);
+//		});
 		btn.setOnMouseEntered(e -> {
 			btn.getStyleClass().add("hasMouse");
 
@@ -90,14 +89,14 @@ public class StackButton extends StackPane {
 				flagged = true;
 				btn.setGraphic(new ImageView(flag));
 				if (this.hasBomb) {
-					foundBombs++;
-					if (foundBombs == numBombs) {
+					View.foundBombs++;
+					if (View.foundBombs == View.numBombs) {
 						win();
 					}
 				}
 			} else {
 				if (hasBomb) {
-					foundBombs--;
+					View.foundBombs--;
 				}
 				btn.setGraphic(null);
 				flagged = false;
@@ -140,14 +139,14 @@ public class StackButton extends StackPane {
 				flagged = true;
 				btn.setGraphic(new ImageView(flag));
 				if (this.hasBomb) {
-					foundBombs++;
-					if (foundBombs == numBombs) {
+					View.foundBombs++;
+					if (View.foundBombs == View.numBombs) {
 						win();
 					}
 				}
 			} else {
 				if (hasBomb) {
-					foundBombs--;
+					View.foundBombs--;
 				}
 				btn.setGraphic(null);
 				flagged = false;
@@ -211,7 +210,7 @@ public class StackButton extends StackPane {
 
 		DecimalFormat fmt = new DecimalFormat("00");
 		DecimalFormat fmtt = new DecimalFormat("#0");
-
+		View.timer.cancel();
 		if (View.sound) {
 			AudioClip winSound = new AudioClip(getClass().getResource("/resources/win.wav").toString());
 			winSound.play();

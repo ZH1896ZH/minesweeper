@@ -44,6 +44,10 @@ public class Model {
 	}
 
 	protected static Pane createContent() {
+		
+		View.numBombs = 0;
+		View.foundBombs = 0;
+		
 		// das hat gefehlt --> darum NullPointerException!!
 		View.grid = new StackButton[View.gridSize][View.gridSize];
 
