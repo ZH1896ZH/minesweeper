@@ -3,6 +3,7 @@ package minesweeper;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -211,6 +212,7 @@ public class StackButton extends StackPane {
 			winSound.play();
 		}
 		Alert win = new Alert(AlertType.CONFIRMATION);
+		win.getButtonTypes().remove(ButtonType.CANCEL); //Button "Abbrechen" braucht es nicht
 		win.setTitle("Sieg!");
 		win.setGraphic(new ImageView(flag));
 		win.setHeaderText("Gratulation!");
