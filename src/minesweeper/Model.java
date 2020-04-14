@@ -48,22 +48,20 @@ public class Model {
 		View.numBombs = 0;
 		View.foundBombs = 0;
 		
-		// das hat gefehlt --> darum NullPointerException!!
 		View.grid = new StackButton[View.gridSize][View.gridSize];
 
 		Pane pane = new Pane();
 		pane.setPrefSize(View.gridSize * StackButton.prefSize, View.gridSize * StackButton.prefSize);
 
-		// fill the grid with StackButtons
+		// add StackButtons to Grid
 		for (int x = 0; x < View.gridSize; x++) {
 			for (int y = 0; y < View.gridSize; y++) {
-		// boolean hasBomb -> random number (0.0 - 1) lower than bombPercent
+		// boolean hasBomb -> random number (0.0 - 1) lover than bombpercent = True (Bombe)
 				StackButton stackButton = new StackButton(y, x, Math.random() < (double) View.bombPercent / 100);
 				View.grid[y][x] = stackButton;
 				pane.getChildren().add(stackButton);
 			}
-		}
-//		
+		}	
 	
 
 		// count the number of bombs and set the values and colors

@@ -63,7 +63,7 @@ public class StackButton extends StackPane {
 		this.setTranslateY(y * prefSize);
 	}
 
-	//Möglichkeit auch mit Tastatur zu spielen
+	//Keyboard control
 	private void onPressed(KeyEvent e) {
 		if (e.getCode() == KeyCode.ENTER) {
 			if (!flagged) {
@@ -154,7 +154,7 @@ public class StackButton extends StackPane {
 			}
 		}
 	}
-	//wenn ein Feld angeklickt wird, welches keine Bombe als Nachbar hat!
+	//open all StackButton until there is a Bomb near
 	private void blankClick(StackButton stackButton) {
 
 		for (int i = 0; i < stackButton.neighbours.size(); i++) {
@@ -173,7 +173,7 @@ public class StackButton extends StackPane {
 		return;
 	}
 
-	//Wird ausgeführt wenn Spieler ein Bombe anklickt, alle Felder werden aufgedeckt, Alert anzeigen, reload() aufrufen
+	//game over player clicked on a bomb
 	public void gameOver() {
 		if (View.sound) {
 			AudioClip explosion = new AudioClip(getClass().getResource("/resources/explosion.wav").toString());
@@ -200,7 +200,7 @@ public class StackButton extends StackPane {
 
 	}
 
-	//Spieler hat gewonnen-> Alert anzeigen -> reload() aufrufen
+	//Win player found all bombs
 	public void win() {
 
 		DecimalFormat fmt = new DecimalFormat("00");
