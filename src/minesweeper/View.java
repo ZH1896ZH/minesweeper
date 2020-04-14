@@ -32,7 +32,8 @@ public class View {
 	protected static SimpleIntegerProperty secondsPassedObj;
 	protected static SimpleIntegerProperty minutesPassedObj;
 	protected static int bombPercent = 10;
-	protected static int numBombs, foundBombs;
+	protected static int numBombs = 0;
+	protected static int foundBombs = 0;
 
 	// view-elements
 	protected static VBox root = new VBox();
@@ -91,6 +92,7 @@ public class View {
 
 		infoBar.add(timeLabel, 0, 0);
 		infoBar.add(timeField, 1, 0);
+		infoBar.add(new Label(Integer.toString(View.numBombs)), 1, 1);//remove bevor abgabe test
 		infoBar.setId("infoBar");
 
 		// MenuBar, InfoBar, Grid add to root (VBox)

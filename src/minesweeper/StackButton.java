@@ -76,7 +76,7 @@ public class StackButton extends StackPane {
 					gameOver();
 				} else {
 					// Blank
-					if (this.numBombs == 0) {
+					if (numBombs == 0) {
 						blankClick(this);
 					} else {
 						btn.setText(Integer.toString(numBombs));
