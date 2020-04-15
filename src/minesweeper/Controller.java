@@ -138,7 +138,7 @@ public class Controller {
 			});
 
 		});
-
+		//listener for timer
 		view.getSecondsPassedProperty().addListener((observable, oldValue, newValue) -> {
 			DecimalFormat fmtt = new DecimalFormat("#0");
 			DecimalFormat fmt = new DecimalFormat("00");

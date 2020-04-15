@@ -27,11 +27,13 @@ public class View {
 	protected static boolean sound = true;
 	protected static Timer timer;
 	protected TimerTask task;
-
+	
+	//Timer Objects
 	protected static SimpleIntegerProperty secondsPassedObj;
 	protected static SimpleIntegerProperty minutesPassedObj;
 	protected static int bombPercent = 10;
-	protected static int numBombs, foundBombs;
+	protected static int numBombs = 0;
+	protected static int foundBombs = 0;
 
 	// view-elements
 	protected static VBox root = new VBox();
@@ -90,22 +92,24 @@ public class View {
 
 		infoBar.add(timeLabel, 0, 0);
 		infoBar.add(timeField, 1, 0);
+		infoBar.add(new Label(Integer.toString(View.numBombs)), 1, 1);//remove bevor abgabe test
 		infoBar.setId("infoBar");
 
-		// MenuBar, InfoBar, Grid werden der VBox(root) hinzugefügt
+		// MenuBar, InfoBar, Grid add to root (VBox)
 		root.getChildren().addAll(menuBar, infoBar, Model.createContent());// infoBar ev neu gestalten
 
-		// Szene instanziieren und an Stage weitergeben
+		//Scene to Stage
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/resources/minesweeper.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.centerOnScreen();
 		primaryStage.sizeToScene();
-		primaryStage.resizableProperty().setValue(Boolean.FALSE);// kann man nicht maximimieren
+		primaryStage.resizableProperty().setValue(Boolean.FALSE);//verhindert Maximierung des Fensters
 		primaryStage.setTitle("MineSweeper");
 		primaryStage.getIcons().add(mine);
 	}
-
+	
+	//Timer
 	protected void start() {
 		TimerTask task = new TimerTask() {
 			@Override
@@ -124,15 +128,15 @@ public class View {
 		stage.show();
 	}
 
-	// für closerequest in controller nötig
+	// for CloseRequest methode
 	protected Stage getStage() {
 		return stage;
 	}
-
+	//for timer
 	public SimpleIntegerProperty getSecondsPassedProperty() {
 		return secondsPassedObj;
 	}
-	
+	//for timer
 	public SimpleIntegerProperty getMinutesPassedProperty() {
 		return minutesPassedObj;
 	}
