@@ -186,7 +186,7 @@ public class StackButton extends StackPane {
 								"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazierst");
 						test.showAndWait();
 					}
-
+//
 					btn.setGraphic(new ImageView(flag));
 					if (this.hasBomb) {
 						View.foundBombs++;
