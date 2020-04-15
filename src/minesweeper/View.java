@@ -19,23 +19,24 @@ import javafx.stage.Stage;
 
 public class View {
 
-	// MVC-branch
+	//MVC Branch
 	protected static Stage stage;
 	protected Model model;
 
-	// game elements
+	//Game Elements
 	protected static boolean sound = true;
-	protected static Timer timer;
-	protected TimerTask task;
-	
-	//Timer Objects
-	protected static SimpleIntegerProperty secondsPassedObj;
-	protected static SimpleIntegerProperty minutesPassedObj;
 	protected static int bombPercent = 10;
 	protected static int numBombs = 0;
 	protected static int foundBombs = 0;
+	
+	//Timer Elements
+	protected static Timer timer;
+	protected TimerTask task;
+	protected static SimpleIntegerProperty secondsPassedObj;
+	protected static SimpleIntegerProperty minutesPassedObj;
 
-	// view-elements
+
+	//View Elements
 	protected static VBox root = new VBox();
 
 	protected MenuBar menuBar;
@@ -55,7 +56,7 @@ public class View {
 		View.stage = primaryStage;
 		this.model = model;
 
-		// Menu-Instanziierung
+		//MenuBar
 		menuBar = new MenuBar();
 		fileMenu = new Menu("Datei");
 		sizeMenu = new Menu("Grösse");
@@ -84,7 +85,7 @@ public class View {
 
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
 		
-		// infoBar instanziierung
+		//InfoBar
 		timeLabel = new Label("Time: ");
 		timeField = new Label();
 		secondsPassedObj = new SimpleIntegerProperty();
@@ -95,16 +96,16 @@ public class View {
 		infoBar.add(new Label(Integer.toString(View.numBombs)), 1, 1);//remove bevor abgabe test
 		infoBar.setId("infoBar");
 
-		// MenuBar, InfoBar, Grid add to root (VBox)
+		//MenuBar, InfoBar, Grid add to root (VBox)
 		root.getChildren().addAll(menuBar, infoBar, Model.createContent());// infoBar ev neu gestalten
 
-		//Scene to Stage
+		//ScenetoStage
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/resources/minesweeper.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.centerOnScreen();
 		primaryStage.sizeToScene();
-		primaryStage.resizableProperty().setValue(Boolean.FALSE);//verhindert Maximierung des Fensters
+		primaryStage.resizableProperty().setValue(Boolean.FALSE);//no maximizing allowed
 		primaryStage.setTitle("MineSweeper");
 		primaryStage.getIcons().add(mine);
 	}
@@ -128,7 +129,7 @@ public class View {
 		stage.show();
 	}
 
-	// for CloseRequest methode
+	//for CloseRequest Method
 	protected Stage getStage() {
 		return stage;
 	}

@@ -174,7 +174,7 @@ public class StackButton extends StackPane {
 		return;
 	}
 
-	//game over player clicked on a bomb
+	//if the player clicked on a bomb
 	public void gameOver() {
 		if (View.sound) {
 			AudioClip explosion = new AudioClip(getClass().getResource("/resources/explosion.wav").toString());
@@ -201,7 +201,7 @@ public class StackButton extends StackPane {
 
 	}
 
-	//Win player found all bombs
+	//if the player found all bombs
 	public void win() {
 
 		DecimalFormat fmt = new DecimalFormat("00");
@@ -212,7 +212,7 @@ public class StackButton extends StackPane {
 			winSound.play();
 		}
 		Alert win = new Alert(AlertType.CONFIRMATION);
-		win.getButtonTypes().remove(ButtonType.CANCEL); //Button "Abbrechen" braucht es nicht
+		win.getButtonTypes().remove(ButtonType.CANCEL); //Button "Abbrechen" is not needed
 		win.setTitle("Sieg!");
 		win.setGraphic(new ImageView(flag));
 		win.setHeaderText("Gratulation!");
