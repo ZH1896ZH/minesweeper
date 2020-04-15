@@ -19,6 +19,8 @@ public class Model {
 	}
 
 	protected static void reload() {
+		//set numflag to 0
+		StackButton.numflag = 0;
 
 		View.grid = new StackButton[View.gridSize][View.gridSize];
 
@@ -45,6 +47,7 @@ public class Model {
 
 	protected static Pane createContent() {
 		
+		StackButton.numflag = 0;
 		View.numBombs = 0;
 		View.foundBombs = 0;
 		

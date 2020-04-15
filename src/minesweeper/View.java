@@ -92,7 +92,6 @@ public class View {
 
 		infoBar.add(timeLabel, 0, 0);
 		infoBar.add(timeField, 1, 0);
-		infoBar.add(new Label(Integer.toString(View.numBombs)), 1, 1);//remove bevor abgabe test
 		infoBar.setId("infoBar");
 
 		// MenuBar, InfoBar, Grid add to root (VBox)

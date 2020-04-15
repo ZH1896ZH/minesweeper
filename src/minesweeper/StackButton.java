@@ -28,6 +28,9 @@ public class StackButton extends StackPane {
 	protected boolean active = true;
 	protected static final int prefSize = 40;
 
+	protected static int numflag = 0;
+	protected static int maxflag;
+
 	protected Image flag = new Image("/resources/flag.png");
 
 	protected StackButton(int x, int y, boolean hasBomb) {
@@ -37,6 +40,7 @@ public class StackButton extends StackPane {
 
 		if (hasBomb) {
 			View.numBombs++;
+			maxflag = View.numBombs;
 		}
 
 		btn.setMinHeight(prefSize);
@@ -63,7 +67,7 @@ public class StackButton extends StackPane {
 		this.setTranslateY(y * prefSize);
 	}
 
-	//Keyboard control
+	// Keyboard control
 	private void onPressed(KeyEvent e) {
 		if (e.getCode() == KeyCode.ENTER) {
 			if (!flagged) {
@@ -86,21 +90,52 @@ public class StackButton extends StackPane {
 			}
 
 		} else if (e.getCode() == KeyCode.SHIFT) {
-			if (!flagged) {
-				flagged = true;
-				btn.setGraphic(new ImageView(flag));
-				if (this.hasBomb) {
-					View.foundBombs++;
-					if (View.foundBombs == View.numBombs) {
-						win();
+			if (numflag < maxflag) {
+				if (!flagged) {
+					flagged = true;
+					if (numflag < maxflag) {
+						numflag++;
+					} else {
+						Alert test = new Alert(AlertType.INFORMATION);
+						test.setTitle("Flaggen Anzahl");
+						test.setGraphic(new ImageView(flag));
+						test.setHeaderText("Zu viele Flaggen");
+						test.setContentText(
+								"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazierst");
+						test.showAndWait();
 					}
+					btn.setGraphic(new ImageView(flag));
+					if (this.hasBomb) {
+						View.foundBombs++;
+						if (View.foundBombs == View.numBombs) {
+							win();
+						}
+					}
+				} else {
+					if (hasBomb) {
+						View.foundBombs--;
+					}
+					btn.setGraphic(null);
+					flagged = false;
+					numflag--;
 				}
 			} else {
-				if (hasBomb) {
-					View.foundBombs--;
+				if (flagged) {
+					if (hasBomb) {
+						View.foundBombs--;
+					}
+					btn.setGraphic(null);
+					flagged = false;
+					numflag--;
+				} else {
+					Alert test = new Alert(AlertType.INFORMATION);
+					test.setTitle("Flaggen Anzahl");
+					test.setGraphic(new ImageView(flag));
+					test.setHeaderText("Zu viele Flaggen");
+					test.setContentText(
+							"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazierst");
+					test.showAndWait();
 				}
-				btn.setGraphic(null);
-				flagged = false;
 			}
 		}
 
@@ -136,25 +171,60 @@ public class StackButton extends StackPane {
 		}
 		// Right Click
 		else {
-			if (!flagged) {
-				flagged = true;
-				btn.setGraphic(new ImageView(flag));
-				if (this.hasBomb) {
-					View.foundBombs++;
-					if (View.foundBombs == View.numBombs) {
-						win();
+			if (numflag < maxflag) {
+				if (!flagged) {
+					flagged = true;
+
+					if (numflag < maxflag) {
+						numflag++;
+					} else {
+						Alert test = new Alert(AlertType.INFORMATION);
+						test.setTitle("Flaggen Anzahl");
+						test.setGraphic(new ImageView(flag));
+						test.setHeaderText("Zu viele Flaggen");
+						test.setContentText(
+								"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazierst");
+						test.showAndWait();
 					}
+
+					btn.setGraphic(new ImageView(flag));
+					if (this.hasBomb) {
+						View.foundBombs++;
+						if (View.foundBombs == View.numBombs) {
+							win();
+						}
+					}
+				} else {
+					if (hasBomb) {
+						View.foundBombs--;
+					}
+					btn.setGraphic(null);
+					flagged = false;
+					numflag--;
 				}
 			} else {
-				if (hasBomb) {
-					View.foundBombs--;
+				if (flagged) {
+					if (hasBomb) {
+						View.foundBombs--;
+					}
+					btn.setGraphic(null);
+					flagged = false;
+					numflag--;
+				} else {
+					Alert test = new Alert(AlertType.INFORMATION);
+					test.setTitle("Flaggen Anzahl");
+					test.setGraphic(new ImageView(flag));
+					test.setHeaderText("Zu viele Flaggen");
+					test.setContentText(
+							"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazierst");
+					test.showAndWait();
 				}
-				btn.setGraphic(null);
-				flagged = false;
 			}
+
 		}
 	}
-	//open all StackButton until there is a Bomb near
+
+	// open all StackButton until there is a Bomb near
 	private void blankClick(StackButton stackButton) {
 
 		for (int i = 0; i < stackButton.neighbours.size(); i++) {
@@ -173,7 +243,7 @@ public class StackButton extends StackPane {
 		return;
 	}
 
-	//game over player clicked on a bomb
+	// game over player clicked on a bomb
 	public void gameOver() {
 		if (View.sound) {
 			AudioClip explosion = new AudioClip(getClass().getResource("/resources/explosion.wav").toString());
@@ -200,7 +270,7 @@ public class StackButton extends StackPane {
 
 	}
 
-	//Win player found all bombs
+	// Win player found all bombs
 	public void win() {
 
 		DecimalFormat fmt = new DecimalFormat("00");
