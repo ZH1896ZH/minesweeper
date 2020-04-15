@@ -18,6 +18,7 @@ public class Model {
 		this.primaryStage = primaryStage;
 	}
 
+	//Create A New Game Area
 	protected static void reload() {
 		//set numflag to 0
 		StackButton.numflag = 0;
@@ -65,15 +66,16 @@ public class Model {
 				pane.getChildren().add(stackButton);
 			}
 		}	
-	
 
-		// count the number of bombs and set the values and colors
-		// add the value under the buttons and the color
+		/*
+		 * Count the Number of Bombs and set the Values and Colors
+		 * add the value under the buttons and the color
+		 */
 		for (int x = 0; x < View.gridSize; x++) {
 			for (int y = 0; y < View.gridSize; y++) {
 
 				int bombNeighbors = 0;
-				// get the neighbors of a given stackButton and put them in a list
+				// get the neighbors the given stackButton and put them in a list
 				ArrayList<StackButton> neighbors = new ArrayList<StackButton>();
 				/**
 				 * get the difference of the x, y values of the neighbors to the x, y values of
@@ -90,7 +92,7 @@ public class Model {
 					int newX = x + differenceX;
 					int newY = y + differenceY;
 
-					// check if x, y values are inside grid --> isValidCoordinate
+					//check if x, y values are inside grid --> addToNeighboursList
 					if (newX >= 0 && newX < View.gridSize) {
 						if (newY >= 0 && newY < View.gridSize) {
 							neighbors.add(View.grid[newY][newX]);
@@ -107,6 +109,7 @@ public class Model {
 				Color[] colors = { null, Color.BLUE, Color.GREEN, Color.RED, Color.DARKBLUE, Color.DARKRED, Color.CYAN,
 						Color.BLACK, Color.DARKGRAY };
 
+				//
 				View.grid[y][x].color = colors[View.grid[y][x].numBombs];
 			}
 		}
