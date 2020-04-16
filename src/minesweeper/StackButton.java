@@ -67,66 +67,18 @@ public class StackButton extends StackPane {
 
 	//Keyboard Control
 	private void onPressed(KeyEvent e) {
+		//Enter Key
 		if (e.getCode() == KeyCode.ENTER) {
-			if (!flagged) {
+			openStackButton();
 
-				btn.setBackground(null);
-				btn.setDisable(true);
-				active = false;
-
-				if (hasBomb) {
-					gameOver();
-				} else {
-					// Blank
-					if (numBombs == 0) {
-						blankClick(this);
-					} else {
-						btn.setText(Integer.toString(numBombs));
-						btn.setTextFill(color);
-					}
-				}
-			}
-
+		//Shift Key
 		} else if (e.getCode() == KeyCode.SHIFT) {
-			if (numflag < maxflag) {
-				if (!flagged) {
-					flagged = true;
-					if (numflag < maxflag) {
-						numflag++;
-					} else {
-						showFlagAlert();
-					}
-					btn.setGraphic(new ImageView(flag));
-					if (this.hasBomb) {
-						View.foundBombs++;
-						if (View.foundBombs == View.numBombs) {
-							win();
-						}
-					}
-				} else {
-					if (hasBomb) {
-						View.foundBombs--;
-					}
-					btn.setGraphic(null);
-					flagged = false;
-					numflag--;
-				}
-			} else {
-				if (flagged) {
-					if (hasBomb) {
-						View.foundBombs--;
-					}
-					btn.setGraphic(null);
-					flagged = false;
-					numflag--;
-				} else {
-					showFlagAlert();
-
-				}
-			}
+			flagStackButton();
 		}
 
 	}
+
+
 
 
 	protected void onClick(MouseEvent e) {
@@ -138,70 +90,11 @@ public class StackButton extends StackPane {
 
 		//Left Click
 		if (e.getButton() == MouseButton.PRIMARY) {
-			if (!flagged) {
-
-				btn.setBackground(null);
-				btn.setDisable(true);
-				active = false;
-
-				if (hasBomb) {
-					gameOver();
-				} else {
-					// Blank
-					if (this.numBombs == 0) {
-						blankClick(this);
-					} else {
-						btn.setText(Integer.toString(numBombs));
-						btn.setTextFill(color);
-					}
-				}
-			}
+			openStackButton();
 		}
 		//Right Click
 		else {
-			if (numflag < maxflag) {
-				if (!flagged) {
-					flagged = true;
-
-					if (numflag < maxflag) {
-						numflag++;
-					} else {
-						Alert test = new Alert(AlertType.INFORMATION);
-						test.setTitle("Flaggen Anzahl");
-						test.setGraphic(new ImageView(flag));
-						test.setHeaderText("Zu viele Flaggen");
-						test.setContentText(
-								"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazieren kannst");
-						test.showAndWait();
-					}
-//
-					btn.setGraphic(new ImageView(flag));
-					if (this.hasBomb) {
-						View.foundBombs++;
-						if (View.foundBombs == View.numBombs) {
-							win();
-						}
-					}
-				} else {
-					if (hasBomb) {
-						View.foundBombs--;
-					}
-					btn.setGraphic(null);
-					flagged = false;
-					numflag--;
-				}
-			} else {
-				if (flagged) {
-					if (hasBomb) {
-						View.foundBombs--;
-					}
-					btn.setGraphic(null);
-					flagged = false;
-					numflag--;
-				} else {
-					showFlagAlert();
-				}
-			}
+			flagStackButton();
 
 		}
 	}
@@ -226,53 +119,7 @@ public class StackButton extends StackPane {
 	}
 
 
-	//player clicked on a bomb
-	public void gameOver() {
-		if (View.sound) {
-			AudioClip explosion = new AudioClip(getClass().getResource("/resources/explosion.wav").toString());
-			explosion.play();
-		}
-		for (int y = 0; y < View.gridSize; y++) {
-			for (int x = 0; x < View.gridSize; x++) {
-				if (View.grid[x][y].hasBomb) {
-					View.grid[x][y].btn.setGraphic(new ImageView(View.mine));
-					View.grid[x][y].btn.setDisable(true);
-				}
-			}
-		}
-		View.timer.cancel();
-		Alert gameOver = new Alert(AlertType.INFORMATION);
-		gameOver.setTitle("Niederlage!");
-		gameOver.setGraphic(new ImageView(View.mine));
-		gameOver.setHeaderText("Bomben sind explodiert!");
-		gameOver.setContentText(
-				"Du hast auf eine Bombe geklickt und alle Bomben sind explodiert! Viel Glück beim nächsten Mal.");
-		gameOver.showAndWait();
-
-		Model.reload();
-
-	}
-
-	//if the player found all bombs
-	public void win() {
-
-		DecimalFormat fmt = new DecimalFormat("00");
-		DecimalFormat fmtt = new DecimalFormat("#0");
-		View.timer.cancel();
-		if (View.sound) {
-			AudioClip winSound = new AudioClip(getClass().getResource("/resources/win.wav").toString());
-			winSound.play();
-		}
-		Alert win = new Alert(AlertType.CONFIRMATION);
-		win.getButtonTypes().remove(ButtonType.CANCEL); //Button "Abbrechen" is not needed
-		win.setTitle("Sieg!");
-		win.setGraphic(new ImageView(flag));
-		win.setHeaderText("Gratulation!");
-		win.setContentText("Du hast alle Bomben in " + fmtt.format(View.minutesPassedObj.get()) + ":"
-				+ fmt.format(View.secondsPassedObj.get()) + " Minuten gefunden.");
-		win.showAndWait();
-		Model.reload();
-	}
+	
 	
 	//Information gets displayed when all Flags are used, but there are still unflagged Bombs
 	private void showFlagAlert() {
@@ -284,5 +131,118 @@ public class StackButton extends StackPane {
 				"Du hast zu viele Flaggen platziert, du musst zuerst eine entfernen bevor du wieder eine platzieren kannst");
 		test.showAndWait();
 	}
+	
+	private void openStackButton() {
+		if (!flagged) {
+
+			btn.setBackground(null);
+			btn.setDisable(true);
+			active = false;
+
+			if (hasBomb) {
+				gameOver();
+			} else {
+				// Blank
+				if (numBombs == 0) {
+					blankClick(this);
+				} else {
+					btn.setText(Integer.toString(numBombs));
+					btn.setTextFill(color);
+				}
+			}
+		}
+	}
+	private void flagStackButton() {
+		if (numflag < maxflag) {
+			if (!flagged) {
+				flagged = true;
+
+				if (numflag < maxflag) {
+					numflag++;
+				} else {
+					Alert test = new Alert(AlertType.INFORMATION);
+					test.setTitle("Flaggen Anzahl");
+					test.setGraphic(new ImageView(flag));
+					test.setHeaderText("Zu viele Flaggen");
+					test.setContentText(
+							"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazieren kannst");
+					test.showAndWait();
+				}
+
+				btn.setGraphic(new ImageView(flag));
+				if (this.hasBomb) {
+					View.foundBombs++;
+					if (View.foundBombs == View.numBombs) {
+						win();
+					}
+				}
+			} else {
+				if (hasBomb) {
+					View.foundBombs--;
+				}
+				btn.setGraphic(null);
+				flagged = false;
+				numflag--;
+			}
+		} else {
+			if (flagged) {
+				if (hasBomb) {
+					View.foundBombs--;
+				}
+				btn.setGraphic(null);
+				flagged = false;
+				numflag--;
+			} else {
+				showFlagAlert();
+			}
+		}
+	}
+	//player clicked on a bomb
+		public void gameOver() {
+			if (View.sound) {
+				AudioClip explosion = new AudioClip(getClass().getResource("/resources/explosion.wav").toString());
+				explosion.play();
+			}
+			for (int y = 0; y < View.gridSize; y++) {
+				for (int x = 0; x < View.gridSize; x++) {
+					if (View.grid[x][y].hasBomb) {
+						View.grid[x][y].btn.setGraphic(new ImageView(View.mine));
+						View.grid[x][y].btn.setDisable(true);
+					}
+				}
+			}
+			View.timer.cancel();
+			Alert gameOver = new Alert(AlertType.INFORMATION);
+			gameOver.setTitle("Niederlage!");
+			gameOver.setGraphic(new ImageView(View.mine));
+			gameOver.setHeaderText("Bomben sind explodiert!");
+			gameOver.setContentText(
+					"Du hast auf eine Bombe geklickt und alle Bomben sind explodiert! Viel Glück beim nächsten Mal.");
+			gameOver.showAndWait();
+
+			Model.reload();
+
+		}
+
+		//if the player found all bombs
+		public void win() {
+
+			DecimalFormat fmt = new DecimalFormat("00");
+			DecimalFormat fmtt = new DecimalFormat("#0");
+			View.timer.cancel();
+			if (View.sound) {
+				AudioClip winSound = new AudioClip(getClass().getResource("/resources/win.wav").toString());
+				winSound.play();
+			}
+			Alert win = new Alert(AlertType.CONFIRMATION);
+			win.getButtonTypes().remove(ButtonType.CANCEL); //Button "Abbrechen" is not needed
+			win.setTitle("Sieg!");
+			win.setGraphic(new ImageView(flag));
+			win.setHeaderText("Gratulation!");
+			win.setContentText("Du hast alle Bomben in " + fmtt.format(View.minutesPassedObj.get()) + ":"
+					+ fmt.format(View.secondsPassedObj.get()) + " Minuten gefunden.");
+			win.showAndWait();
+			Model.reload();
+		}
 
 }
