@@ -127,16 +127,7 @@ public class StackButton extends StackPane {
 		}
 
 	}
-	//Information gets displayed when all Flags are used, but there are still unflagged Bombs
-	private void showFlagAlert() {
-		Alert test = new Alert(AlertType.INFORMATION);
-		test.setTitle("Flaggen Alarm");
-		test.setGraphic(new ImageView(flag));
-		test.setHeaderText("Maximale Anzahl Flaggen erreicht");
-		test.setContentText(
-				"Du hast zu viele Flaggen platziert, du musst zuerst eine entfernen bevor du wieder eine platzieren kannst");
-		test.showAndWait();
-	}
+
 
 	protected void onClick(MouseEvent e) {
 
@@ -208,13 +199,7 @@ public class StackButton extends StackPane {
 					flagged = false;
 					numflag--;
 				} else {
-					Alert test = new Alert(AlertType.INFORMATION);
-					test.setTitle("Flaggen Anzahl");
-					test.setGraphic(new ImageView(flag));
-					test.setHeaderText("Zu viele Flaggen");
-					test.setContentText(
-							"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazieren kannst");
-					test.showAndWait();
+					showFlagAlert();
 				}
 			}
 
@@ -287,6 +272,17 @@ public class StackButton extends StackPane {
 				+ fmt.format(View.secondsPassedObj.get()) + " Minuten gefunden.");
 		win.showAndWait();
 		Model.reload();
+	}
+	
+	//Information gets displayed when all Flags are used, but there are still unflagged Bombs
+	private void showFlagAlert() {
+		Alert test = new Alert(AlertType.INFORMATION);
+		test.setTitle("Flaggen Alarm");
+		test.setGraphic(new ImageView(flag));
+		test.setHeaderText("Maximale Anzahl Flaggen erreicht");
+		test.setContentText(
+				"Du hast zu viele Flaggen platziert, du musst zuerst eine entfernen bevor du wieder eine platzieren kannst");
+		test.showAndWait();
 	}
 
 }
