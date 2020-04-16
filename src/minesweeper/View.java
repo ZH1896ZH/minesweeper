@@ -49,7 +49,7 @@ public class View {
 	protected TextField bombsFoundField, bombsLeftField;
 	
 	protected static StackButton[][] grid;
-	protected static int gridSize = 10;
+	protected static int gridSize = 10; //Default Size 10x10
 	protected static Image mine = new Image("resources/mine.png");
 
 	protected View(Stage primaryStage, Model model) {
@@ -95,7 +95,7 @@ public class View {
 		infoBar.add(timeField, 1, 0);
 		infoBar.setId("infoBar");
 
-		//MenuBar, InfoBar, Grid add to root (VBox)
+		//Add MenuBar, InfoBar, Grid to root (VBox)
 		root.getChildren().addAll(menuBar, infoBar, Model.createContent());
 
 		//ScenetoStage
@@ -104,7 +104,7 @@ public class View {
 		primaryStage.setScene(scene);
 		primaryStage.centerOnScreen();
 		primaryStage.sizeToScene();
-		primaryStage.resizableProperty().setValue(Boolean.FALSE);//no maximizing allowed
+		primaryStage.resizableProperty().setValue(Boolean.FALSE); //No Maximizing allowed
 		primaryStage.setTitle("MineSweeper");
 		primaryStage.getIcons().add(mine);
 	}

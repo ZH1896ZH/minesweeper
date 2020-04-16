@@ -41,7 +41,7 @@ public class Model {
 		View.timer.cancel();
 		View.timer = new Timer();
 		View.timer.schedule(task, 1000, 1000);
-		View.root.getChildren().remove(2); //grid --> third element in root!
+		View.root.getChildren().remove(2); //Grid --> 3rd Element in Root!
 		View.root.getChildren().add(createContent());
 		View.stage.sizeToScene();
 	}
@@ -55,12 +55,11 @@ public class Model {
 		View.grid = new StackButton[View.gridSize][View.gridSize];
 
 		Pane pane = new Pane();
-		pane.setPrefSize(View.gridSize * StackButton.prefSize, View.gridSize * StackButton.prefSize);
+		pane.setPrefSize(View.gridSize * StackButton.sideLength, View.gridSize * StackButton.sideLength);
 
-		// add StackButtons to Grid
+		//Add StackButtons to Grid
 		for (int x = 0; x < View.gridSize; x++) {
 			for (int y = 0; y < View.gridSize; y++) {
-		// boolean hasBomb -> random number (0.0 - 1) lover than bombpercent = True (Bombe)
 				StackButton stackButton = new StackButton(y, x, Math.random() < (double) View.bombPercent / 100);
 				View.grid[y][x] = stackButton;
 				pane.getChildren().add(stackButton);
@@ -75,14 +74,14 @@ public class Model {
 			for (int y = 0; y < View.gridSize; y++) {
 
 				int bombNeighbors = 0;
-				// get the neighbors the given stackButton and put them in a list
+				//Get the Neighbors of the actual StackButton
 				ArrayList<StackButton> neighbors = new ArrayList<StackButton>();
 				/**
-				 * get the difference of the x, y values of the neighbors to the x, y values of
-				 * the given stackButton:
+				 * Get the difference of the x, y values of the neighbors to the x, y values of
+				 * the actual stackButton:
 				 *
 				 * (-1,-1)	(0,-1)	(1,-1) 
-				 * (-1,0)	(x)		(1,0) 
+				 * (-1,0)	(x)		(1,0) 		x == actual StackButton
 				 * (-1,1)	(0,1)	(1,1)
 				 */
 				int[] points = new int[] { -1, -1, -1, 0, -1, 1, 0, -1, 0, 1, 1, -1, 1, 0, 1, 1 };
@@ -92,7 +91,6 @@ public class Model {
 					int newX = x + differenceX;
 					int newY = y + differenceY;
 
-					//check if x, y values are inside grid --> addToNeighboursList
 					if (newX >= 0 && newX < View.gridSize) {
 						if (newY >= 0 && newY < View.gridSize) {
 							neighbors.add(View.grid[newY][newX]);
@@ -102,14 +100,13 @@ public class Model {
 						}
 					}
 				}
-
+				//Add the Informations to the actual StackButton
 				View.grid[y][x].numBombs = bombNeighbors;
 				View.grid[y][x].neighbours = neighbors;
 
 				Color[] colors = { null, Color.BLUE, Color.GREEN, Color.RED, Color.DARKBLUE, Color.DARKRED, Color.CYAN,
 						Color.BLACK, Color.DARKGRAY };
 
-				//
 				View.grid[y][x].color = colors[View.grid[y][x].numBombs];
 			}
 		}

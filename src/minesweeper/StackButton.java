@@ -21,14 +21,17 @@ public class StackButton extends StackPane {
 	protected Button btn = new Button();
 	protected int x, y = 0;
 	protected boolean hasBomb;
+	protected static final int sideLength = 40;
+	
 	protected int numBombs = 0;
-	protected Color color = null;
-	protected boolean flagged = false;
-	protected ArrayList<StackButton> neighbours = new ArrayList<StackButton>();
-	protected boolean active = true;
-	protected static final int prefSize = 40;
 	protected static int numflag = 0;
 	protected static int maxflag;
+	
+	protected Color color = null;
+	protected boolean flagged = false;
+	protected boolean active = true;
+	protected ArrayList<StackButton> neighbours = new ArrayList<StackButton>();
+	
 	protected Image flag = new Image("/resources/flag.png");
 
 	protected StackButton(int x, int y, boolean hasBomb) {
@@ -40,9 +43,9 @@ public class StackButton extends StackPane {
 			View.numBombs++;
 			maxflag = View.numBombs;
 		}
-
-		btn.setMinHeight(prefSize);
-		btn.setMinWidth(prefSize);
+		
+		btn.setMinHeight(sideLength);
+		btn.setMinWidth(sideLength);
 
 		btn.setOnMouseClicked(e -> {
 			onClick(e);
@@ -59,14 +62,15 @@ public class StackButton extends StackPane {
 			btn.getStyleClass().remove("hasMouse");
 		});
 
-		this.getChildren().addAll(btn);
-
-		this.setTranslateX(x * prefSize);
-		this.setTranslateY(y * prefSize);
+		this.getChildren().add(btn);
+		
+		this.setTranslateX(x * sideLength);
+		this.setTranslateY(y * sideLength);
 	}
 
 	//Keyboard Control
 	private void onPressed(KeyEvent e) {
+		
 		//Enter Key
 		if (e.getCode() == KeyCode.ENTER) {
 			openStackButton();
@@ -80,7 +84,7 @@ public class StackButton extends StackPane {
 
 
 
-
+	//Mouse Control
 	protected void onClick(MouseEvent e) {
 
 		if (View.sound) {
@@ -99,7 +103,8 @@ public class StackButton extends StackPane {
 		}
 	}
 
-	//open all StackButton until there is a Bomb near
+	
+	//Opens all the StackButtons around the actual Click until a Bomb isNeighbour
 	private void blankClick(StackButton stackButton) {
 
 		for (int i = 0; i < stackButton.neighbours.size(); i++) {
@@ -121,7 +126,7 @@ public class StackButton extends StackPane {
 
 	
 	
-	//Information gets displayed when all Flags are used, but there are still unflagged Bombs
+	//When all Flags are used, but there are still unflagged Bombs --> ALERT
 	private void showFlagAlert() {
 		Alert test = new Alert(AlertType.INFORMATION);
 		test.setTitle("Flaggen Alarm");
@@ -163,9 +168,9 @@ public class StackButton extends StackPane {
 					Alert test = new Alert(AlertType.INFORMATION);
 					test.setTitle("Flaggen Anzahl");
 					test.setGraphic(new ImageView(flag));
-					test.setHeaderText("Zu viele Flaggen");
+					test.setHeaderText("Zu viele Flaggen gesetzt");
 					test.setContentText(
-							"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazieren kannst");
+							"Zu viele Flaggen wurden platziert. Du musst erst eine Flagge entfernen, bevor du wieder eine setzen kannst!");
 					test.showAndWait();
 				}
 
@@ -197,7 +202,7 @@ public class StackButton extends StackPane {
 			}
 		}
 	}
-	//player clicked on a bomb
+	//Player clicked on a Bomb
 		public void gameOver() {
 			if (View.sound) {
 				AudioClip explosion = new AudioClip(getClass().getResource("/resources/explosion.wav").toString());
@@ -206,7 +211,7 @@ public class StackButton extends StackPane {
 			for (int y = 0; y < View.gridSize; y++) {
 				for (int x = 0; x < View.gridSize; x++) {
 					if (View.grid[x][y].hasBomb) {
-						View.grid[x][y].btn.setGraphic(new ImageView(View.mine));
+						View.grid[x][y].btn.setGraphic(new ImageView(View.mine)); //Display all Bombs
 						View.grid[x][y].btn.setDisable(true);
 					}
 				}
@@ -224,11 +229,11 @@ public class StackButton extends StackPane {
 
 		}
 
-		//if the player found all bombs
+		//Player flagged all Bombs
 		public void win() {
 
-			DecimalFormat fmt = new DecimalFormat("00");
-			DecimalFormat fmtt = new DecimalFormat("#0");
+			DecimalFormat secFormater = new DecimalFormat("00");
+			DecimalFormat minFormater = new DecimalFormat("#0");
 			View.timer.cancel();
 			if (View.sound) {
 				AudioClip winSound = new AudioClip(getClass().getResource("/resources/win.wav").toString());
@@ -239,9 +244,10 @@ public class StackButton extends StackPane {
 			win.setTitle("Sieg!");
 			win.setGraphic(new ImageView(flag));
 			win.setHeaderText("Gratulation!");
-			win.setContentText("Du hast alle Bomben in " + fmtt.format(View.minutesPassedObj.get()) + ":"
-					+ fmt.format(View.secondsPassedObj.get()) + " Minuten gefunden.");
+			win.setContentText("Du hast alle Bomben in " + minFormater.format(View.minutesPassedObj.get()) + ":"
+					+ secFormater.format(View.secondsPassedObj.get()) + " Minuten gefunden!");
 			win.showAndWait();
+			
 			Model.reload();
 		}
 

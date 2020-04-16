@@ -15,7 +15,7 @@ public class MVC extends Application {
 		view = new View(primaryStage, model);
 		controller = new Controller(model, view, primaryStage);
 		
-	//Start Method in View
+		//Start Method in View
 		view.start();
 	}
 	
