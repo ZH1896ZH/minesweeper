@@ -28,7 +28,7 @@ public class Controller {
 		// MenuBar ActionEvents
 		view.aboutItem.setOnAction(e -> {
 			Alert aboutAlert = new Alert(AlertType.INFORMATION,
-					"Erstellt von Robin Roth, Robin Weis \nand Luca Schädler\n\n" + "Version 1.1", ButtonType.CLOSE);
+					"Erstellt von Robin Roth, Robin Weis \nund Luca Schädler\n\n" + "Version 1.1", ButtonType.CLOSE);
 			aboutAlert.setTitle("Über");
 			aboutAlert.setHeaderText("Minesweeper");
 			aboutAlert.showAndWait();
