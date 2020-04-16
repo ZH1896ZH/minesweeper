@@ -68,7 +68,7 @@ public class StackButton extends StackPane {
 		this.setTranslateY(y * prefSize);
 	}
 
-	// Keyboard control
+	//Keyboard Control
 	private void onPressed(KeyEvent e) {
 		if (e.getCode() == KeyCode.ENTER) {
 			if (!flagged) {
@@ -97,13 +97,7 @@ public class StackButton extends StackPane {
 					if (numflag < maxflag) {
 						numflag++;
 					} else {
-						Alert test = new Alert(AlertType.INFORMATION);
-						test.setTitle("Flaggen Anzahl");
-						test.setGraphic(new ImageView(flag));
-						test.setHeaderText("Zu viele Flaggen");
-						test.setContentText(
-								"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazieren kannnst");
-						test.showAndWait();
+						showFlagAlert();
 					}
 					btn.setGraphic(new ImageView(flag));
 					if (this.hasBomb) {
@@ -129,27 +123,32 @@ public class StackButton extends StackPane {
 					flagged = false;
 					numflag--;
 				} else {
-					Alert test = new Alert(AlertType.INFORMATION);
-					test.setTitle("Flaggen Anzahl");
-					test.setGraphic(new ImageView(flag));
-					test.setHeaderText("Zu viele Flaggen");
-					test.setContentText(
-							"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazierren kannst");
-					test.showAndWait();
+					showFlagAlert();
+
 				}
 			}
 		}
 
 	}
+	//Information gets displayed, when not only Bombs flagged
+	private void showFlagAlert() {
+		Alert test = new Alert(AlertType.INFORMATION);
+		test.setTitle("Flaggen Anzahl");
+		test.setGraphic(new ImageView(flag));
+		test.setHeaderText("Zu viele Flaggen");
+		test.setContentText(
+				"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazierren kannst");
+		test.showAndWait();
+	}
 
 	protected void onClick(MouseEvent e) {
 
-		if (View.sound) { // when sound on
+		if (View.sound) {
 			AudioClip click = new AudioClip(getClass().getResource("/resources/click.wav").toString());
 			click.play();
 		}
 
-		// Left Click
+		//Left Click
 		if (e.getButton() == MouseButton.PRIMARY) {
 			if (!flagged) {
 
@@ -170,7 +169,7 @@ public class StackButton extends StackPane {
 				}
 			}
 		}
-		// Right Click
+		//Right Click
 		else {
 			if (numflag < maxflag) {
 				if (!flagged) {

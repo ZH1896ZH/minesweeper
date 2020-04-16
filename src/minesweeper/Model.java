@@ -20,7 +20,7 @@ public class Model {
 
 	//Create A New Game Area
 	protected static void reload() {
-		//set numflag to 0
+		
 		StackButton.numflag = 0;
 
 		View.grid = new StackButton[View.gridSize][View.gridSize];
@@ -79,11 +79,11 @@ public class Model {
 				ArrayList<StackButton> neighbors = new ArrayList<StackButton>();
 				/**
 				 * get the difference of the x, y values of the neighbors to the x, y values of
-				 * the given stackButton
+				 * the given stackButton:
 				 *
-				 * (-1,-1) (0,-1) (1,-1) 
-				 * (-1,0) (x) 	(1,0) 
-				 * (-1,1) (0,1) (1,1)
+				 * (-1,-1)	(0,-1)	(1,-1) 
+				 * (-1,0)	(x)		(1,0) 
+				 * (-1,1)	(0,1)	(1,1)
 				 */
 				int[] points = new int[] { -1, -1, -1, 0, -1, 1, 0, -1, 0, 1, 1, -1, 1, 0, 1, 1 };
 				for (int i = 0; i < points.length; i++) {

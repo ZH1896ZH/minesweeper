@@ -90,31 +90,25 @@ public class Controller {
 			View.sound = false;
 		});
 
-		// setOnCloseRequest
+		//setOnCloseRequest
 		this.view.getStage().setOnCloseRequest(e -> {
 			
-			// new stage
 			Stage newStage = new Stage();
 			VBox root = new VBox();
-
 			Button yesBtn = new Button("Ja");
 			Button noBtn = new Button("Nein");
-
 			HBox hbox = new HBox();
-
-			// fill stage
 			hbox.getChildren().addAll(yesBtn, noBtn);
 			root.getChildren().addAll(new Label("Bist du sicher, dass du Minesweeper beenden willst?"), hbox);
 
-			// layout
+			//Layout
 			hbox.setSpacing(20);
 			hbox.setMinHeight(40);
 			hbox.setAlignment(Pos.CENTER);
-			
 			root.setSpacing(5);
 			root.setAlignment(Pos.CENTER);
 	
-			// stage to scene
+			//Stage to scene
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/resources/closeRequest.css").toExternalForm());
 			newStage.setScene(scene);
@@ -122,7 +116,7 @@ public class Controller {
 			newStage.setTitle("Bestätigung");
 			newStage.show();
 
-			// Button action
+			//Button ActionEvents
 			yesBtn.setOnAction(event -> {
 				Platform.exit();
 				System.exit(0);
@@ -138,7 +132,7 @@ public class Controller {
 			});
 
 		});
-		//listener for timer
+		//Listener for Timer
 		view.getSecondsPassedProperty().addListener((observable, oldValue, newValue) -> {
 			DecimalFormat fmtt = new DecimalFormat("#0");
 			DecimalFormat fmt = new DecimalFormat("00");
