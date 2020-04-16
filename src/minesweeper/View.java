@@ -96,7 +96,7 @@ public class View {
 		infoBar.setId("infoBar");
 
 		//MenuBar, InfoBar, Grid add to root (VBox)
-		root.getChildren().addAll(menuBar, infoBar, Model.createContent());// infoBar ev neu gestalten
+		root.getChildren().addAll(menuBar, infoBar, Model.createContent());
 
 		//ScenetoStage
 		Scene scene = new Scene(root);

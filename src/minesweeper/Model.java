@@ -41,7 +41,7 @@ public class Model {
 		View.timer.cancel();
 		View.timer = new Timer();
 		View.timer.schedule(task, 1000, 1000);
-		View.root.getChildren().remove(2);// grid --> third element in root!
+		View.root.getChildren().remove(2); //grid --> third element in root!
 		View.root.getChildren().add(createContent());
 		View.stage.sizeToScene();
 	}

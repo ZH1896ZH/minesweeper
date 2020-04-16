@@ -17,7 +17,6 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
 public class StackButton extends StackPane {
-	protected Model model;
 
 	protected Button btn = new Button();
 	protected int x, y = 0;
@@ -28,10 +27,8 @@ public class StackButton extends StackPane {
 	protected ArrayList<StackButton> neighbours = new ArrayList<StackButton>();
 	protected boolean active = true;
 	protected static final int prefSize = 40;
-
 	protected static int numflag = 0;
 	protected static int maxflag;
-
 	protected Image flag = new Image("/resources/flag.png");
 
 	protected StackButton(int x, int y, boolean hasBomb) {
@@ -224,7 +221,7 @@ public class StackButton extends StackPane {
 		}
 	}
 
-	// open all StackButton until there is a Bomb near
+	//open all StackButton until there is a Bomb near
 	private void blankClick(StackButton stackButton) {
 
 		for (int i = 0; i < stackButton.neighbours.size(); i++) {
@@ -244,7 +241,7 @@ public class StackButton extends StackPane {
 	}
 
 
-	// game over player clicked on a bomb
+	//player clicked on a bomb
 	public void gameOver() {
 		if (View.sound) {
 			AudioClip explosion = new AudioClip(getClass().getResource("/resources/explosion.wav").toString());
