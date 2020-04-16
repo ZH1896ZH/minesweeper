@@ -11,6 +11,4 @@ Game-Features:
 - Je nach Spielausgang werden Alert-Fenster angezeigt, Wenn "OK" geklickt wird startet ein neues Spiel.
 - Ein Sound wird abgespielt: bei jedem Klick auf der Spielfläche, wenn eine Bombe angeklickt wird (Niederlage) und wenn das Spiel gewonnen wird.
 - Ein Timer wurde eingebaut, der simultan zu Beginn eines Spiels startet. Wenn das Spiel gewonnen wird, wird im Alert-Fenster die Spielzeit angezeigt.
-
-Bugs:
-- Wenn der Benutzer alle Felder mit Fahnen (Rechtsklick oder Shift) eindeckt, wird gewonnen sobald alle Felder mit Bomben "flagged" wurden.
+- Es gibt gibt genau soviel Flaggen wie es Bomben gibt.
