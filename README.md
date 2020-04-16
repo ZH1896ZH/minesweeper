@@ -1,14 +1,16 @@
 # MineSweeper
 
 Menu-Features:
-- Alert-Fenster wurden eingebaut, um Spielregeln und Entwickler anzeigen zu lassen.
-- Über "Grösse" kann die Spielfläche angepasst werden.
-- Die Anzahl Bomben im Spiel kann über das Menu "Schwierigkeit" manipuliert werden.
-- Die Sounds können über das Menu "Sound" an- und abgestellt werden.
+- Alert-Fenster wurden eingebaut, um Spielregeln und die Namen der Entwickler anzeigen zu lassen.
+- Über das Menu "Grösse" kann die Spielfläche angepasst werden.
+- Über das Menu "Schwierigkeit" können die Anzahl Bomben im Spiel manipuliert werden.
+- Über das Menu "Sound" können die Soundeffekte an- und abgestellt werden.
 
 Game-Features:
-- Es kann mit der Maus (Links-/Rechtsklick) oder Tastatur (Pfeiltasten/Shift/Enter) gespielt werden.
+- Es kann mit der Maus (Links-/Rechtsklick) oder der Tastatur (Pfeiltasten/Shift/Enter) gespielt werden.
 - Je nach Spielausgang werden Alert-Fenster angezeigt, Wenn "OK" geklickt wird startet ein neues Spiel.
-- Ein Sound wird abgespielt: bei jedem Klick auf der Spielfläche, wenn eine Bombe angeklickt wird (Niederlage) und wenn das Spiel gewonnen wird.
-- Ein Timer wurde eingebaut, der simultan zu Beginn eines Spiels startet. Wenn das Spiel gewonnen wird, wird im Alert-Fenster die Spielzeit angezeigt.
-- Es gibt gibt genau soviel Flaggen wie es Bomben gibt.
+- Ein Sound wird abgespielt: bei jedem Klick auf der Spielfläche, wenn eine Bombe angeklickt wird (Niederlage) und wenn das Spiel gewonnen wird. (sofern Sound ist angestellt)
+- Ein Timer wurde eingebaut, der simultan zu Beginn eines Spiels startet. 
+- Wenn das Spiel gewonnen wird, wird im Alert-Fenster die Spielzeit angezeigt.
+- Alert-Fenster "Zu viele Flaggen" wird angezeigt, wenn die Anzahl gesetzten Flaggen der Anzahl verstreute Bomben entsprechen.
+--> Der Benutzer wird aufgefordert die Anzahl Flaggen zu reduzieren um weiter spielen zu können.
