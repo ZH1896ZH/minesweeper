@@ -102,7 +102,7 @@ public class StackButton extends StackPane {
 						test.setGraphic(new ImageView(flag));
 						test.setHeaderText("Zu viele Flaggen");
 						test.setContentText(
-								"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazierst");
+								"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazieren kannnst");
 						test.showAndWait();
 					}
 					btn.setGraphic(new ImageView(flag));
@@ -134,7 +134,7 @@ public class StackButton extends StackPane {
 					test.setGraphic(new ImageView(flag));
 					test.setHeaderText("Zu viele Flaggen");
 					test.setContentText(
-							"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazierst");
+							"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazierren kannst");
 					test.showAndWait();
 				}
 			}
@@ -184,7 +184,7 @@ public class StackButton extends StackPane {
 						test.setGraphic(new ImageView(flag));
 						test.setHeaderText("Zu viele Flaggen");
 						test.setContentText(
-								"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazierst");
+								"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazieren kannst");
 						test.showAndWait();
 					}
 //
@@ -217,7 +217,7 @@ public class StackButton extends StackPane {
 					test.setGraphic(new ImageView(flag));
 					test.setHeaderText("Zu viele Flaggen");
 					test.setContentText(
-							"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazierst");
+							"Du hast zu viele Flaggen plaziert, du musst zuerst eine entfernen bevor du wieder eine plazieren kannst");
 					test.showAndWait();
 				}
 			}
