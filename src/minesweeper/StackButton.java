@@ -71,17 +71,14 @@ public class StackButton extends StackPane {
 	// Keyboard Control
 	private void onPressed(KeyEvent e) {
 
-		if (View.sound) {
-			AudioClip click = new AudioClip(getClass().getResource("/resources/click.wav").toString());
-			click.play();
-		}
-
 		// Enter Key
 		if (e.getCode() == KeyCode.ENTER) {
+			clickSound();
 			openStackButton();
 
 			// Shift Key
 		} else if (e.getCode() == KeyCode.SHIFT) {
+			clickSound();
 			flagStackButton();
 		}
 
@@ -90,10 +87,7 @@ public class StackButton extends StackPane {
 	// Mouse Control
 	protected void onClick(MouseEvent e) {
 
-		if (View.sound) {
-			AudioClip click = new AudioClip(getClass().getResource("/resources/click.wav").toString());
-			click.play();
-		}
+		clickSound();
 
 		// Left Click
 		if (e.getButton() == MouseButton.PRIMARY) {
@@ -119,11 +113,11 @@ public class StackButton extends StackPane {
 				if (stackButton.neighbours.get(i).numBombs == 0) {
 					blankClick(stackButton.neighbours.get(i));
 				}
-				if(stackButton.neighbours.get(i).flagged) {
+				if (stackButton.neighbours.get(i).flagged) {
 					numflag--;
 				}
 			}
-			
+
 		}
 		return;
 	}
@@ -197,6 +191,13 @@ public class StackButton extends StackPane {
 			} else {
 				showFlagAlert();
 			}
+		}
+	}
+
+	private void clickSound() {
+		if (View.sound) {
+			AudioClip click = new AudioClip(getClass().getResource("/resources/click.wav").toString());
+			click.play();
 		}
 	}
 
