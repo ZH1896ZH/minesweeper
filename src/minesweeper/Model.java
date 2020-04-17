@@ -80,8 +80,9 @@ public class Model {
 				 * Get the difference of the x, y values of the neighbors to the x, y values of
 				 * the actual stackButton:
 				 *
-				 * (-1,-1) (0,-1) (1,-1) (-1,0) (x) (1,0) x == actual StackButton (-1,1) (0,1)
-				 * (1,1)
+				 * (-1,-1) (0,-1) (1,-1)
+				 * (-1,0)  (x)	  (1,0)  x == actual StackButton 
+				 * (-1,1)  (0,1)  (1,1)
 				 */
 				int[] points = new int[] { -1, -1, -1, 0, -1, 1, 0, -1, 0, 1, 1, -1, 1, 0, 1, 1 };
 				for (int i = 0; i < points.length; i++) {
