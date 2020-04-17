@@ -18,9 +18,9 @@ public class Model {
 		this.primaryStage = primaryStage;
 	}
 
-	//Create A New Game Area
+	// Create A New Game Area
 	protected static void reload() {
-		
+
 		StackButton.numflag = 0;
 
 		View.grid = new StackButton[View.gridSize][View.gridSize];
@@ -41,48 +41,47 @@ public class Model {
 		View.timer.cancel();
 		View.timer = new Timer();
 		View.timer.schedule(task, 1000, 1000);
-		View.root.getChildren().remove(2); //Grid --> 3rd Element in Root!
+		View.root.getChildren().remove(2); // Grid --> 3rd Element in Root!
 		View.root.getChildren().add(createContent());
 		View.stage.sizeToScene();
 	}
 
 	protected static Pane createContent() {
-		
+
 		StackButton.numflag = 0;
 		View.numBombs = 0;
 		View.foundBombs = 0;
-		
+
 		View.grid = new StackButton[View.gridSize][View.gridSize];
 
 		Pane pane = new Pane();
 		pane.setPrefSize(View.gridSize * StackButton.sideLength, View.gridSize * StackButton.sideLength);
 
-		//Add StackButtons to Grid
+		// Add StackButtons to Grid
 		for (int x = 0; x < View.gridSize; x++) {
 			for (int y = 0; y < View.gridSize; y++) {
 				StackButton stackButton = new StackButton(y, x, Math.random() < (double) View.bombPercent / 100);
 				View.grid[y][x] = stackButton;
 				pane.getChildren().add(stackButton);
 			}
-		}	
+		}
 
 		/*
-		 * Count the Number of Bombs and set the Values and Colors
-		 * add the value under the buttons and the color
+		 * Count the Number of Bombs and set the Values and Colors add the value under
+		 * the buttons and the color
 		 */
 		for (int x = 0; x < View.gridSize; x++) {
 			for (int y = 0; y < View.gridSize; y++) {
 
 				int bombNeighbors = 0;
-				//Get the Neighbors of the actual StackButton
+				// Get the Neighbors of the actual StackButton
 				ArrayList<StackButton> neighbors = new ArrayList<StackButton>();
 				/**
 				 * Get the difference of the x, y values of the neighbors to the x, y values of
 				 * the actual stackButton:
 				 *
-				 * (-1,-1)	(0,-1)	(1,-1) 
-				 * (-1,0)	(x)		(1,0) 		x == actual StackButton
-				 * (-1,1)	(0,1)	(1,1)
+				 * (-1,-1) (0,-1) (1,-1) (-1,0) (x) (1,0) x == actual StackButton (-1,1) (0,1)
+				 * (1,1)
 				 */
 				int[] points = new int[] { -1, -1, -1, 0, -1, 1, 0, -1, 0, 1, 1, -1, 1, 0, 1, 1 };
 				for (int i = 0; i < points.length; i++) {
@@ -100,7 +99,7 @@ public class Model {
 						}
 					}
 				}
-				//Add the Informations to the actual StackButton
+				// Add the Informations to the actual StackButton
 				View.grid[y][x].numBombs = bombNeighbors;
 				View.grid[y][x].neighbours = neighbors;
 

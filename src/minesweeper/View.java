@@ -19,44 +19,44 @@ import javafx.stage.Stage;
 
 public class View {
 
-	//MVC Branch
+	// MVC Branch
 	protected static Stage stage;
 	protected Model model;
 
-	//Game Elements
+	// Game Elements
 	protected static boolean sound = true;
 	protected static int bombPercent = 10;
 	protected static int numBombs = 0;
 	protected static int foundBombs = 0;
-	
-	//Timer Elements
+
+	// Timer Elements
 	protected static Timer timer;
 	protected TimerTask task;
 	protected static SimpleIntegerProperty secondsPassedObj;
 	protected static SimpleIntegerProperty minutesPassedObj;
 
-
-	//View Elements
+	// View Elements
 	protected static VBox root = new VBox();
 
 	protected MenuBar menuBar;
 	protected Menu fileMenu, sizeMenu, difficultyMenu, soundMenu;
-	protected MenuItem aboutItem, helpItem, quitItem, smallSizeItem, mediumSizeItem, largeSizeItem, easyItem, normalItem, hardItem;
+	protected MenuItem aboutItem, helpItem, quitItem, smallSizeItem, mediumSizeItem, largeSizeItem, easyItem,
+			normalItem, hardItem;
 	protected RadioMenuItem soundOnItem, soundOffItem;
 
 	protected GridPane infoBar = new GridPane();
 	protected Label timeLabel, timeField;
 	protected TextField bombsFoundField, bombsLeftField;
-	
+
 	protected static StackButton[][] grid;
-	protected static int gridSize = 10; //Default Size 10x10
+	protected static int gridSize = 10; // Default Size 10x10
 	protected static Image mine = new Image("resources/mine.png");
 
 	protected View(Stage primaryStage, Model model) {
 		View.stage = primaryStage;
 		this.model = model;
 
-		//MenuBar
+		// MenuBar
 		menuBar = new MenuBar();
 		fileMenu = new Menu("Datei");
 		sizeMenu = new Menu("Grösse");
@@ -84,8 +84,8 @@ public class View {
 		soundToggle.selectToggle(soundOnItem);
 
 		menuBar.getMenus().addAll(fileMenu, sizeMenu, difficultyMenu, soundMenu);
-		
-		//InfoBar
+
+		// InfoBar
 		timeLabel = new Label("Time: ");
 		timeField = new Label();
 		secondsPassedObj = new SimpleIntegerProperty();
@@ -95,21 +95,21 @@ public class View {
 		infoBar.add(timeField, 1, 0);
 		infoBar.setId("infoBar");
 
-		//Add MenuBar, InfoBar, Grid to root (VBox)
+		// Add MenuBar, InfoBar, Grid to root (VBox)
 		root.getChildren().addAll(menuBar, infoBar, Model.createContent());
 
-		//ScenetoStage
+		// ScenetoStage
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("/resources/minesweeper.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.centerOnScreen();
 		primaryStage.sizeToScene();
-		primaryStage.resizableProperty().setValue(Boolean.FALSE); //No Maximizing allowed
+		primaryStage.resizableProperty().setValue(Boolean.FALSE); // No Maximizing allowed
 		primaryStage.setTitle("MineSweeper");
 		primaryStage.getIcons().add(mine);
 	}
-	
-	//Timer
+
+	// Timer
 	protected void start() {
 		TimerTask task = new TimerTask() {
 			@Override
@@ -128,19 +128,19 @@ public class View {
 		stage.show();
 	}
 
-	//for CloseRequest Method
+	// for CloseRequest Method
 	protected Stage getStage() {
 		return stage;
 	}
-	//for timer
+
+	// for timer
 	public SimpleIntegerProperty getSecondsPassedProperty() {
 		return secondsPassedObj;
 	}
-	//for timer
+
+	// for timer
 	public SimpleIntegerProperty getMinutesPassedProperty() {
 		return minutesPassedObj;
 	}
-
-
 
 }

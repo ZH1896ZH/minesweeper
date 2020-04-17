@@ -37,7 +37,8 @@ public class Controller {
 		view.helpItem.setOnAction(e -> {
 			Alert helpAlert = new Alert(AlertType.INFORMATION,
 					"Auf den ersten Blick ist Minesweeper ein einfaches Denk- und Logikspiel.\n" + "\n"
-							+ "Das Ziel: Der Spieler muss die leeren Felder aufdecken und dabei diejenigen Felder meiden, hinter denen sich Minen verstecken.\n" + "\n"
+							+ "Das Ziel: Der Spieler muss die leeren Felder aufdecken und dabei diejenigen Felder meiden, hinter denen sich Minen verstecken.\n"
+							+ "\n"
 							+ "Das Spiel ist normalerweise beendet, wenn eine Mine aufgedeckt wird. Im Gegensatz zum Windows-Minesweeper ist durch eine Zugrücknahme ein Weiterspielen möglich. Die aufgedeckten Minen werden in einem Zählfeld angezeigt\n"
 							+ "\n" + "Das Spiel wird fortgesetzt, wenn Sie ein leeres Feld aufdecken.\n" + "\n"
 							+ "Wird beim Aufdecken eines Feldes eine Zahl angezeigt, steht diese für die Anzahl der Minen, die in den benachbarten 8 Feldern verborgen sind. Anhand dieser Angabe kann abgeleitet werden, unter welchen der angrenzenden Feldern sich Minen befinden und auf welche Felder gefahrlos geklickt werden kann.",
@@ -90,9 +91,9 @@ public class Controller {
 			View.sound = false;
 		});
 
-		//setOnCloseRequest
+		// setOnCloseRequest
 		this.view.getStage().setOnCloseRequest(e -> {
-			
+
 			Stage newStage = new Stage();
 			VBox root = new VBox();
 			Button yesBtn = new Button("Ja");
@@ -101,14 +102,14 @@ public class Controller {
 			hbox.getChildren().addAll(yesBtn, noBtn);
 			root.getChildren().addAll(new Label("Bist du sicher, dass du Minesweeper beenden willst?"), hbox);
 
-			//Layout
+			// Layout
 			hbox.setSpacing(20);
 			hbox.setMinHeight(40);
 			hbox.setAlignment(Pos.CENTER);
 			root.setSpacing(5);
 			root.setAlignment(Pos.CENTER);
-	
-			//Stage to scene
+
+			// Stage to scene
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("/resources/closeRequest.css").toExternalForm());
 			newStage.setScene(scene);
@@ -116,7 +117,7 @@ public class Controller {
 			newStage.setTitle("Bestätigung");
 			newStage.show();
 
-			//Button ActionEvents
+			// Button ActionEvents
 			yesBtn.setOnAction(event -> {
 				Platform.exit();
 				System.exit(0);
@@ -125,19 +126,18 @@ public class Controller {
 				stage.show();
 				newStage.close();
 			});
-			
-			newStage.setOnCloseRequest(ev ->{
+
+			newStage.setOnCloseRequest(ev -> {
 				Platform.exit();
 				System.exit(0);
 			});
 
 		});
-		//Listener for Timer
+		// Listener for Timer
 		view.getSecondsPassedProperty().addListener((observable, oldValue, newValue) -> {
 			DecimalFormat fmtt = new DecimalFormat("#0");
 			DecimalFormat fmt = new DecimalFormat("00");
-			String newText = (fmtt.format(View.minutesPassedObj.get()) + ":"
-					+ fmt.format(View.secondsPassedObj.get()));
+			String newText = (fmtt.format(View.minutesPassedObj.get()) + ":" + fmt.format(View.secondsPassedObj.get()));
 
 			Platform.runLater(new Runnable() {
 				@Override

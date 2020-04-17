@@ -9,18 +9,16 @@ public class MVC extends Application {
 	protected Controller controller;
 	protected View view;
 
-	//MVC-Model
+	// MVC-Model
 	public void start(Stage primaryStage) throws Exception {
 		model = new Model(primaryStage);
 		view = new View(primaryStage, model);
 		controller = new Controller(model, view, primaryStage);
-		
-		//Start Method in View
+
+		// Start Method in View
 		view.start();
 	}
-	
-	
-	
+
 	public static void main(String[] args) {
 		launch();
 

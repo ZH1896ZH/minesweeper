@@ -63,7 +63,8 @@ public class StackButton extends StackPane {
 		});
 
 		this.getChildren().add(btn);
-
+		
+		//shifting the following buttons
 		this.setTranslateX(x * sideLength);
 		this.setTranslateY(y * sideLength);
 	}
