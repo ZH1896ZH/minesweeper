@@ -22,16 +22,16 @@ public class StackButton extends StackPane {
 	protected int x, y = 0;
 	protected boolean hasBomb;
 	protected static final int sideLength = 40;
-	
+
 	protected int numBombs = 0;
 	protected static int numflag = 0;
 	protected static int maxflag;
-	
+
 	protected Color color = null;
 	protected boolean flagged = false;
 	protected boolean active = true;
 	protected ArrayList<StackButton> neighbours = new ArrayList<StackButton>();
-	
+
 	protected Image flag = new Image("/resources/flag.png");
 
 	protected StackButton(int x, int y, boolean hasBomb) {
@@ -43,7 +43,7 @@ public class StackButton extends StackPane {
 			View.numBombs++;
 			maxflag = View.numBombs;
 		}
-		
+
 		btn.setMinHeight(sideLength);
 		btn.setMinWidth(sideLength);
 
@@ -63,28 +63,31 @@ public class StackButton extends StackPane {
 		});
 
 		this.getChildren().add(btn);
-		
+
 		this.setTranslateX(x * sideLength);
 		this.setTranslateY(y * sideLength);
 	}
 
-	//Keyboard Control
+	// Keyboard Control
 	private void onPressed(KeyEvent e) {
-		
-		//Enter Key
+
+		if (View.sound) {
+			AudioClip click = new AudioClip(getClass().getResource("/resources/click.wav").toString());
+			click.play();
+		}
+
+		// Enter Key
 		if (e.getCode() == KeyCode.ENTER) {
 			openStackButton();
 
-		//Shift Key
+			// Shift Key
 		} else if (e.getCode() == KeyCode.SHIFT) {
 			flagStackButton();
 		}
 
 	}
 
-
-
-	//Mouse Control
+	// Mouse Control
 	protected void onClick(MouseEvent e) {
 
 		if (View.sound) {
@@ -92,19 +95,18 @@ public class StackButton extends StackPane {
 			click.play();
 		}
 
-		//Left Click
+		// Left Click
 		if (e.getButton() == MouseButton.PRIMARY) {
 			openStackButton();
 		}
-		//Right Click
+		// Right Click
 		else {
 			flagStackButton();
 
 		}
 	}
 
-	
-	//Opens all the StackButtons around the actual Click until a Bomb isNeighbour
+	// Opens all the StackButtons around the actual Click until a Bomb isNeighbour
 	private void blankClick(StackButton stackButton) {
 
 		for (int i = 0; i < stackButton.neighbours.size(); i++) {
@@ -117,26 +119,26 @@ public class StackButton extends StackPane {
 				if (stackButton.neighbours.get(i).numBombs == 0) {
 					blankClick(stackButton.neighbours.get(i));
 				}
-
+				if(stackButton.neighbours.get(i).flagged) {
+					numflag--;
+				}
 			}
+			
 		}
 		return;
 	}
 
-
-	
-	
-	//When all Flags are used, but there are still unflagged Bombs --> ALERT
+	// When all Flags are used, but there are still unflagged Bombs --> ALERT
 	private void showFlagAlert() {
-		Alert test = new Alert(AlertType.INFORMATION);
-		test.setTitle("Flaggen Alarm");
-		test.setGraphic(new ImageView(flag));
-		test.setHeaderText("Maximale Anzahl Flaggen erreicht");
-		test.setContentText(
+		Alert flagAlert = new Alert(AlertType.INFORMATION);
+		flagAlert.setTitle("Flaggen Alarm");
+		flagAlert.setGraphic(new ImageView(flag));
+		flagAlert.setHeaderText("Maximale Anzahl Flaggen erreicht");
+		flagAlert.setContentText(
 				"Du hast zu viele Flaggen platziert, du musst zuerst eine entfernen bevor du wieder eine platzieren kannst");
-		test.showAndWait();
+		flagAlert.showAndWait();
 	}
-	
+
 	private void openStackButton() {
 		if (!flagged) {
 
@@ -157,6 +159,7 @@ public class StackButton extends StackPane {
 			}
 		}
 	}
+
 	private void flagStackButton() {
 		if (numflag < maxflag) {
 			if (!flagged) {
@@ -165,13 +168,7 @@ public class StackButton extends StackPane {
 				if (numflag < maxflag) {
 					numflag++;
 				} else {
-					Alert test = new Alert(AlertType.INFORMATION);
-					test.setTitle("Flaggen Anzahl");
-					test.setGraphic(new ImageView(flag));
-					test.setHeaderText("Zu viele Flaggen gesetzt");
-					test.setContentText(
-							"Zu viele Flaggen wurden platziert. Du musst erst eine Flagge entfernen, bevor du wieder eine setzen kannst!");
-					test.showAndWait();
+					showFlagAlert();
 				}
 
 				btn.setGraphic(new ImageView(flag));
@@ -202,53 +199,54 @@ public class StackButton extends StackPane {
 			}
 		}
 	}
-	//Player clicked on a Bomb
-		public void gameOver() {
-			if (View.sound) {
-				AudioClip explosion = new AudioClip(getClass().getResource("/resources/explosion.wav").toString());
-				explosion.play();
-			}
-			for (int y = 0; y < View.gridSize; y++) {
-				for (int x = 0; x < View.gridSize; x++) {
-					if (View.grid[x][y].hasBomb) {
-						View.grid[x][y].btn.setGraphic(new ImageView(View.mine)); //Display all Bombs
-						View.grid[x][y].btn.setDisable(true);
-					}
+
+	// Player clicked on a Bomb
+	public void gameOver() {
+		if (View.sound) {
+			AudioClip explosion = new AudioClip(getClass().getResource("/resources/explosion.wav").toString());
+			explosion.play();
+		}
+		for (int y = 0; y < View.gridSize; y++) {
+			for (int x = 0; x < View.gridSize; x++) {
+				if (View.grid[x][y].hasBomb) {
+					View.grid[x][y].btn.setGraphic(new ImageView(View.mine)); // Display all Bombs
+					View.grid[x][y].btn.setDisable(true);
 				}
 			}
-			View.timer.cancel();
-			Alert gameOver = new Alert(AlertType.INFORMATION);
-			gameOver.setTitle("Niederlage!");
-			gameOver.setGraphic(new ImageView(View.mine));
-			gameOver.setHeaderText("Bomben sind explodiert!");
-			gameOver.setContentText(
-					"Du hast auf eine Bombe geklickt und alle Bomben sind explodiert! Viel Glück beim nächsten Mal.");
-			gameOver.showAndWait();
-
-			Model.reload();
-
 		}
+		View.timer.cancel();
+		Alert gameOver = new Alert(AlertType.INFORMATION);
+		gameOver.setTitle("Niederlage!");
+		gameOver.setGraphic(new ImageView(View.mine));
+		gameOver.setHeaderText("Bomben sind explodiert!");
+		gameOver.setContentText(
+				"Du hast auf eine Bombe geklickt und alle Bomben sind explodiert! Viel Glück beim nächsten Mal.");
+		gameOver.showAndWait();
 
-		//Player flagged all Bombs
-		public void win() {
+		Model.reload();
 
-			DecimalFormat secFormater = new DecimalFormat("00");
-			DecimalFormat minFormater = new DecimalFormat("#0");
-			View.timer.cancel();
-			if (View.sound) {
-				AudioClip winSound = new AudioClip(getClass().getResource("/resources/win.wav").toString());
-				winSound.play();
-			}
-			Alert win = new Alert(AlertType.CONFIRMATION);
-			win.getButtonTypes().remove(ButtonType.CANCEL); //Button "Abbrechen" is not needed
-			win.setTitle("Sieg!");
-			win.setGraphic(new ImageView(flag));
-			win.setHeaderText("Gratulation!");
-			win.setContentText("Du hast alle Bomben in " + minFormater.format(View.minutesPassedObj.get()) + ":"
-					+ secFormater.format(View.secondsPassedObj.get()) + " Minuten gefunden!");
-			win.showAndWait();
-			
-			Model.reload();
+	}
+
+	// Player flagged all Bombs
+	public void win() {
+
+		DecimalFormat secFormater = new DecimalFormat("00");
+		DecimalFormat minFormater = new DecimalFormat("#0");
+		View.timer.cancel();
+		if (View.sound) {
+			AudioClip winSound = new AudioClip(getClass().getResource("/resources/win.wav").toString());
+			winSound.play();
 		}
+		Alert win = new Alert(AlertType.CONFIRMATION);
+		win.getButtonTypes().remove(ButtonType.CANCEL); // Button "Abbrechen" is not needed
+		win.setTitle("Sieg!");
+		win.setGraphic(new ImageView(flag));
+		win.setHeaderText("Gratulation!");
+		win.setContentText("Du hast alle Bomben in " + minFormater.format(View.minutesPassedObj.get()) + ":"
+				+ secFormater.format(View.secondsPassedObj.get()) + " Minuten gefunden!");
+		win.showAndWait();
+
+		Model.reload();
+	}
 
 }
